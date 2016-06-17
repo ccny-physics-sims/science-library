@@ -20,6 +20,10 @@ This example shows a vector that can be dragged and grabbed. (i.e. translated an
 
 Here's a vector that rotates at some speed.
 
+##### Another rotating Vector
+[rotating-vector-2](http://ccny-physics-sims.github.io/science-library/examples/rotating-vector-2/)
+
+Here's a vector that rotates at some speed, and always points towards the center.
 
 ##### Vector Addition
 [Vector Addition ](http://ccny-physics-sims.github.io/science-library/examples/vector-addition/)
