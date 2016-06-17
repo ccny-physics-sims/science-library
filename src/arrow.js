@@ -13,12 +13,14 @@ function Arrow(origin_, target_){
 
   //control handles
   this.grab = true;
-  this.drag = true;
+  this.draggable = true;
   this.showComponents = false;
   this.color = color('rgb(255,255,255)');
   this.selected = false;
   this.dragSelected = false;
   this.isDragging = false;
+  this.wdth = 20;
+
 
   //mouse old coordinates for transalation
   this.oldX = 0;
@@ -34,15 +36,18 @@ Arrow.prototype.display = function(){
   noStroke();
   //draw arrow
   var d = dist(this.origin.x,this.origin.y, this.target.x,this.target.y);
-  var w = 20;
+  var w = this.wdth;
   translate(this.origin.x,this.origin.y);
   var angle = angCalc(this);
 
   rotate(angle);
 
   //draw arrow
-  if(this.boundChk()){
-    fill(red(this.color)/2,green(this.color)/2,blue(this.color)/2);
+  if(this.boundChk() && this.draggable==true){
+    fill(red(this.color)/.2,green(this.color)/.2,blue(this.color)/.2);
+  }
+  if(this.isDragging==true){
+    fill(red(this.color)/.2,green(this.color)/.2,blue(this.color)/.2);
   }
   drawArrow(w,d,this);
   pop();//reset drawing state
@@ -117,22 +122,23 @@ function drawArrow(thickness,length,arrow){
   // rect(0, thickness/4, length, thickness/2);
   // triangle(length, 0, length, thickness, length+15, thickness/2);
   rect(0, thickness/4, length-10, thickness/2);
-  triangle(length-10, 0, length-10, thickness, length+5, thickness/2);
+  triangle(length-10, 0, length-10, thickness, length+(thickness/2), thickness/2);
   //draw handle
   if(arrow.grab === true){
     var d = dist(arrow.target.x,arrow.target.y,mouseX,mouseY);
-
     if(d < 6){
       noFill();
       strokeWeight(2);
-      stroke(arrow.color);
+      stroke('yellow');
       ellipse(length,thickness/2, 12,12);
       if(mouseIsPressed){
         arrow.selected = true;
         fill(255, 255, 0, 150);
+        arrow.isDragging = true;
       }
       else{
         arrow.selected = false;
+        arrow.isDragging = false;
         fill(255,255,255,200);
       }
 
@@ -146,7 +152,7 @@ function drawArrow(thickness,length,arrow){
     //ellipse(length,thickness/2, 12,12);
 
     //drag handle
-    if(arrow.drag === true){
+    if(arrow.draggable === true){
 
 
       if(arrow.boundChk()){

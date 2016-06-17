@@ -20,7 +20,7 @@ function setup() {
   theResultant = new Arrow(startPoint, endPoint);
   theResultant.color = color(230,20,230);
   theResultant.grab = 'false';
-  theResultant.drag = 'true';
+  theResultant.draggable = 'false';
 
 }
 
@@ -34,6 +34,18 @@ function draw() {
   for (var i = 0; i < 2; i++) {
     aForceVector[i].display();
     aForceVector[i].update();
+    if (aForceVector[i].isDragging == true){
+      for (var j = 0; j < 2; j++){
+        if (j != i){
+          aForceVector[j].draggable = false;
+          aForceVector[j].grab = false;
+        }
+      }
+    }
+    else {
+      aForceVector[i].draggable = true;
+      aForceVector[i].grab = true;
+    }
   }
 
   var temp1 = aForceVector[0].target.copy();
@@ -45,5 +57,7 @@ function draw() {
   theResultant.target.y = temp1.y + theResultant.origin.y;
   theResultant.display();
   theResultant.update();
+
+
   //console.log(somethingIsDragging);
 }

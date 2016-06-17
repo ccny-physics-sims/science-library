@@ -4,11 +4,12 @@ howMany = 10;
 function setup() {
   createCanvas(800, 500);
   frameRate(30);
-pos = createVector(width/2,height/2)
-vel = createVector(1,1);
-accel = createVector(1,1);
+
 for (var i = 0; i < howMany; i++){
-ball[i] = new Mover(createVector(random(-20,20),random(-20,20)),vel,accel,10,'red');
+  pos = createVector(random(0,width),random(0,height))
+  vel = createVector(random(-1,1),random(-1,1));
+  accel = createVector(random(-1,1),random(-1,1));
+ball[i] = new Mover(pos,vel,accel,10,'red');
 }
 
 }

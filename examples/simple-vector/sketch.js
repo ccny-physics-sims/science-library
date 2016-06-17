@@ -5,7 +5,7 @@ function setup() {
   frameRate(30);
 
   startPoint = createVector(width / 2, height / 2);
-  vdisp = createVector(random(-100, 100), random(-100, 100));
+  vdisp = createVector(random(50, 150), random(-100, -50));
 
 
 
