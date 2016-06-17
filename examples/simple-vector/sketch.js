@@ -14,7 +14,7 @@ function setup() {
   aVector = new Arrow(startPoint, endPoint);
   aVector.color = color(random(0,255),random(0,255),random(0,255));
   aVector.grab = true;
-  aVector.drag = true;
+  aVector.draggable = true;
   aVector.showComponents = true;
 
 
