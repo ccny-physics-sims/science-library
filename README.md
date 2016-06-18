@@ -38,7 +38,7 @@ Here's a vector that rotates at some speed, and always points towards the center
 This example shows the sum of two vectors graphically.
 
 ##### Random Walks
-[Random Walks](http://ccny-physics-sims.github.io/science-library/examples/random-walks/)
+[Random Walks](http://ccny-physics-sims.github.io/science-library/examples/random-walk/)
 
 Add up 10 random displacements and what do you get? A random walk.
 
