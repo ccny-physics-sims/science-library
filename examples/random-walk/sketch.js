@@ -65,8 +65,7 @@ function draw() {
   stroke(30);
   //this draws the circle showing the average distance
   ellipse(width/2,height/2,2*avg,2*avg)
-  line(width/2,0,width/2,height);
-  line(0,height/2,width,height/2);
+  drawAxes();
   pop()
 
 
