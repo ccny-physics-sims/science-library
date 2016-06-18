@@ -93,6 +93,12 @@ Just a regular ol' moving ball. It's red! And it bounces when it hits the wall.
 
 This example uses an array to create many moving balls, each with their own properties (e.g. velocity)
 
+##### A ball and some vectors
+
+[ball and vector](http://ccny-physics-sims.github.io/science-library/examples/moving-ball-vector/)
+
+Here, we combine a mover and the arrow object to show the position and velocity vectors associated with a moving ball. 
+
 #### Mover properties
 
 `Mover(position, velocity, acceleration, mass, color)`

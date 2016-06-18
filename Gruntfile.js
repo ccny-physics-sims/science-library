@@ -10,7 +10,7 @@ module.exports = function(grunt) {
         '<%= grunt.template.today("yyyy-mm-dd") %> */ \n',
       },
       dist: {
-        src: ['src/arrow.js', 'src/mover.js','src/spring.js'],
+        src: ['src/arrow.js', 'src/mover.js','src/spring.js','src/axes.js'],
         dest: 'lib/science.js',
       },
     },
