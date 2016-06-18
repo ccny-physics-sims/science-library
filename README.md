@@ -37,7 +37,25 @@ Here's a vector that rotates at some speed, and always points towards the center
 
 This example shows the sum of two vectors graphically.
 
-`Arrow(origin_, target_)`
+##### Random Walks
+[Random Walks](http://ccny-physics-sims.github.io/science-library/examples/random-walks/)
+
+Add up 10 random displacements and what do you get? A random walk.
+
+#### Usage
+
+The following will create the object.
+```
+aVector = new Arrow(startPoint, endPoint);
+```
+To display it:
+```
+aVector.update();
+aVector.display();
+```
+
+
+The statement asks for: `Arrow(origin_, target_)`
 
 `origin_` and `target_` are [p5.Vector](http://p5js.org/reference/#/p5.Vector) objects
 
