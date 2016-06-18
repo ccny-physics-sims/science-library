@@ -100,10 +100,10 @@ Arrow.prototype.boundChk = function() {
 
   // get distance from the point to the two ends of the line
 var d1 = dist(mouseX,mouseY, this.origin.x,this.origin.y);
-var d2 = dist(mouseX,mouseY, this.target.x,this.target.y);
+var d2 = dist(mouseX,mouseY, this.target.x-2,this.target.y-2);
 
 // get the length of the line
-var lineLen = dist(this.origin.x,this.origin.y, this.target.x,this.target.y);
+var lineLen = dist(this.origin.x,this.origin.y, this.target.x-2,this.target.y-2);
 buffer = 2;
 
 if (buffer === undefined){ buffer = 1; }   // higher # = less accurate
@@ -122,16 +122,16 @@ function drawArrow(thickness,length,arrow){
   translate(0,-thickness/2);
   // rect(0, thickness/4, length, thickness/2);
   // triangle(length, 0, length, thickness, length+15, thickness/2);
-  rect(0, thickness/4, length-10, thickness/2);
-  triangle(length-10, 0, length-10, thickness, length+(thickness/2), thickness/2);
+  rect(0, thickness/4, length-8, thickness/2);
+  triangle(length-8, 0, length-8, thickness, length+(thickness/2), thickness/2);
   //draw handle
   if(arrow.grab === true){
     var d = dist(arrow.target.x,arrow.target.y,mouseX,mouseY);
     if(d < 6){
-      noFill();
-      strokeWeight(2);
-      stroke('yellow');
-      ellipse(length,thickness/2, 12,12);
+      fill(40,40);
+      strokeWeight(1);
+      stroke('black');
+      ellipse(length,thickness/2, arrow.width*1.5,arrow.width*1.5);
       if(mouseIsPressed){
         arrow.selected = true;
         fill(255, 255, 0, 150);
