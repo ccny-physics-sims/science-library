@@ -15,6 +15,12 @@ Just include a link to the `science.js` file before you load your sketch:
 
 The arrow gives a nice triangular tipped arrow useful for showing the direction and magnitude of a vector.
 
+To declare an arrow use the following:
+```javascript
+var my_arrow = new Arrow(origin_,target_);
+
+/*where both of the parameters are P5.js vector objects*/
+```
 #### Examples:
 
 ##### A simple Vector
