@@ -103,7 +103,7 @@ This example uses an array to create many moving balls, each with their own prop
 
 [ball and vector](http://ccny-physics-sims.github.io/science-library/examples/moving-ball-vector/)
 
-Here, we combine a mover and the arrow object to show the position and velocity vectors associated with a moving ball. 
+Here, we combine a mover and the arrow object to show the position and velocity vectors associated with a moving ball.
 
 #### Mover properties
 
@@ -122,3 +122,44 @@ Here, we combine a mover and the arrow object to show the position and velocity 
 `Mover.tail` the movers can leave little dots as they go. Boolean. Default is `false`.
 
 `Mover.color` set the color of the ball using the p5 color specifications.
+
+### Axes
+
+#### Usage
+
+`drawAxes()` will create a simple cartesian coordinate frame
+
+### Moving Background
+
+Let's say you want to convey motion, without making an object move? Then use the moving-background object.
+
+#### Examples
+
+##### Linear Motion
+[linear motion](http://ccny-physics-sims.github.io/science-library/examples/moving-background-cityStreet/)
+
+A simple 1-d motion system. The object stays still, but motion is understood via the background.
+
+##### 2d Motion
+[2d motion](http://ccny-physics-sims.github.io/science-library/examples/moving-background-clouds/)
+
+A 2d system. The green vector shows velocity; the purple vector shows acceleration.
+
+#### Moving background properties
+
+`movingBackground(whichKind,basePosition,velocity,acceleration);`
+
+`whichKind` determines what the background is. Right now, there are two options: `'cityStreet'` or `'clouds'`. `cityStreet` is good for linear motion in x. `clouds` is more appropriate for an object moving in x and y.
+
+`basePosition` is a p5.Vector that gives the center location of the backgroun.
+
+`velocity` is a p5.Vector that indicates the initial velocity of the background.
+
+`acceleration` is a p5.Vector that indicates the acceleration of the background, i.e. how the velocity changes. This of course, could change.
+
+```
+bg.update()
+bg.display();
+```
+
+will update and draw the background
