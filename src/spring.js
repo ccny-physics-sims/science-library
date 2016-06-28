@@ -1,15 +1,16 @@
 /*spring*/
-
-function Spring(pos_, k_, m_, lengthOfSpring_, oscAmp_) {
-  boxsize = 40;
+function Spring(pos_, k_, m_, lengthOfSpring_, oscAmp_,mu_) {
+  boxsize = 70;
   //no of coils (purely decorative, odd numbers work better)
-  this.noOfCoils = 9;
+  this.noOfCoils = 11;
   //how long is the equilibrium length of the spring, in px
   this.lengthOfSpring = lengthOfSpring_;
   //the transverse amplitude (also purely decorative)
   this.transAmp = 15;
-  //this is what gets updated every draw cycles
-  this.ticker = 0;
+  //time variables
+  this.tzero = millis();
+  this.time = 0;
+  this.play = true;
   //get the starting position of the spring.
   this.xcent = pos_.x;
   this.ycent = pos_.y;
@@ -18,40 +19,62 @@ function Spring(pos_, k_, m_, lengthOfSpring_, oscAmp_) {
   //how big should the oscillation amplitude be? (as a fraction of the lengthOfSpring. i.e 0.5 means it will have an Amplitude equal to half the length of the spring, which is kinda long. 0.2 works good)
   this.oscAmp = oscAmp_;
   //calculate the frequency based on the spring constant k and the mass of the block m
-  this.freq = sqrt(k_ / m_);
-  //just a constant to set the rate
-  this.delx = 0.1;
+  //The second term in the sqrt accounts for the change in freq due to mu
+  this.freq = sqrt(k_/m_- sq(mu_)/(4*sq(m_)));
+  //friction coeff
+  this.mu = mu_;
+  //Mass
+  this.m = m_;
+  this.k = k_;
+
 
   //some kinematics values
   //where is equilibrium?
-  this.equilibrium = new createVector(this.lengthOfSpring, 0);
+  this.equilibrium = createVector(this.lengthOfSpring, 0);
   //where is the mass?
-  this.displacement = new createVector(0, 0);
+  this.displacement = createVector(0, 0);
   //what is its velocity
-  this.velocity = new createVector(0, 0);
+  this.velocity = createVector(0, 0);
   //and its acceleration?
-  this.acceleration = new createVector(0, 0);
+  this.acceleration = createVector(0, 0);
 
+  //Function used to toggle animation
+  this.setPlay = function(play_) {
+    this.play=play_;
+  }
 };
 
 Spring.prototype.update = function() {
-  //update time by one
-  this.ticker += 1;
-};
+  //Keep track of time
+  if (this.play){
+    //Animation is running so we update time
+    this.time = millis()/1000-this.tzero;
+  }
+  else {
+    //Animation pause "hold" time still
+    this.tzero = millis()/1000-this.time;
+  }
+}
 
 Spring.prototype.display = function() {
-  //this draws the mass at the end
+
   push();
+  //Calculate argument for sin and amplitude
+  var theta = this.time * this.freq;
+  var amp = this.oscAmp * exp((-1*this.mu*this.time)/(2*this.m));
+
+  //Draw the mass at the end
   translate(this.xcent, this.ycent);
   rotate(this.rotation)
   fill(200);
-  rect(this.lengthOfSpring - (boxsize / 2) + (this.lengthOfSpring - 60) * this.oscAmp * sin((this.ticker/30) * this.freq), -(boxsize / 2), boxsize, boxsize)
+  rect(this.lengthOfSpring - (boxsize / 2) + (this.lengthOfSpring - 60) * amp * sin(theta), -(boxsize / 2), boxsize, boxsize);
   noFill();
   stroke(80);
   strokeWeight(3);
-  //this makes the spring
+
+  //Draw the spring
   beginShape();
-  //this part is cosmetic
+  //cosmetic start
   curveVertex(-1, 0);
   curveVertex(0, 0);
   curveVertex(5, 0);
@@ -59,21 +82,21 @@ Spring.prototype.display = function() {
   curveVertex(25, 0);
   //this part makes the coil
   for (var i = 0; i < this.lengthOfSpring - 60; i++) {
-    curveVertex(30 + (i * (1 + this.oscAmp * sin((this.ticker/30) * this.freq))), -this.transAmp * sin(2 * PI * this.noOfCoils * i / this.lengthOfSpring));
+    curveVertex(30 + (i * (1 + amp * sin(theta))), -this.transAmp * sin(2 * PI * this.noOfCoils * i / this.lengthOfSpring));
   }
-  //and a nice little bit at the end
-  curveVertex(30 + (i * (1 + this.oscAmp * sin((this.ticker/30) * this.freq))) + 5, 0)
-  curveVertex(30 + (i * (1 + this.oscAmp * sin((this.ticker/30) * this.freq))) + 20, 0)
-  curveVertex(30 + (i * (1 + this.oscAmp * sin((this.ticker/30) * this.freq))) + 25, 0)
-  curveVertex(30 + (i * (1 + this.oscAmp * sin((this.ticker/30) * this.freq))) + 30, 0)
-  curveVertex(30 + (i * (1 + this.oscAmp * sin((this.ticker/30) * this.freq))) + 31, 0)
+  //cosmetic end
+  curveVertex(30 + (i * (1 + amp * sin(theta))) + 5, 0);
+  curveVertex(30 + (i * (1 + amp * sin(theta))) + 20, 0);
+  curveVertex(30 + (i * (1 + amp * sin(theta))) + 25, 0);
+  curveVertex(30 + (i * (1 + amp * sin(theta))) + 30, 0);
+  curveVertex(30 + (i * (1 + amp * sin((theta)))) + 31, 0);
   endShape();
 
   //update the kinematic variables
-  this.displacement.x = this.equilibrium.x + ((this.lengthOfSpring - 60) * this.oscAmp * sin((this.ticker/30) * this.freq));
-  this.velocity.x = this.displacement.x + cos((this.ticker/30) * this.freq) * 60;
-  this.acceleration.x = this.displacement.x - sin((this.ticker/30) * this.freq) * 60;
+  this.displacement.x = this.equilibrium.x + ((this.lengthOfSpring-60) * amp * sin(theta));
+  //TODO: Multiply Velocity and acceleration vals by actual Amplitude for final result
+  this.velocity.x = sqrt(this.k/this.m) * amp * cos(theta);
+  this.acceleration.x = -this.k/this.m * (amp * sin(theta));
+
   pop();
-
-
-};
+}

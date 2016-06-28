@@ -67,7 +67,7 @@ The statement asks for: `Arrow(origin_, target_)`
 
 #### arrow properties:
 
-`Arrow.color` sets the color of the arrow.
+`Arrow.color` sets the color of the arrow. (the defualt color is white)
 
 for example:
 
