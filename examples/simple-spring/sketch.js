@@ -7,7 +7,7 @@ function setup() {
 
   frameRate(30);
   //Spring(pos_, k_, m_, relaxedLength_, oscAmp_)
-  spring = new Spring(createVector(100,103),39.4,1,250,.2);
+  spring = new Spring(createVector(10,height/2),100,5,250,.2,0);
   spring.rotation =0;
 
   dispv = new Arrow(start = new createVector(0,0),end = new createVector(0,0));
@@ -54,7 +54,7 @@ translate(spring.xcent, spring.ycent);
 rotate(spring.rotation);
 translate(0,-10);
 velv.origin = spring.displacement;
-velv.target = spring.velocity;
+velv.target = spring.velocity.mult(60).add(spring.displacement);
 velv.color = color(20,230,20);
 velv.display();
 pop();
@@ -64,7 +64,7 @@ translate(spring.xcent, spring.ycent);
 rotate(spring.rotation);
 translate(0,+10);
 accelv.origin = spring.displacement;
-accelv.target = spring.acceleration;
+accelv.target = spring.acceleration.mult(60).add(spring.displacement);
 accelv.color = color(230,20,230);
 accelv.display();
 pop();
