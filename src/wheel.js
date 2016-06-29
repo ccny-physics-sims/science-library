@@ -12,6 +12,9 @@ var wheel = function(_x,_y,_d){
     this.ang = 0;
     this.ang_speed = 1;
 
+    //translation variables
+    this.trans_speed = 0;
+
     //decorations for wheel
     this.vdecorate = false;
     this.cdecorate = true;
@@ -36,6 +39,13 @@ var wheel = function(_x,_y,_d){
     this.a1.color = color('green');
     this.a2.color = color('green');
     this.a3.color = color('green');
+
+    this.a1.draggable = false;
+    this.a1.grab = false;
+    this.a2.draggable = false;
+    this.a2.grab = false;
+    this.a3.draggable = false;
+    this.a3.grab = false;
     //arrow display options
     //-> static/relative
 };
@@ -91,12 +101,12 @@ wheel.prototype.draw = function(){
         if(this.rotation == true){
             this.a1.origin.x = this.x;
             this.a1.origin.y = this.y-this.r;
-            this.a1.target.x = this.x+this.r;
+            this.a1.target.x = this.x+25*this.ang_speed;
             this.a1.target.y = this.y-this.r;
 
             this.a2.origin.x = this.x;
             this.a2.origin.y = this.y+this.r;
-            this.a2.target.x = this.x-this.r;
+            this.a2.target.x = this.x-25*this.ang_speed;
             this.a2.target.y = this.y+this.r;
             
             this.a1.update();
@@ -108,17 +118,17 @@ wheel.prototype.draw = function(){
         else if(this.translation == true){
             this.a1.origin.x = this.x;
             this.a1.origin.y = this.y-this.r;
-            this.a1.target.x = this.x+this.r;
+            this.a1.target.x = this.x+this.r+this.trans_speed;
             this.a1.target.y = this.y-this.r;
 
             this.a2.origin.x = this.x;
             this.a2.origin.y = this.y;
-            this.a2.target.x = this.x+this.r;
+            this.a2.target.x = this.x+this.r+this.trans_speed;
             this.a2.target.y = this.y;
             
             this.a3.origin.x = this.x;
             this.a3.origin.y = this.y+this.r;
-            this.a3.target.x = this.x+this.r;
+            this.a3.target.x = this.x+this.r+this.trans_speed;
             this.a3.target.y = this.y+this.r;
 
             this.a1.update();
