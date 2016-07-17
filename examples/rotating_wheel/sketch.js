@@ -1,5 +1,9 @@
 /*demonstrates pure rotation of a wheel without translation.*/
 
+//TODO trying to add water spraying out from the "slipping"
+//wheel so that it looks more realistic. The code for it so far
+//has been commented out. (need the correct js library as well as
+//tweaking the values of the code to make it work).
 function setup(){
     createCanvas(640,480);
     w = new wheel(width/2,height/2,200);
@@ -25,6 +29,7 @@ function setup(){
     btn_pause.mouseClicked(ptoggle);
 
     //particles for water spin
+    /*
     var t =
     {
         name: "test",
@@ -35,6 +40,7 @@ function setup(){
         y: 0.1
     };
     of = new Fountain(null,t);
+    */
     //TODO download correct particle lib not grafica!!!
 }
 function draw(){
@@ -53,9 +59,11 @@ function draw(){
     w.ang_speed = rotate_speed.value();
 
     //draw particles
+    /*
     of.Draw();
     of.Create();
     of.Step();
+    */
 }
 function ptoggle(){
     if(on == true){

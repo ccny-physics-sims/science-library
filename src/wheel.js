@@ -97,8 +97,11 @@ wheel.prototype.draw = function(){
     }
     pop();
     if(this.vdecorate == true){
-        //translation vector
+        //rotation vector
         if(this.rotation == true){
+            //a1 is the top right pointing arrow,
+            //and a2 is the bottom left pointing 
+            //arrow.
             this.a1.origin.x = this.x;
             this.a1.origin.y = this.y-this.r;
             this.a1.target.x = this.x+25*this.ang_speed;
@@ -114,21 +117,24 @@ wheel.prototype.draw = function(){
             this.a1.display();
             this.a2.display();
         }
-        //spin vector
-        else if(this.translation == true){
+        //translation vector
+        //else if(this.translation == true){
+        if(this.translation == true){
+            //a1 is the topmost arrow, a2 is the middle arrow
+            //and a3 is the bottom arrow.
             this.a1.origin.x = this.x;
             this.a1.origin.y = this.y-this.r;
-            this.a1.target.x = this.x+this.r+this.trans_speed;
+            this.a1.target.x = this.x+25*this.trans_speed;
             this.a1.target.y = this.y-this.r;
 
             this.a2.origin.x = this.x;
             this.a2.origin.y = this.y;
-            this.a2.target.x = this.x+this.r+this.trans_speed;
+            this.a2.target.x = this.x+25*this.trans_speed;
             this.a2.target.y = this.y;
             
             this.a3.origin.x = this.x;
             this.a3.origin.y = this.y+this.r;
-            this.a3.target.x = this.x+this.r+this.trans_speed;
+            this.a3.target.x = this.x+25*this.trans_speed;
             this.a3.target.y = this.y+this.r;
 
             this.a1.update();
