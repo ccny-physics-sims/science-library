@@ -129,6 +129,17 @@ Here, we combine a mover and the arrow object to show the position and velocity 
 
 `drawAxes()` will create a simple cartesian coordinate frame
 
+### Grid
+#### Usage
+The following will create the object.
+```
+grid = new grid(rows,size of boxes);
+```
+This will display the object.
+```
+grid.update();
+```
+
 ### Moving Background
 
 Let's say you want to convey motion, without making an object move? Then use the moving-background object.
