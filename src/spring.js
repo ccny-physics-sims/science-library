@@ -42,9 +42,9 @@ function Spring(pos_, k_, m_, lengthOfSpring_, oscAmp_,mu_) {
   this.setPlay = function(play_) {
     this.play=play_;
   }
-};
 
-Spring.prototype.update = function() {
+
+this.update = function() {
   //Keep track of time
   if (this.play){
     //Animation is running so we update time
@@ -56,7 +56,7 @@ Spring.prototype.update = function() {
   }
 }
 
-Spring.prototype.display = function() {
+this.display = function() {
 
   push();
   //Calculate argument for sin and amplitude
@@ -99,4 +99,5 @@ Spring.prototype.display = function() {
   this.acceleration.x = -this.k/this.m * (amp * sin(theta));
 
   pop();
+}
 }

@@ -26,10 +26,10 @@ function Arrow(origin_, target_){
   this.oldX = 0;
   this.oldY = 0;
 
-}
 
 
-Arrow.prototype.display = function(){
+
+this.display = function(){
 
   push();
   fill(this.color);
@@ -70,7 +70,7 @@ Arrow.prototype.display = function(){
   }
 
 };
-Arrow.prototype.update = function(){
+this.update = function(){
   if(this.selected){
 
     this.target.x = mouseX;
@@ -96,7 +96,7 @@ Arrow.prototype.update = function(){
 };
 
 
-Arrow.prototype.boundChk = function() {
+this.boundChk = function() {
 
   // get distance from the point to the two ends of the line
 var d1 = dist(mouseX,mouseY, this.origin.x,this.origin.y);
@@ -116,6 +116,8 @@ if (d1+d2 >= lineLen-buffer && d1+d2 <= lineLen+buffer) {
 }
 return false;
 };
+
+}
 
 function drawArrow(thickness,length,arrow){
   //draw the arrow itself
