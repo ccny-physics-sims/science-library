@@ -32,9 +32,6 @@ function FBD(position_, howManyForces_,showResultant_) {
     }
 
 
-
-
-
 this.update = function() {
     temp1=createVector(0,0);
     for (var i = 0; i < this.howManyForces; i++) {
