@@ -1,4 +1,4 @@
-function Mover(position, velocity, acceleration, m, color){
+var Mover = function(position, velocity, acceleration, m, color){
   this.position = new createVector(position.x, position.y);
   this.velocity = new createVector(velocity.x, velocity.y);
   this.acceleration = new createVector(acceleration.x, acceleration.y);
@@ -6,6 +6,7 @@ function Mover(position, velocity, acceleration, m, color){
   this.mass = m;
   this.color = color;
   this.size = this.mass;
+  this.outline = 255;
 
   this.tail = false;
   this.tailA = [];
@@ -13,17 +14,10 @@ function Mover(position, velocity, acceleration, m, color){
   this.angle = 0;
   this.aVelocity = 0;
   this.aAcceleration = 0;
-}
 
-Mover.prototype.get = function(){
-  var bob = new Mover(this.position,this.velocity,this.acceleration);
-  return bob;
-};
-Mover.get = function(m){
-  var bob = new Mover(m.position, m.velocity, m.acceleration);
-  return bob;
-};
-Mover.prototype.update = function(){
+
+
+this.update = function(){
   if(this.tail === true){
     this.tailA.push(this.position.copy());
   }
@@ -43,10 +37,10 @@ Mover.prototype.update = function(){
   this.aVelocity += this.aAcceleration;
   this.angle += this.aVelocity;
 };
-Mover.prototype.display = function(){
+this.display = function(){
 
   fill(this.color);
-  stroke(0);
+  stroke(this.outline);
   ellipse(this.position.x,this.position.y,this.size,this.size);
 
   if(this.tail === true){
@@ -56,13 +50,13 @@ Mover.prototype.display = function(){
     }
   }
 };
-Mover.prototype.applyForce = function(force){
+this.applyForce = function(force){
   var f = force.get();
   f.div(this.mass);
   this.acceleration.add(f);
 };
 //Behaviors
-Mover.prototype.wrapEdges = function() {
+this.wrapEdges = function() {
 
   if (this.position.x > width) {
     this.position.x = 0;
@@ -78,7 +72,7 @@ Mover.prototype.wrapEdges = function() {
     this.position.y = height;
   }
 };
-Mover.prototype.bounceEdges = function(){
+this.bounceEdges = function(){
   if(this.position.x < 0+this.size/2){
     this.velocity.x *= -1;
     this.position.x = 0+this.size/2;
@@ -99,10 +93,22 @@ Mover.prototype.bounceEdges = function(){
     this.position.y = height-this.size/2;
   }
 };
-Mover.prototype.towardMouse = function(a){
+this.towardMouse = function(a){
   var mouse = new Vector(mouseX,mouseY);
   var dir = Vector.sub(mouse,this.position);
   dir.normalize();
   dir.mult(a);
   this.acceleration = dir;
+};
+
+}
+
+
+Mover.prototype.get = function(){
+  var bob = new Mover(this.position,this.velocity,this.acceleration);
+  return bob;
+};
+Mover.get = function(m){
+  var bob = new Mover(m.position, m.velocity, m.acceleration);
+  return bob;
 };
