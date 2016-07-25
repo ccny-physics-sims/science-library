@@ -17,6 +17,7 @@ function setup() {
   box_fbd = new FBD(createVector(width/2,height/2),3,true);
 
   box_fbd.showLabels = true;
+  box_fbd.showResultant = true;
 
 
 
