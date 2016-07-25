@@ -13,7 +13,7 @@ Just include a link to the `science.js` file before you load your sketch:
 
 View the documentation (in progress):
 
-[science.js docs](ccny-physics.sims.gitub.io/science-library/docs/the-objects.md)
+[science.js docs](https://github.com/ccny-physics-sims/science-library/blob/master/docs/the-objects.md)
 
 ### Contributing
 
@@ -24,3 +24,5 @@ If you think you have a nice feature to add to `science.js`, then here are some 
 2. These files get consolidated into one big file: `science.js`
 
 3. This is done using *grunt*.
+
+4. In short, _don't put your changes in the science.js file, but rather in a src file in the src folder._ 
