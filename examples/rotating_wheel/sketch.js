@@ -10,9 +10,22 @@ function setup(){
     w.rotate = true;
 
     w.cdecorate = false;
-    w.vdecorate = true;
+    w.vdecorate = false;
     w.rotation = true;
     w.translation = false;
+    w.rimColor = color('rgba(0,0,0,1)');
+    w.spokeColor = color('rgba(0,0,0,1)');
+    w.wheelColor = color('rgba(0,0,0,.1)');
+
+    w.arrowDecorations[0] = {type: 'velocity', location_radial: 1, rimPos: 0 };
+    w.arrowDecorations[1] = {type: 'velocity', location_radial: .5, rimPos: 0 };
+    w.arrowDecorations[2] = {type: 'velocity', location_radial: 1, rimPos: 180 };
+    w.arrowDecorations[3] = {type: 'velocity', location_radial: .5, rimPos: 180 };
+    w.arrowDecorations[4] = {type: 'velocity', location_radial: 1, rimPos: 90 };
+    w.arrowDecorations[5] = {type: 'velocity', location_radial: .5, rimPos: 90 };
+    w.arrowDecorations[6] = {type: 'velocity', location_radial: 1, rimPos: 270 };
+    w.arrowDecorations[7] = {type: 'velocity', location_radial: .5, rimPos: 270 };
+    w.addDecorations(w.arrowDecorations);
     angleMode(DEGREES);
 
     // "on" is used for the pause and resume at the end of file
@@ -21,12 +34,15 @@ function setup(){
 
 
     //create controls for sketch
-    rotate_speed = createSlider(.1,5,1,.2);
+    rotate_speed = createSlider(-5,5,1,.2);
     rotate_speed.position(20,60)
+    rotate_speed.parent('sketch-holder')
 
     btn_pause = createButton('Pause');
     btn_pause.position(20,100);
     btn_pause.mouseClicked(ptoggle);
+    btn_pause.parent('sketch-holder');
+
 
     //particles for water spin
     /*
@@ -44,17 +60,18 @@ function setup(){
     //TODO download correct particle lib not grafica!!!
 }
 function draw(){
-    background(121,209,254);
+    background(230);
+    drawAxes();
 
     //draw text for controls
     text('Rotation Speed',20,40);
 
     //draw ground
-    noStroke();
-    fill('grey');
-    rect(0,w.y+w.r,width,height);
+  //  noStroke();
+
+  //  rect(0,w.y+w.r,width,height);
     //draw the wheel.
-    w.draw();    
+    w.draw();
     //get speed from slider
     w.ang_speed = rotate_speed.value();
 
