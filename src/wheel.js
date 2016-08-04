@@ -118,8 +118,8 @@ wheel.prototype.draw = function(){
             this.a2.display();
         }
         //translation vector
-        //else if(this.translation == true){
-        if(this.translation == true){
+        else if(this.translation == true){
+        //if(this.translation == true){
             //a1 is the topmost arrow, a2 is the middle arrow
             //and a3 is the bottom arrow.
             this.a1.origin.x = this.x;
