@@ -14,6 +14,8 @@ function setup(){
                     
     w.cdecorate = true;
     w.vdecorate = true;
+
+    //both of these on are a bit cluttered. 
     w.rotation = true;
     w.translation = true;
     w.ang_speed = 2;
@@ -46,6 +48,7 @@ function draw(){
     //code that handles the moving loop of the wheel.
     if(w.x > 2*w.r*PI+width/4) w.x = width/4;
     w.x += w.ang_speed/180 * w.r*PI;
+    w.trans_speed = w.ang_speed/180 * w.r*PI;
 }
 function mouseClicked(){
     if(on == true){
