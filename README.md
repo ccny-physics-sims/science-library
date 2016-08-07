@@ -30,10 +30,10 @@ If you think you have a nice feature to add to `science.js`, then here are some 
 5. Your additions should come with a few examples to, that show how it is used. These don't have to be (and shouldn't be) full fledged sims, but instead, super simple demos that highlight the important aspects of the science object.
 
 
- #### Conventions
+#### Conventions
 
- To maintain uniformity, please use the following conventions.
+To maintain uniformity, please use the following conventions.
 
- 1. File and folder naming. As suggested by google, please use dashes, not underscores to separate words in a file or directory name. i.e. `super-sim` not `super_sim` or `supersim`.
+1. File and folder naming. As suggested by google, please use dashes, not underscores to separate words in a file or directory name. i.e. `super-sim` not `super_sim` or `supersim`.
 
- 2. 
+2. 
