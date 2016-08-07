@@ -2,6 +2,16 @@ module.exports = function(grunt) {
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
+
+    jsdoc : {
+        dist : {
+            src: ['src/arrow.js'],
+            options: {
+                destination: 'doc'
+            }
+        }
+    },
+
     concat: {
       options: {
         // separator: ';',
@@ -17,6 +27,7 @@ module.exports = function(grunt) {
   });
 
   grunt.loadNpmTasks('grunt-contrib-concat');
-  grunt.registerTask('default', ['concat']);
+  grunt.loadNpmTasks('grunt-jsdoc');
+  grunt.registerTask('default', ['concat','jsdoc']);
 
 };
