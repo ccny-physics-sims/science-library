@@ -26,7 +26,7 @@ function listCmp(arr){
     arr.sort();
     return arr[arr.length-1];
 }
-function dist(a,b){
+function distance(a,b){
     return sqrt((b.x-a.x)*(b.x-a.x)+(b.y-a.y)*(b.y-a.y));
 }
 //drawVector function borrowed from nature of code.
@@ -246,7 +246,7 @@ function printGrid(a,res,val=0){
     for(var i = 0;i<a.length;i++){
         for(var j = 0;j<a[i].length;j++){
             //console.log("("+i+","+j+")"+"("+a[i][j].x +","+a[i][j].y+")");
-            console.log("("+i+","+j+")"+'mag: ' + a[i][j].mag());
+            //console.log("("+i+","+j+")"+'mag: ' + a[i][j].mag());
             fill(0);
             drawVector(a[i][j],width/res*i,height/res*j,val);
         }
@@ -314,7 +314,7 @@ field2.prototype.draw = function(){
     for(var i =0;i<this.objects.length;i++){
         this.objects[i].draw();
     }
-    console.log('draw()');
+    //console.log('draw()');
 };
 field2.prototype.makeGrid = function(){
     this.grid = [];

@@ -6,7 +6,7 @@ function setup(){
 
     //sliders
     rslider = createSlider(1,40,20,1);
-    rslider.position(20,50);
+    rslider.position(20,140);
 
     //code to manage the adding of charges.
     valman = -100;
@@ -22,16 +22,25 @@ function setup(){
 }
 function draw(){
     background(255);
+    
     v.setRes(rslider.value());
     v.draw();
 
-    //draw the label for the slider
-    text('Resoloution',20,35);
+    text('Resolution: ', 20, 120);
 }
 function mouseDragged(){
     //code to manage the draggability of charges. 
     //NOTE: only the last charge created is draggable.
     if(v.objects.length > 1){
         v.dragCheck();
+    }
+    //disabled for now...
+    if(on == true){
+        on = false;
+        //noLoop();
+    }
+    else{
+        on = true;
+        //loop();
     }
 }
