@@ -40,7 +40,7 @@ function draw(){
     w.ang_speed = rotate_speed.value();
 
     //code that handles the moving loop of the wheel.
-    if(w.x > 2*w.r*PI+width/4) w.x = width/4;
+    if(w.x > 2*w.r*PI+width/4) w.x = -width/4;
     w.x += w.ang_speed/180 * w.r*PI;
 }
 function ptoggle(){
