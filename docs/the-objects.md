@@ -7,7 +7,11 @@ Just include a link to the `science.js` file before you load your sketch:
   ```
   <script language="javascript" src="/lib/science.js"></script>
   ```
-
+ * [Arrow](#arrow).
+ * [Mover](#mover).
+ * [Axes](#axes).
+ * [Moving background](#moving-background).
+ * [Free body Diagrams](#free-body-diagrams).
 
 ## Objects
 
