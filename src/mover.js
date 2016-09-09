@@ -25,7 +25,6 @@ this.update = function(){
   this.velocity.add(this.acceleration);
   this.velocity.limit(this.limit);
   this.position.add(this.velocity);
-  this.acceleration.mult(0);
 
 
   var hCut = 70;
