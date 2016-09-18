@@ -1,5 +1,5 @@
 var ball = [];
-howMany = 20;
+howMany = 250;
 
 function setup() {
   createCanvas(800, 500);
@@ -8,9 +8,9 @@ function setup() {
 for (var i = 0; i < howMany; i++){
   pos = createVector(random(0,width),random(0,height))
   vel = createVector(random(-1,1),random(-1,1));
-  accel = createVector(random(-1,1),random(-1,1));
-  colors = color(random(0,255),random(0,255),random(0,255))
-ball[i] = new Mover(pos,vel,accel,10,colors);
+  accel = createVector(0,0);
+  colors = color(map(vel.mag(),0,1,0,255),0,map(vel.mag(),0,1,255,0))
+  ball[i] = new KineticMass(pos,vel,accel,10,colors);
 }
 
 }

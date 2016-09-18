@@ -5,9 +5,9 @@ function setup() {
   //choose random vectors for the balls initial motion
   pos = createVector(random(0,width),random(0,height))
   vel = createVector(random(-5,5),random(-5,5));
-  accel = 0;
+  accel = createVector(0,0);
   //make the ball! It is an instance of the mover object
-  ball = new Mover(pos,vel,accel,10,'red');
+  ball = new KineticMass(pos,vel,accel,10,'red');
 
 }
 
