@@ -1,8 +1,10 @@
 /**
 * Draws an arrow from one point to another. Useful for vector diagramming.
-* @method Arrow
+* @constructor Arrow
 * @param {p5.Vector} origin_ A vector object describing the origin
 * @param {p5.Vector} target_ A vector object describing the end point
+* @property {color} color The color of the vector (white is default)
+* @property {number} width How thick is the arrow (20 default)
 */
 
 
@@ -24,7 +26,7 @@ function Arrow(origin_, target_){
   this.width = 20;
 
 
-  //mouse old coordinates for transalation
+  //mouse old coordinates for translation
   this.oldX = 0;
   this.oldY = 0;
 

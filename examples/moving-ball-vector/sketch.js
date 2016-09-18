@@ -10,7 +10,7 @@ function setup() {
   accel = 0;
 
   //make the ball! It is an instance of the mover object
-  ball = new Mover(pos,vel,accel,20,'gray');
+  ball = new KineticMass(pos,vel,accel,20,'gray');
 
   //This will be the position vector
   posVector = new Arrow(createVector(width/2,height/2),pos);
