@@ -1,6 +1,6 @@
 /**
-* Makes a little ball that can move.
-* @method Mover
+* Makes a little ball that can move. This object is to be replaced by KineticMass
+* @constructor Mover
 * @param {p5.Vector} position A vector object describing the balls acceleration
 * @param {p5.Vector} velocity A vector object describing the ball's velocity
 * @param {p5.Vector} acceleration A vector object describing the ball's acceleration
@@ -9,6 +9,7 @@
 * @property {number} limit how fast can it go? This sets the max speed.
 * @property {bool} tail a tail leaves little dots behind as it moves.
 * @property {color} outline what color is the stroke of the mass?
+* @deprecated
 */
 
 

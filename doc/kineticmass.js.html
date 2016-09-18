@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: mover.js</title>
+    <title>JSDoc: Source: kineticmass.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: mover.js</h1>
+    <h1 class="page-title">Source: kineticmass.js</h1>
 
     
 
@@ -27,57 +27,83 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
-* Makes a little ball that can move. This object is to be replaced by KineticMass
-* @constructor Mover
+* Makes a little ball that can move and adheres to proper kinematics.
+* @constructor KineticMass
 * @param {p5.Vector} position A vector object describing the balls acceleration
 * @param {p5.Vector} velocity A vector object describing the ball's velocity
 * @param {p5.Vector} acceleration A vector object describing the ball's acceleration
 * @param {number} mass A scalar quantity indicating the mass
-* @param {p5.Color} color What color do you want the ball to be?
+* @param {color} color What color do you want the ball to be?
 * @property {number} limit how fast can it go? This sets the max speed.
 * @property {bool} tail a tail leaves little dots behind as it moves.
 * @property {color} outline what color is the stroke of the mass?
-* @deprecated
+* @property {number} tailLength how many tail bits to leave? (70 is a good number)
+* @property {color} tailFill what color is the tail?
+* @property {color} tailStroke what is the stroke of the tail?
+* @property {number} tailSpacing how many frames to skip before leaving a tail dot
+* @example
+* function setup() {
+*  //make a position vector
+*  pos = createVector(width/2,height/2)
+*  // make a velocity vector (5 px/fr in x, 2 px/fr in y)
+*  vel = createVector(5,2);
+*  // no acceleration
+*  accel = createVector(0,0);
+*  // create the ball. Give it a mass of 10, and let's make it red.
+*  ball = new KineticMass(pos,vel,accl,10,'red');
+* }
+*
+* function draw(){
+*  // update the ball's parameters
+*  ball.update();
+*  //display changes
+*  ball.display();
+* }
 */
 
 
 
-var Mover = function(position, velocity, acceleration, mass, color){
+var KineticMass = function(position, velocity, acceleration, mass, kmFill){
   this.position = new createVector(position.x, position.y);
   this.velocity = new createVector(velocity.x, velocity.y);
   this.acceleration = new createVector(acceleration.x, acceleration.y);
-
-  this.limit = 20;
+  this.previousVel = new createVector(0,0);
+  this.limit = 10000;
   this.mass = mass;
-  this.color = color;
+  //how does the mass look
+  this.color = kmFill;
+  this.outline = 255;
   //size is proportional to mass
   this.size = this.mass;
-  this.outline = 255;
 
+  // tail properties
   this.tail = false;
-  this.tailFill  = 'white';
-  this.tailStroke = 'black';
-  this.tailA = [];
-  //sets up angular variables for rotations
-  this.angle = 0;
-  this.aVelocity = 0;
-  this.aAcceleration = 0;
+  this.tailFill  = kmFill;
+  this.tailStroke = kmFill;
 
+  this.tailA = [];
+
+
+  this.tailLength = 70;
+  this.tailSpacing = 5;
 
 
 this.update = function(){
-  if(this.tail === true){
+  if(this.tail === true &amp;&amp; frameCount%this.tailSpacing==0){
     this.tailA.push(this.position.copy());
   }
-
+  this.previousVel = this.velocity.copy();
   this.velocity.add(this.acceleration);
   this.velocity.limit(this.limit);
-  this.position.add(this.velocity);
-  this.acceleration.mult(0);
+  this.avgYVel = (this.previousVel.y+this.velocity.y)/2;
+  this.avgXVel = (this.previousVel.x+this.velocity.x)/2;
+  this.position.x += this.avgXVel;
+  this.position.y += this.avgYVel;
+  //this.acceleration.mult(0);
 
-  var hCut = 70;
-  if(this.tailA.length > hCut){
-    this.tailA = this.tailA.slice(-1 * hCut);
+
+  if(this.tailA.length > this.tailLength){
+    this.tailA = this.tailA.slice(-1 * this.tailLength);
   }
 
   //handles angular momentum
@@ -93,13 +119,15 @@ this.display = function(){
 
   if(this.tail === true){
     push();
-   fill(this.tailFill);
-   stroke(this.tailStroke);
     for(var i = 0; i &lt; this.tailA.length; i++){
+      stroke('rgba('+red(color(this.tailStroke))+','+green(color(this.tailStroke))+','+blue(color(this.tailStroke))+','+map(i,0,this.tailA.length,0,1)+')');
+      fill('rgba('+red(color(this.tailFill))+','+green(color(this.tailFill))+','+blue(color(this.tailFill))+','+map(i,0,this.tailA.length,0,1)+')');
       ellipse(this.tailA[i].x,this.tailA[i].y,3,3);
     }
     pop();
   }
+
+
 };
 
 this.giveItAnAcceleration = function(accel){
@@ -109,7 +137,7 @@ this.giveItAnAcceleration = function(accel){
 this.applyForce = function(force){
   var f = force.copy();
   f.div(this.mass);
-  this.acceleration.add(f);
+  this.acceleration = f;
 };
 //Behaviors
 this.wrapEdges = function() {
@@ -128,28 +156,50 @@ this.wrapEdges = function() {
     this.position.y = height;
   }
 };
-
+this.wrapEdgesBounceFloor = function(){
+  if (this.position.x > width) {
+    this.position.x = 0;
+  }
+  else if (this.position.x &lt; 0) {
+    this.position.x = width;
+  }
+  if(this.position.y > height-this.size/2){
+    overiny = this.position.y-height+this.size/2;
+    vatheight = Math.sqrt(Math.pow(this.velocity.y,2)-2*this.acceleration.y*overiny);
+    this.position.y = height-this.size/2;
+    this.velocity.y = -1*vatheight;
+  }
+}
 this.bounceEdges = function(){
   if(this.position.x &lt; 0+this.size/2){
-    this.velocity.x *= -1;
+    overinx = this.position.x-this.size/2;
+    vatwidth = Math.sqrt(Math.pow(this.velocity.x,2)-2*this.acceleration.x*overinx);
+    this.velocity.x = 1*vatwidth;
     this.position.x = 0+this.size/2;
 
   }
   if(this.position.x > width-this.size/2){
-    this.velocity.x *= -1;
+    overinx = this.position.x-width+this.size/2;
+    vatwidth = Math.sqrt(Math.pow(this.velocity.x,2)-2*this.acceleration.x*overinx);
     this.position.x = width-this.size/2;
+    this.velocity.x = -1*vatwidth;
   }
 
   if(this.position.y &lt; 0+this.size/2){
-    this.velocity.y *= -1;
+    overiny = this.position.y-this.size/2;
+    vatheight = Math.sqrt(Math.pow(this.velocity.y,2)-2*this.acceleration.y*overiny);
+    this.velocity.y = 1*vatheight;
     this.position.y = 0+this.size/2;
 
   }
   if(this.position.y > height-this.size/2){
-    this.velocity.y *= -1;
+    overiny = this.position.y-height+this.size/2;
+    vatheight = Math.sqrt(Math.pow(this.velocity.y,2)-2*this.acceleration.y*overiny);
     this.position.y = height-this.size/2;
+    this.velocity.y = -1*vatheight;
   }
 };
+
 this.towardMouse = function(a){
   var mouse = new Vector(mouseX,mouseY);
   var dir = Vector.sub(mouse,this.position);
@@ -161,12 +211,12 @@ this.towardMouse = function(a){
 }
 
 
-Mover.prototype.get = function(){
-  var bob = new Mover(this.position,this.velocity,this.acceleration);
+KineticMass.prototype.get = function(){
+  var bob = new KineticMass(this.position,this.velocity,this.acceleration);
   return bob;
 };
-Mover.get = function(m){
-  var bob = new Mover(m.position, m.velocity, m.acceleration);
+KineticMass.get = function(m){
+  var bob = new KineticMass(m.position, m.velocity, m.acceleration);
   return bob;
 };
 </code></pre>
