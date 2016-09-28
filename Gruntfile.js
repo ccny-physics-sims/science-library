@@ -20,7 +20,7 @@ module.exports = function(grunt) {
         '<%= grunt.template.today("yyyy-mm-dd") %> */ \n',
       },
       dist: {
-        src:['src/arrow.js','src/KineticMass.js','src/mover.js','src/spring.js','src/axes.js','src/background-motion.js','src/wheel.js','src/fbd.js','src/physgraphs.js'],
+        src:['src/arrow.js','src/KineticMass.js','src/mover.js','src/spring.js','src/axes.js','src/background-motion.js','src/wheel.js','src/fbd.js'],
         dest: 'lib/science.js',
       },
     },
