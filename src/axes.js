@@ -6,8 +6,10 @@
 */
 
 
-function drawAxes(lineColor=0,thickness=1){
+function drawAxes(lineColor,thickness){
   push();
+  this.lineColor = 'black';
+  this.thickness = 1;
   stroke(lineColor)
   strokeWeight(thickness);
   line(width/2,0,width/2,height)
