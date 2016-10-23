@@ -7,7 +7,7 @@ function FBD(position_, howManyForces_,showResultant_) {
     this.position = position_;
     this.howManyForces = howManyForces_;
     this.showResultant = showResultant_;
-    if(this.showResultant){
+    if(this.showResultant==true){
       forcesColor = color(240,150,150);
     }
     else{
@@ -28,6 +28,7 @@ function FBD(position_, howManyForces_,showResultant_) {
         v1[i].grab = false;
         v1[i].draggable = false;
         v1[i].color = forcesColor;
+        v1[i].width=15;
 
     }
 
