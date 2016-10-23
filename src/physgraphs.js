@@ -53,7 +53,10 @@ function Equation(){
 /*Declaration of plot object which will be graphed
  * on graph object
  * */
-function Plot(pointArray, red, green, blue, weight, title = "default"){
+function Plot(pointArray, red, green, blue, weight, title){
+	if (title === undefined){
+		title = "default";
+	}
 	this.data = pointArray; //plot data (an array of points)
 	this.color = color(red, green, blue, title = "default"); //the color that the graph will be drawn in
 	this.weight = weight; // a number for the stroke thickness of the graph
@@ -234,8 +237,13 @@ Graph.prototype.set_offset = function(xoff,yoff){
 	this.origin.add(this.bl_val.x*this.xunit, this.bl_val.y*this.yunit);
 	console.log(this.origin.x, this.origin.y);
 }
-Graph.prototype.drawBg = function(bg = color(255), border = color(0)){
-
+Graph.prototype.drawBg = function(bg, border){
+	if (bg === undefined){
+		bg = color(255);
+	}
+	if (border === undefined){
+		border = color(0);
+	}
 	//border
 	if(this.showBorder == false){
 		noStroke();
@@ -293,6 +301,7 @@ Graph.prototype.drawBg = function(bg = color(255), border = color(0)){
 				this.tr_pix.x, this.bl_pix.y-pixCount);
 		text((Math.round(10*count)/10).toString(), this.bl_pix.x - 20, this.bl_pix.y-pixCount);
 	}
+	
 
 	//draw title AND axis labels AND legend
 	if(this.showTitle == true){
@@ -391,13 +400,24 @@ Graph.makeData = function(xarray, yarray){
 };
 
 //this might make more sense to put as part of the Plot object
-Graph.makeUserPlot = function(x1, x2, resolution, colour = color(0), weight = 1, psize = 3){
+Graph.makeUserPlot = function(x1, x2, resolution, lineColor, weight, psize){
 	var finalArray = [];
 	var templot = new Plot();
+	if (lineColor === undefined) {
+        lineColor = color(0);
+    }
+	if (weight === undefined){
+		weight = 1;
+	}
+	if (psize === undefined){
+		psize = 3;
+	}
+
+	templot.lineColor = lineColor;
 	templot.data = [];
 	templot.weight = weight;
 	templot.pointSize = psize;
-	templot.color = colour;
+
 	var scale = (x2-x1)/resolution;
 	for(var i = x1;i<x2;i += scale){
 		var p = new Point(i,0);
