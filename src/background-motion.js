@@ -1,10 +1,12 @@
-var movingBackground = function(whichKind_, position_, velocity_, acceleration_) {
+var movingBackground = function(whichKind_, position_, InitialVelocity, acceleration_) {
     maxHeight = 100;
-    this.velocity = velocity_;
+    this.velocity = InitialVelocity;
     this.position = position_;
     this.acceleration = acceleration_;
     this.whichKind = whichKind_;
     this.shapes = [];
+    this.avgVel = createVector(0,0)
+
 
     if (this.whichKind == 'cityStreet') {
         noOfBuildings = ((5 * width) / 70);
@@ -32,7 +34,10 @@ var movingBackground = function(whichKind_, position_, velocity_, acceleration_)
 
     this.l = this.shapes.length;
     this.update = function() {
+        this.oldVelocity = this.velocity;
         this.velocity.add(this.acceleration);
+        this.avgVel.x = this.oldVelocity.x + this.velocity.x*.5;
+        this.avgVel.y = this.oldVelocity.y + this.velocity.y*.5;
     }
 
     this.display = function() {
@@ -48,9 +53,8 @@ var backgroundShape = function(whichKind_, velocity_) {
     this.howTall = random(40, maxHeight);
     this.howWide = random(20, 100);
     this.fill = random(60, 230);
-
     this.whichKind = whichKind_;
-    this.velocity = velocity_;
+    this.avgVel = velocity_;
 
 
 
@@ -69,7 +73,7 @@ var backgroundShape = function(whichKind_, velocity_) {
 
         if (this.whichKind == 'cityStreet') {
             rectMode(CORNERS);
-            this.position.add(this.velocity);
+            this.position.add(this.avgVel);
         }
 
         if (this.whichKind == 'clouds') {
