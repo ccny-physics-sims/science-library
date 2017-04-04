@@ -77,7 +77,8 @@ var backgroundShape = function(whichKind_, velocity_) {
         }
 
         if (this.whichKind == 'clouds') {
-            this.position.add(p5.Vector.mult(this.velocity, (noOfClouds - this.layer) / noOfClouds));
+            this.position.add(p5.Vector.mult(this.avgVel, (noOfClouds - this.layer) / noOfClouds));
+            //this.position.add(createVector(10,10));
         }
 
     };
