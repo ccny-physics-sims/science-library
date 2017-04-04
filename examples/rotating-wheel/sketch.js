@@ -19,14 +19,14 @@ function setup(){
 
     w.arrowDecorations[0] = {type: 'velocity', location_radial: 1, rimPos: 0 };
     w.arrowDecorations[1] = {type: 'velocity', location_radial: .5, rimPos: 0 };
-    w.arrowDecorations[2] = {type: 'velocity', location_radial: 1, rimPos: 180 };
-    w.arrowDecorations[3] = {type: 'velocity', location_radial: .5, rimPos: 180 };
-    w.arrowDecorations[4] = {type: 'velocity', location_radial: 1, rimPos: 90 };
-    w.arrowDecorations[5] = {type: 'velocity', location_radial: .5, rimPos: 90 };
-    w.arrowDecorations[6] = {type: 'velocity', location_radial: 1, rimPos: 270 };
-    w.arrowDecorations[7] = {type: 'velocity', location_radial: .5, rimPos: 270 };
+    w.arrowDecorations[2] = {type: 'velocity', location_radial: 1, rimPos: PI };
+    w.arrowDecorations[3] = {type: 'velocity', location_radial: .5, rimPos: PI };
+    w.arrowDecorations[4] = {type: 'velocity', location_radial: 1, rimPos: HALF_PI };
+    w.arrowDecorations[5] = {type: 'velocity', location_radial: .5, rimPos: HALF_PI };
+    w.arrowDecorations[6] = {type: 'velocity', location_radial: 1, rimPos: 3*HALF_PI };
+    w.arrowDecorations[7] = {type: 'velocity', location_radial: .5, rimPos: 3*HALF_PI };
     w.addDecorations(w.arrowDecorations);
-    angleMode(DEGREES);
+
 
     // "on" is used for the pause and resume at the end of file
     // that allows for stopping/starting the sketch w/o prob.
@@ -73,7 +73,7 @@ function draw(){
     //draw the wheel.
     w.draw();
     //get speed from slider
-    w.ang_speed = rotate_speed.value();
+    w.ang_speed = rotate_speed.value()*Math.PI/180;
 
     //draw particles
     /*
