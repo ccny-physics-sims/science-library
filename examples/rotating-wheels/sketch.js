@@ -35,8 +35,8 @@ function draw(){
 
 
 
-    w.ang_speed = map(mouseX,0,width,-5,5);
-    w2.ang_speed = map(mouseY,0,height,-5,5);
+    w.ang_speed = map(mouseX,0,width,-5,5)*PI/180;
+    w2.ang_speed = map(mouseY,0,height,-5,5)*PI/180;
     w.draw();
     w2.draw();
 
