@@ -7,10 +7,10 @@ function FBD(position_, howManyForces_,showResultant_) {
     this.position = position_;
     this.howManyForces = howManyForces_;
     this.showResultant = showResultant_;
-    if(this.showResultant==true){
+    if(this.showResultant === true){
       forcesColor = color(240,150,150);
     }
-    else{
+    else {
       forcesColor = color(230, 40, 40);
     }
 
@@ -36,13 +36,14 @@ function FBD(position_, howManyForces_,showResultant_) {
 this.update = function() {
     temp1=createVector(0,0);
     for (var i = 0; i < this.howManyForces; i++) {
-
+        v1[i].origin = this.position;
         v1[i].target = p5.Vector.add(this.position, createVector(this.mag[i] * cos(this.direction[i]), this.mag[i] * sin(this.direction[i])));
         temp1.add(p5.Vector.sub(v1[i].target,v1[i].origin));
         //console.log('arrow #'+ i + v1[i].target);
         v1[i].update();
     }
     if(this.showResultant){
+        resultant.origin = this.position;
         resultant.target = p5.Vector.add(this.position,temp1);
         resultant.update();
       }
@@ -66,8 +67,11 @@ this.display = function() {
       pop();
     }
     if(this.showResultant){
-    text('Net Force',15+resultant.target.x,resultant.target.y,100,100);
-    resultant.display()
+    if(temp1.mag() > 0.0001){
+      text('Net Force',15+resultant.target.x,resultant.target.y,100,100);
+
+    resultant.display();
+    }
     }
     //make a dot
     push()

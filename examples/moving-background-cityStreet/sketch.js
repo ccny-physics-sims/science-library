@@ -14,7 +14,7 @@ function setup() {
   accelSlider.style('width', '150px');
 
 
-  velocity = createVector(-10,0);
+  velocity = createVector(0,0);
   acceleration = createVector(0,0);
   basePosition = createVector(0,200);
 
