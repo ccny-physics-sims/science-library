@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: Arrow</title>
+    <title>JSDoc: Class: FBD</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Class: Arrow</h1>
+    <h1 class="page-title">Class: FBD</h1>
 
     
 
@@ -28,7 +28,7 @@
 
 <header>
     
-        <h2>Arrow</h2>
+        <h2>FBD</h2>
         
     
 </header>
@@ -40,14 +40,14 @@
 
     
 
-    <h4 class="name" id="Arrow"><span class="type-signature"></span>new Arrow<span class="signature">(origin, target)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="FBD"><span class="type-signature"></span>new FBD<span class="signature">(position, howManyForces, showResultant)</span><span class="type-signature"></span></h4>
 
     
 
 
 
 <div class="description">
-    Draws an arrow from one point to another. Useful for vector diagramming.
+    Makes a free-body diagram.
 </div>
 
 
@@ -83,7 +83,7 @@
 
         <tr>
             
-                <td class="name"><code>origin</code></td>
+                <td class="name"><code>position</code></td>
             
 
             <td class="type">
@@ -99,20 +99,20 @@
 
             
 
-            <td class="description last">A vector object describing the origin</td>
+            <td class="description last">The position vector.</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>target</code></td>
+                <td class="name"><code>howManyForces</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">p5.Vector</span>
+<span class="param-type">number</span>
 
 
             
@@ -122,7 +122,30 @@
 
             
 
-            <td class="description last">A vector object describing the end point</td>
+            <td class="description last">Choose from 1, 2, or 3 forces to display.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>showResultant</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">bool</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Display the resulting forces.</td>
         </tr>
 
     
@@ -160,13 +183,13 @@
 
         <tr>
             
-                <td class="name"><code>grab</code></td>
+                <td class="name"><code>mag</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">bool</span>
+<span class="param-type">array</span>
 
 
             
@@ -176,20 +199,20 @@
 
             
 
-            <td class="description last">Indicates if the Arrow is grabbable. (default: true)</td>
+            <td class="description last">Magnitude of each of the forces.</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>draggable</code></td>
+                <td class="name"><code>direction</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">bool</span>
+<span class="param-type">array</span>
 
 
             
@@ -199,20 +222,20 @@
 
             
 
-            <td class="description last">Indicates if the Arrow is draggable. (default: true)</td>
+            <td class="description last">Direction of each of the forces.</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>showComponents</code></td>
+                <td class="name"><code>labels</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">bool</span>
+<span class="param-type">array</span>
 
 
             
@@ -222,20 +245,20 @@
 
             
 
-            <td class="description last">Controls the visibility of the Arrow's components. (default: false)</td>
+            <td class="description last">Labels for each of the forces.</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>color</code></td>
+                <td class="name"><code>offsets</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">color</span>
+<span class="param-type">array</span>
 
 
             
@@ -245,106 +268,14 @@
 
             
 
-            <td class="description last">The color of the Arrow. (default: white)</td>
+            <td class="description last">Offset value for each of the forces.</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>selected</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">bool</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Indicates if the Arrow is currently selected. (default: false)</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>dragSelected</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">bool</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Indicates if the Arrow is currently selected and dragged. (default: false)</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>isDragging</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">bool</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Indicates if the Arrow is currently being dragged. (default: false)</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>width</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Thickness of the Arrow. (default: 20px)</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>Arrow.display()</code></td>
+                <td class="name"><code>FBD.display()</code></td>
             
 
             <td class="type">
@@ -360,14 +291,14 @@
 
             
 
-            <td class="description last">Displays the Arrow object.</td>
+            <td class="description last">Draws the FBD object.</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>Arrow.update()</code></td>
+                <td class="name"><code>FBD.update()</code></td>
             
 
             <td class="type">
@@ -383,7 +314,7 @@
 
             
 
-            <td class="description last">Updates the Arrow object.</td>
+            <td class="description last">Updates the FBD object.</td>
         </tr>
 
     
@@ -422,7 +353,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="arrow.js.html">arrow.js</a>, <a href="arrow.js.html#line1">line 1</a>
+        <a href="fbd.js.html">fbd.js</a>, <a href="fbd.js.html#line1">line 1</a>
     </li></ul></dd>
     
 

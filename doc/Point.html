@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: drawAxes</title>
+    <title>JSDoc: Class: Point</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Class: drawAxes</h1>
+    <h1 class="page-title">Class: Point</h1>
 
     
 
@@ -28,7 +28,7 @@
 
 <header>
     
-        <h2>drawAxes</h2>
+        <h2>Point</h2>
         
     
 </header>
@@ -40,14 +40,14 @@
 
     
 
-    <h4 class="name" id="drawAxes"><span class="type-signature"></span>new drawAxes<span class="signature">(lineColor, thickness)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="Point"><span class="type-signature"></span>new Point<span class="signature">(x, y)</span><span class="type-signature"></span></h4>
 
     
 
 
 
 <div class="description">
-    Draws a simple x-y axis.
+    Creates a Point that can be used with the Plot and Graph objects.
 </div>
 
 
@@ -83,13 +83,13 @@
 
         <tr>
             
-                <td class="name"><code>lineColor</code></td>
+                <td class="name"><code>x</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">color</span>
+<span class="param-type">number</span>
 
 
             
@@ -99,20 +99,20 @@
 
             
 
-            <td class="description last">The color of the lines. (default: black)</td>
+            <td class="description last">The x value.</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>thickness</code></td>
+                <td class="name"><code>y</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">num</span>
+<span class="param-type">number</span>
 
 
             
@@ -122,7 +122,7 @@
 
             
 
-            <td class="description last">The thickness of the lines. (default: 1px)</td>
+            <td class="description last">The y value.</td>
         </tr>
 
     
@@ -160,7 +160,7 @@
 
         <tr>
             
-                <td class="name"><code>drawAxes(lineColor,thickness)</code></td>
+                <td class="name"><code>Point.add(x,y)</code></td>
             
 
             <td class="type">
@@ -176,7 +176,99 @@
 
             
 
-            <td class="description last">Draws axes.</td>
+            <td class="description last">Add x, subtract y.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>Point.getPoint(p5.Vector)</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">method</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Converts a p5.Vector into a Point object.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>Point.fixChoord()</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">method</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Inverts the y axis so that positive is up not down. Allows Points to be compatible with p5.js.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>Point.addPix(xoff,yoff,scalex,scaley)</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">method</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Convert choord to pixel position.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>Point.getDist(Point,Point)</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">method</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Takes in two Point objects and returns a new Point object whose x and y values are the respective x and y distances.</td>
         </tr>
 
     
@@ -215,7 +307,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="axes.js.html">axes.js</a>, <a href="axes.js.html#line1">line 1</a>
+        <a href="physgraphs.js.html">physgraphs.js</a>, <a href="physgraphs.js.html#line1">line 1</a>
     </li></ul></dd>
     
 

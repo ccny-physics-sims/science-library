@@ -1,10 +1,20 @@
 /**
 * Draws an arrow from one point to another. Useful for vector diagramming.
 * @constructor Arrow
-* @param {p5.Vector} origin_ A vector object describing the origin
-* @param {p5.Vector} target_ A vector object describing the end point
-* @property {color} color The color of the vector (white is default)
-* @property {number} width How thick is the arrow (20 default)
+
+* @param {p5.Vector} origin A vector object describing the origin
+* @param {p5.Vector} target A vector object describing the end point
+
+* @property {bool} grab Indicates if the Arrow is grabbable. (default: true)
+* @property {bool} draggable Indicates if the Arrow is draggable. (default: true)
+* @property {bool} showComponents Controls the visibility of the Arrow's components. (default: false)
+* @property {color} color The color of the Arrow. (default: white)
+* @property {bool} selected Indicates if the Arrow is currently selected. (default: false)
+* @property {bool} dragSelected Indicates if the Arrow is currently selected and dragged. (default: false)
+* @property {bool} isDragging Indicates if the Arrow is currently being dragged. (default: false)
+* @property {number } width Thickness of the Arrow. (default: 20px)
+* @property Arrow.display() {method} Displays the Arrow object.
+* @property Arrow.update() {method} Updates the Arrow object.
 */
 
 
@@ -25,13 +35,9 @@ function Arrow(origin_, target_){
   this.isDragging = false;
   this.width = 20;
 
-
   //mouse old coordinates for translation
   this.oldX = 0;
   this.oldY = 0;
-
-
-
 
 this.display = function(){
 
@@ -74,6 +80,7 @@ this.display = function(){
   }
 
 };
+
 this.update = function(){
   if(this.selected){
 
@@ -120,6 +127,7 @@ if (d1+d2 >= lineLen-buffer && d1+d2 <= lineLen+buffer) {
 }
 return false;
 };
+
 
 }
 

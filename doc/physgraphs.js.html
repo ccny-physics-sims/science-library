@@ -1,4 +1,32 @@
-﻿/**
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: physgraphs.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: physgraphs.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>﻿/**
 * Creates a Point that can be used with the Plot and Graph objects. 
 * @constructor Point
 * @param {number} x The x value. 
@@ -116,24 +144,24 @@ Plot.prototype.plot = function(graph){
 	strokeWeight(this.weight);
 
 	//draws the data points and the connecting lines
-	for(var i = 0;i<this.data.length;i++){
+	for(var i = 0;i&lt;this.data.length;i++){
 
-		if(i<this.data.length-1
-			&& this.data[i+1].x <= graph.tr_pix.x
-			&& this.data[i+1].y >= graph.tr_pix.y
-			&& this.data[i].x >= graph.bl_pix.x
-			&& this.data[i].y <= graph.bl_pix.y){
-		//if(i<this.data.length-1){
+		if(i&lt;this.data.length-1
+			&amp;&amp; this.data[i+1].x &lt;= graph.tr_pix.x
+			&amp;&amp; this.data[i+1].y >= graph.tr_pix.y
+			&amp;&amp; this.data[i].x >= graph.bl_pix.x
+			&amp;&amp; this.data[i].y &lt;= graph.bl_pix.y){
+		//if(i&lt;this.data.length-1){
 			//draws the connecting lines, scaling the data so that
 			//it corresponds to our coordinate space
 			line(this.data[i].x, this.data[i].y,
 					this.data[i+1].x, this.data[i+1].y);
 		}
 		//draws the data points, with scaling and offset.
-		if(this.data[i].x <= graph.tr_pix.x
-			&& this.data[i].y >= graph.tr_pix.y
-			&& this.data[i].x >= graph.bl_pix.x
-			&& this.data[i].y <= graph.bl_pix.y){
+		if(this.data[i].x &lt;= graph.tr_pix.x
+			&amp;&amp; this.data[i].y >= graph.tr_pix.y
+			&amp;&amp; this.data[i].x >= graph.bl_pix.x
+			&amp;&amp; this.data[i].y &lt;= graph.bl_pix.y){
 			ellipse(this.data[i].x, this.data[i].y, this.pointSize, this.pointSize);
 		}
 
@@ -146,7 +174,7 @@ Plot.prototype.getUser = function(){
 	var pmouse = new Point(mouseX,mouseY);
 	var closest = 100000;
 	var closestIndex = 0;
-	for(var i=0;i<this.data.length;i++){
+	for(var i=0;i&lt;this.data.length;i++){
 
 		d = Point.getDist(pmouse,this.data[i]);
 		if(closest > d.x){
@@ -166,10 +194,10 @@ Plot.prototype.tpRecord = function(variable, graph){
 	//var timescale = (tr-bl)/100;
 	//var timescale = (graph.x_max-graph.x_min)/graph;
 	var timescale = FR;
-	for(var i=0;i<this.data.length;i++){
+	for(var i=0;i&lt;this.data.length;i++){
 		this.data[i].x -= graph.xunit/timescale; //shift the x-axis
 	}
-	if(this.data[0] && this.data[0].x < bl){
+	if(this.data[0] &amp;&amp; this.data[0].x &lt; bl){
 		this.data.splice(0,1);
 	}
 
@@ -184,7 +212,7 @@ Plot.prototype.getPointDist = function(num1, num2){
 };
 Plot.prototype.fixChoord = function(scalex, scaley, origin){
 	var p = Point.getPoint(origin);
-	for(var i = 0;i<this.data.length;i++){
+	for(var i = 0;i&lt;this.data.length;i++){
 		//this.data[i].fixChoord();
 		p.add(this.data[i].x*scalex, this.data[i].y*scaley);
 		this.data[i].x = p.x;
@@ -361,7 +389,7 @@ Graph.prototype.drawBg = function(bg, border){
 	var pixCount = 0;
 		//draw min label
 		text(this.x_min, this.bl_pix.x, this.bl_pix.y+20);
-	for(var i = 0; i < this.resolution; i++){
+	for(var i = 0; i &lt; this.resolution; i++){
 		count += xdiff;
 		pixCount += this.xpix;
 		line(this.bl_pix.x + pixCount, this.bl_pix.y+5,
@@ -374,7 +402,7 @@ Graph.prototype.drawBg = function(bg, border){
 	var pixCount = 0;
 		//draw min label
 		text(this.y_min, this.bl_pix.x - 20, this.bl_pix.y);
-	for(var i = 0; i < this.resolution; i++){
+	for(var i = 0; i &lt; this.resolution; i++){
 		count += ydiff;
 		pixCount += this.ypix;
 		line(this.bl_pix.x - 5, this.bl_pix.y-pixCount,
@@ -411,7 +439,7 @@ Graph.prototype.drawBg = function(bg, border){
 			textAlign(LEFT,TOP);
 			noStroke();
 			fill(0);
-			for(var i=0;i<this.plots.length;i++){
+			for(var i=0;i&lt;this.plots.length;i++){
 				text(this.plots[i].plotTitle, left+8,top+2);
 				top+=12; //shift the count down a line.
 			}
@@ -434,7 +462,7 @@ Graph.prototype.drawBg = function(bg, border){
 };
 //plots all plots on this graph
 Graph.prototype.plotAll = function(){
-	for(var i = 0; i<this.plots.length;i++){
+	for(var i = 0; i&lt;this.plots.length;i++){
 		if(this.plots[i].timeplot == true){
 			var temp = new Plot();
 			temp.data = [];
@@ -468,7 +496,7 @@ Graph.prototype.getChoord = function(x, y){
 Graph.makeData = function(xarray, yarray){
 	var finalArray = [];
 	if(xarray.length == yarray.length){
-		for(var i = 0; i<xarray.length;i++){
+		for(var i = 0; i&lt;xarray.length;i++){
 			var p = new Point(xarray[i],yarray[i]);
 			finalArray.push(p);
 		}
@@ -499,10 +527,33 @@ Graph.makeUserPlot = function(x1, x2, resolution, lineColor, weight, psize){
 	templot.pointSize = psize;
 
 	var scale = (x2-x1)/resolution;
-	for(var i = x1;i<x2;i += scale){
+	for(var i = x1;i&lt;x2;i += scale){
 		var p = new Point(i,0);
 		templot.data.push(p);
 	}
 
 	return templot;
 };
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Arrow.html">Arrow</a></li><li><a href="drawAxes.html">drawAxes</a></li><li><a href="FBD.html">FBD</a></li><li><a href="Graph.html">Graph</a></li><li><a href="KineticMass.html">KineticMass</a></li><li><a href="Mover.html">Mover</a></li><li><a href="MovingBackground.html">MovingBackground</a></li><li><a href="Plot.html">Plot</a></li><li><a href="Point.html">Point</a></li><li><a href="Spring.html">Spring</a></li><li><a href="Wheel.html">Wheel</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Sat Apr 29 2017 18:28:50 GMT-0400 (Eastern Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
