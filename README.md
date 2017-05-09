@@ -13,7 +13,7 @@ Just include a link to the `science.js` file before you load your sketch:
 
 View the documentation (in progress):
 
-[science.js docs](./doc)
+[science.js docs](https://ccny-physics-sims.github.io/science-library/doc/Arrow.html)
 
 ### Contributing
 
