@@ -1,8 +1,8 @@
-/*demonstrates pure translation of a wheel without rotation.*/
+/*demonstrates pure translation of a Wheel without rotation.*/
 
 function setup(){
     createCanvas(640,480);
-    w = new wheel(width/4,height/2,200);
+    w = new Wheel(width/4,height/2,200);
     w.rotate = false;
     frameRate(30);
     w.cdecorate = false;
@@ -35,10 +35,10 @@ function draw(){
     fill('grey');
     rect(0,w.y+w.r,width,height);
 
-    //draw the wheel.
+    //draw the Wheel.
     w.draw();    
 
-    //code that handles the moving loop of the wheel.
+    //code that handles the moving loop of the Wheel.
     if(w.x-w.r > width) w.x = -w.d;
     w.x += translate_speed.value();
     w.trans_speed = translate_speed.value();

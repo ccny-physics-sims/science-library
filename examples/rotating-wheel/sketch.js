@@ -1,12 +1,12 @@
-/*demonstrates pure rotation of a wheel without translation.*/
+/*demonstrates pure rotation of a Wheel without translation.*/
 
 //TODO trying to add water spraying out from the "slipping"
-//wheel so that it looks more realistic. The code for it so far
+//Wheel so that it looks more realistic. The code for it so far
 //has been commented out. (need the correct js library as well as
 //tweaking the values of the code to make it work).
 function setup(){
     createCanvas(640,480);
-    w = new wheel(width/2,height/2,200);
+    w = new Wheel(width/2,height/2,200);
     w.rotate = true;
 
     w.cdecorate = false;
@@ -15,7 +15,7 @@ function setup(){
     w.translation = false;
     w.rimColor = color('rgba(0,0,0,1)');
     w.spokeColor = color('rgba(0,0,0,1)');
-    w.wheelColor = color('rgba(0,0,0,.1)');
+    w.WheelColor = color('rgba(0,0,0,.1)');
 
     w.arrowDecorations[0] = {type: 'velocity', location_radial: 1, rimPos: 0 };
     w.arrowDecorations[1] = {type: 'velocity', location_radial: .5, rimPos: 0 };
@@ -70,7 +70,7 @@ function draw(){
   //  noStroke();
 
   //  rect(0,w.y+w.r,width,height);
-    //draw the wheel.
+    //draw the Wheel.
     w.draw();
     //get speed from slider
     w.ang_speed = rotate_speed.value()*Math.PI/180;

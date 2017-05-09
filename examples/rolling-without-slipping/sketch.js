@@ -1,9 +1,9 @@
-/*demonstrates a wheel that spins without slipping.*/
+/*demonstrates a Wheel that spins without slipping.*/
 
 function setup(){
     canvas = createCanvas(640,480);
     canvas.parent('sketch-holder');
-    w = new wheel(width/2,height/2,200);
+    w = new Wheel(width/2,height/2,200);
     w.rotate = true;
 
     w.rotation = true;
@@ -35,12 +35,12 @@ function draw(){
     fill('grey');
     rect(0,w.y+w.r,width,height);
     pop();
-    //draw the wheel.
+    //draw the Wheel.
     w.draw();
     //get speed from slider
 
 
-    //code that handles the moving loop of the wheel.
+    //code that handles the moving loop of the Wheel.
     if(w.x-w.r > width) w.x = -w.r;
     if(w.x+w.r < 0) w.x = width+w.r;
       w.x += trans_speed.value();

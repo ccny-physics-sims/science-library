@@ -7,15 +7,10 @@
 * @property {method} Point.getPoint(p5.Vector) Converts a p5.Vector into a Point object.
 * @property {method} Point.fixChoord() Inverts the y axis so that positive is up not down. Allows Points to be compatible with p5.js. 
 
-* @property {method} Point.addPix(xoff,yoff,scalex,scaley)  Convert choord to pixel position.
+* @property {method} Point.makePix(xoff,yoff,scalex,scaley)  Convert choord to pixel position.
 * @property {method} Point.getDist(Point,Point)  Takes in two Point objects and returns a new Point object whose x and y values are the respective x and y distances.
 
 */
-
-
-
-
-
 
 //GLOBAL CONSTANTS
 FR = 30; // must match the framerate of the draw function.
@@ -87,9 +82,9 @@ function Equation(){
 
 * @property {method} Plot.plot(Graph) Takes a Graph Object and returns a Plot. 
 * @property {method} Plot.getUser() Get position of user's mouse. 
-* @property {method} Plot.tpRecord(variable, Graph) Timeplotting function. 
-* @property {method} Plot.getPointDist(Point, Point) Takes in two point objects and returns a new point object whose x and y values are the respective x and y distances.
-* @property {method} Plot.fixChoord(scalex, scaley, origin) Takes a p5.Vector as origin and scales it according to scalex and scaley. 
+* @property {method} Plot.tpRecord(variable,Graph) Timeplotting function. 
+* @property {method} Plot.getPointDist(Point,Point) Takes in two point objects and returns a new point object whose x and y values are the respective x and y distances.
+* @property {method} Plot.fixChoord(scalex,scaley,origin) Takes a p5.Vector as origin and scales it according to scalex and scaley. 
 
 */
 
@@ -217,21 +212,16 @@ Plot.prototype.fixChoord = function(scalex, scaley, origin){
 * @property {bool} showLegend Display a legend for the graph. (default: false)
 * @property {number} xOffset Offset x by a number of pixels. (default: 0px) 
 * @property {number} yOffset Offset y by a number of pixels. (default: 0px)
-* @property {array} Plots an Array of Plot objects. 
-
-
+* @property {array} Plots An Array of Plot objects. 
 * @property {method} Graph.update() Update the Graph. 
 * @property {method} Graph.set_offset(xoff,yoff) Update the Graph's offset values. 
-
-* @property {method} Graph.drawBH()  Draws the background.
+* @property {method} Graph.drawBg()  Draws the background.
 * @property {method} Graph.addPlot(Plot)  Adds a Plot to the Graph.
 * @property {method} Graph.plotAll() Draw all the Plots on the Graph. 
 */
 
 function Graph(w, h, x_min, x_max, y_min, y_max, resolution){
-
 	// initial variables
-
 	this.width = w;
 	this.height = h;
 	this.resolution = resolution;
@@ -239,7 +229,6 @@ function Graph(w, h, x_min, x_max, y_min, y_max, resolution){
 	this.x_max = x_max;
 	this.y_min = y_min;
 	this.y_max = y_max;
-
 
 	//styling variables
 	this.title = "Title"
@@ -283,7 +272,6 @@ function Graph(w, h, x_min, x_max, y_min, y_max, resolution){
 	this.origin = Point.getPoint(this.bl_pix);
 	this.origin.add(this.bl_val.x*this.xunit, this.bl_val.y*this.yunit);
 	//console.log(this.origin.x, this.origin.y);
-
 
 }
 //redraw background and plots
@@ -381,7 +369,6 @@ Graph.prototype.drawBg = function(bg, border){
 				this.tr_pix.x, this.bl_pix.y-pixCount);
 		text((Math.round(10*count)/10).toString(), this.bl_pix.x - 20, this.bl_pix.y-pixCount);
 	}
-	
 
 	//draw title AND axis labels AND legend
 	if(this.showTitle == true){

@@ -1,12 +1,12 @@
-/*Rotating wheel sketch:
+/*Rotating Wheel sketch:
  * in this demo you can see that the distance traveled
- * by a non slipping wheel corresponds exactly to the 
+ * by a non slipping Wheel corresponds exactly to the 
  * distance traveled accross the ground.*/
 
 function setup(){
     createCanvas(640,480);
-    w = new wheel(width/4,height/2,120);
-    w.rotate = true;    //make the wheel begin rotating
+    w = new Wheel(width/4,height/2,120);
+    w.rotate = true;    //make the Wheel begin rotating
                         //at the begining.
 
     w.ang = -90;    //set the initial starting position
@@ -40,10 +40,10 @@ function draw(){
     line(width/4+PI*w.r,height/2+w.r,2*PI*w.r+width/4,height/2+w.r);
     pop();
 
-    //draw the wheel.
+    //draw the Wheel.
     w.draw();    
 
-    //code that handles the moving loop of the wheel.
+    //code that handles the moving loop of the Wheel.
     if(w.x > 2*w.r*PI+width/4) w.x = width/4;
     w.x += w.ang_speed/180 * w.r*PI;
 }

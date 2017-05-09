@@ -1,25 +1,65 @@
 /**
-* Draws an arrow from one point to another. Useful for vector diagramming.
+
 * @constructor Arrow
 
+ * @description  Draws an arrow from one point to another. Useful for vector diagramming.
 * @param {p5.Vector} origin A vector object describing the origin
 * @param {p5.Vector} target A vector object describing the end point
 
 * @property {bool} grab Indicates if the Arrow is grabbable. (default: true)
 * @property {bool} draggable Indicates if the Arrow is draggable. (default: true)
 * @property {bool} showComponents Controls the visibility of the Arrow's components. (default: false)
-* @property {color} color The color of the Arrow. (default: white)
+* @property {color} color The color of the Arrow. (default: black)
 * @property {bool} selected Indicates if the Arrow is currently selected. (default: false)
 * @property {bool} dragSelected Indicates if the Arrow is currently selected and dragged. (default: false)
 * @property {bool} isDragging Indicates if the Arrow is currently being dragged. (default: false)
 * @property {number } width Thickness of the Arrow. (default: 20px)
 * @property Arrow.display() {method} Displays the Arrow object.
 * @property Arrow.update() {method} Updates the Arrow object.
-*/
 
+ * @example
+
+*function setup() {
+  *createCanvas(500, 500);
+  *drawAxes();
+  * // set up the Arrow
+  *startPoint = createVector(0, 0);
+  *endPoint = createVector(100, -100);
+  *myArrow = new Arrow(startPoint, endPoint);
+*}
+*
+*function draw() {
+  * // center the arrow at the origin
+  *translate(width / 2, height / 2);
+  *push();
+  *myArrow.display();
+  *myArrow.update();
+  *pop();
+*}
+*/
 
 var somethingIsDragging;
 
+
+function touchStarted() {
+  ellipse(mouseX, mouseY, 5, 5);
+  somethingIsDragging=true;
+  // prevent default
+  return false;
+}
+function touchMoved() {
+  ellipse(mouseX, mouseY, 5, 5);
+  somethingIsDragging=true;
+  // prevent default
+  return false;
+}
+
+function touchEnded() {
+  ellipse(mouseX, mouseY, 5, 5);
+  somethingIsDragging=false;  
+  // prevent default
+  return false;
+}
 function Arrow(origin_, target_){
 
   this.origin = origin_.copy();
@@ -80,8 +120,8 @@ this.display = function(){
   }
 
 };
-
 this.update = function(){
+  if (somethingIsDragging){this.selected=true;}
   if(this.selected){
 
     this.target.x = mouseX;
@@ -128,8 +168,8 @@ if (d1+d2 >= lineLen-buffer && d1+d2 <= lineLen+buffer) {
 return false;
 };
 
-
 }
+
 
 function drawArrow(thickness,length,arrow){
   //draw the arrow itself
@@ -218,3 +258,7 @@ function angCalc(arrow){
   //angleMode(DEGREES);
   return atan2(arrow.target.y-arrow.origin.y,arrow.target.x-arrow.origin.x);
 };
+
+
+
+

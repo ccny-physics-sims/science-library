@@ -1,0 +1,7 @@
+/*! science-sims - v0.1.0 - 2017-05-09 */ 
+/*  prevents the p5 error on Chrome: Unable to preventDefault inside passive event listener due to target being treated as passive */
+body {padding: 0; margin: 0;}
+
+canvas {
+  touch-action: none;
+}

@@ -1,7 +1,7 @@
 function setup(){
     createCanvas(640,480);
-    w = new wheel(width/3,height/2,150);
-    w2 = new wheel(2*width/3,height/2,150);
+    w = new Wheel(width/3,height/2,150);
+    w2 = new Wheel(2*width/3,height/2,150);
 
     w.rotate = true;
     w2.rotate = true;
@@ -10,7 +10,7 @@ function setup(){
     w.translation = false;
     w.rimColor = color('rgba(0,0,0,1)');
     w.spokeColor = color('rgba(0,0,0,1)');
-    w.wheelColor = color('rgba(0,0,0,.1)');
+    w.WheelColor = color('rgba(0,0,0,.1)');
 
 
     angleMode(DEGREES);

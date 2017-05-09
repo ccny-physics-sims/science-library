@@ -1,19 +1,13 @@
 
 function setup() {
-
   canvas = createCanvas(500, 500);
   canvas.parent('sketch-holder');
-
-  //frameRate(25);
-
-
   //create slider for adjusting the accleration
   accelSlider = createSlider(-100, 100, 0);
   accelSlider.parent('sketch-holder');
   accelSlider.position(20, 60);
   accelSlider.style('width', '150px');
-
-
+  
   velocity = createVector(0,0);
   acceleration = createVector(0,0);
   basePosition = createVector(0,200);
@@ -37,10 +31,9 @@ function setup() {
 }
 
 function draw() {
-  background('white');
+   background('white');
 
-  bg.acceleration = createVector(-accelSlider.value()/1000,0);
-
+   bg.acceleration = createVector(-accelSlider.value()/1000,0);
    bg.update();
    bg.display();
 

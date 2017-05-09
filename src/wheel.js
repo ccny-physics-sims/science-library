@@ -80,9 +80,6 @@ var Wheel = function(_x,_y,_d){
     //arrow display options
     //-> static/relative
 
-
-
-
     this.addDecorations = function(_decorations) {
 
       for(i=0;i<this.arrowDecorations.length;i++){
@@ -222,8 +219,7 @@ Wheel.prototype.update = function(){};
 *function setup(){
 *    createCanvas(640,480);
 *    w = new Wheel(width/2,height/2,200);
-*    w.rotate = true;
-*
+*    w.rotate = true;*
 *    w.cdecorate = false;
 *    w.vdecorate = false;
 *    w.rotation = true;

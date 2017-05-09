@@ -6,11 +6,11 @@ module.exports = function(grunt) {
     jsdoc : {
         dist : {
             src: ['src/arrow.js','src/KineticMass.js','src/mover.js','src/spring.js','src/axes.js','src/background-motion.js', 'src/wheel.js', 'src/fbd.js','src/physgraphs.js']
-			// ,
-            // options: {
-                // destination: 'doc',
-				// template: 'node_modules/minami'
-            // } 
+			,
+            options: {
+                destination: 'doc',
+				template: 'science-sims-template'
+            } 
 			// have discovered minami is uglier than the default, find different theme and uncomment later
         }
     },
@@ -25,6 +25,10 @@ module.exports = function(grunt) {
       dist: {
         src:['src/arrow.js','src/KineticMass.js','src/mover.js','src/spring.js','src/axes.js','src/background-motion.js','src/wheel.js','src/fbd.js','src/physgraphs.js'],
         dest: 'lib/science.js',
+      },
+	     dist: {
+        src:['src/science.css'],
+        dest: 'lib/science.css',
       },
     },
   });
