@@ -27,6 +27,17 @@
 * @property {p5.Vector} acceleration The acceleration.
 * @property Spring.update() {method} Updates the Spring object.
 * @property Spring.display() {method} Displays the Spring object.
+* @example
+*function setup() {
+*  createCanvas(500, 400);
+*  spring = new Spring(createVector(10, height / 2), 100, 5, 250, 0.2, 0);
+*}
+*
+*function draw() {
+*  clear();
+*  spring.update();
+*  spring.display();
+*}
 
 
 */
