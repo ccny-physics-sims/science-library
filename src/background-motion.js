@@ -49,20 +49,20 @@
 var options = { maxHeight: 300 };
 
 var movingBackground = function(
-  whichKind_,
-  position_,
-  initialVelocity_,
-  acceleration_,
-  options_
+  whichKind,
+  position,
+  initialVelocity,
+  acceleration,
+  options
 ) {
-  options = options_ || {};
-  this.maxBuildingHeight = options.maxBuildingHeight || 100;
-    this.amountOfBuildings = options.amountOfBuildings ||  width/14 ; //(5 * width / 70);
-        this.amountOfClouds = options.amountOfBuildings || width/5 ; // (2 * width/10)
-  this.position = position_;
-  this.velocity = initialVelocity_;
-  this.acceleration = acceleration_;
-  this.whichKind = whichKind_;
+  options = options || {};
+  this.maxBuildingHeight = (typeof options.maxBuildingHeight !== 'undefined') ? options.maxBuildingHeight : 100;
+    this.amountOfBuildings = (typeof options.amountOfBuildings !== 'undefined') ?  options.amountOfBuildings : width/14 ; //(5 * width / 70);
+        this.amountOfClouds = (typeof options.amountOfClouds !== 'undefined') ? options.amountOfClouds : width/5 ; // (2 * width/10)
+  this.position = position;
+  this.velocity = initialVelocity;
+  this.acceleration = acceleration;
+  this.whichKind = whichKind;
   this.shapes = [];
   this.avgVel = createVector(0, 0);
   if (this.whichKind == "cityStreet") {
@@ -111,12 +111,12 @@ var movingBackground = function(
   };
 };
 
-var backgroundShape = function(whichKind_, velocity_, maxHeight_) {
-  this.howTall = random(40, maxHeight_);
+var backgroundShape = function(whichKind, velocity, maxHeight) {
+  this.howTall = random(40, maxHeight);
   this.howWide = random(20, 100);
   this.fill = random(60, 230);
-  this.whichKind = whichKind_;
-  this.avgVel = velocity_;
+  this.whichKind = whichKind;
+  this.avgVel = velocity;
   this.run = function() {
     this.needsMoving();
     this.update();

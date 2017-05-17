@@ -5,7 +5,7 @@
  * @description  Draws an arrow from one point to another. Useful for vector diagramming.
 * @param {p5.Vector} origin A vector object describing the origin
 * @param {p5.Vector} target A vector object describing the end point
-
+* @param {object} options Customize the default properties. (Optional.)
 * @property {bool} grab Indicates if the Arrow is grabbable. (default: true)
 * @property {bool} draggable Indicates if the Arrow is draggable. (default: true)
 * @property {bool} showComponents Controls the visibility of the Arrow's components. (default: false)
@@ -26,15 +26,10 @@
   *startPoint = createVector(0, 0);
   *endPoint = createVector(100, -100);
   *myArrow = new Arrow(startPoint, endPoint);
-*}
-*
-*function draw() {
   * // center the arrow at the origin
   *translate(width / 2, height / 2);
-  *push();
   *myArrow.display();
   *myArrow.update();
-  *pop();
 *}
 */
 
@@ -60,20 +55,20 @@ function touchEnded() {
   // prevent default
   return false;
 }
-function Arrow(origin_, target_){
-
-  this.origin = origin_.copy();
-  this.target = target_.copy();
+function Arrow(origin, target, options){
+  var options = options || {};
+  this.origin = origin.copy();
+  this.target = target.copy();
 
   //control handles
-  this.grab = true;
-  this.draggable = true;
+  this.grab =  true;
+  this.draggable =  true;
   this.showComponents = false;
-  this.color = color('rgb(255,255,255)');
+  this.color = typeof options.color !== 'undefined' ? options.color :  color('rgb(255,255,255)');
   this.selected = false;
   this.dragSelected = false;
   this.isDragging = false;
-  this.width = 20;
+  this.width = typeof options.width !== 'undefined' ? options.width : 20;
 
   //mouse old coordinates for translation
   this.oldX = 0;

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: Wheel</title>
+    <title>JSDoc: Class: Wave</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -18,7 +18,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Class: Wheel</h1>
+    <h1 class="page-title">Class: Wave</h1>
 
     
 
@@ -29,7 +29,7 @@
 
 <header>
     
-        <h2>Wheel</h2>
+        <h2>Wave</h2>
         
     
 </header>
@@ -41,14 +41,14 @@
 
     
 
-    <h4 class="name" id="Wheel"><span class="type-signature"></span>new Wheel<span class="signature">(x, y, d)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="Wave"><span class="type-signature"></span>new Wave<span class="signature">(options)</span><span class="type-signature"></span></h4>
 
     
 
 
 
 <div class="description">
-    Makes a wheel that can display various forces while rotating or rolling.
+    Creates a Wave Object.
 </div>
 
 
@@ -84,13 +84,13 @@
 
         <tr>
             
-                <td class="name"><code>x</code></td>
+                <td class="name"><code>options</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">number</span>
+<span class="param-type">object</span>
 
 
             
@@ -100,53 +100,7 @@
 
             
 
-            <td class="description last">The x coordinate of the wheel's center.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>y</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The y coordinate of the wheel's center.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>d</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The wheel's diameter.</td>
+            <td class="description last">Customize the default Wave.</td>
         </tr>
 
     
@@ -184,13 +138,13 @@
 
         <tr>
             
-                <td class="name"><code>arrowDecorations</code></td>
+                <td class="name"><code>bounds</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">array</span>
+<span class="param-type">object</span>
 
 
             
@@ -200,20 +154,20 @@
 
             
 
-            <td class="description last">Customize the Arrow type and locations. Example: [{type: 'velocity', radialLocation: 1, rimPos: 0 }]</td>
+            <td class="description last">Set the bounding box for the Wave. (default: {x: width, y: height})</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>arrows</code></td>
+                <td class="name"><code>theta</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">array</span>
+<span class="param-type">number</span>
 
 
             
@@ -223,20 +177,20 @@
 
             
 
-            <td class="description last">Array of Arrow objects to display on the wheel.</td>
+            <td class="description last">Angle of the Wave.</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>rimColor</code></td>
+                <td class="name"><code>amplitude</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">color</span>
+<span class="param-type">number</span>
 
 
             
@@ -246,20 +200,20 @@
 
             
 
-            <td class="description last">Color of the wheel rim.</td>
+            <td class="description last">Amplitude of the Wave.</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>spokeColor</code></td>
+                <td class="name"><code>wavelength</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">color</span>
+<span class="param-type">number</span>
 
 
             
@@ -269,20 +223,20 @@
 
             
 
-            <td class="description last">Color of the wheel spokes.</td>
+            <td class="description last">Wavelength of the wave. (default: 200px)</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>wheelColor</code></td>
+                <td class="name"><code>angularVelocity</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">color</span>
+<span class="param-type">number</span>
 
 
             
@@ -292,20 +246,20 @@
 
             
 
-            <td class="description last">Color of the rest of the wheel.</td>
+            <td class="description last">Angular velocity of the wave.</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>rotate</code></td>
+                <td class="name"><code>displaySettings</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">bool</span>
+<span class="param-type">object</span>
 
 
             
@@ -315,20 +269,38 @@
 
             
 
-            <td class="description last">Allows the wheel to rotate. (default: false)</td>
-        </tr>
+            <td class="description last">Object containing display settings.
+                <h6>Properties</h6>
 
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
     
 
         <tr>
             
-                <td class="name"><code>angle</code></td>
+                <td class="name"><code>line</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">num</span>
+<span class="param-type">object</span>
 
 
             
@@ -338,20 +310,38 @@
 
             
 
-            <td class="description last">Angle in radians.</td>
-        </tr>
+            <td class="description last">Object containing display settings for a line drawn along the Wave.
+                <h6>Properties</h6>
 
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
     
 
         <tr>
             
-                <td class="name"><code>angularSpeed</code></td>
+                <td class="name"><code>visible</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">num</span>
+<span class="param-type">object</span>
 
 
             
@@ -361,20 +351,27 @@
 
             
 
-            <td class="description last">Angular speed.</td>
+            <td class="description last">Sets whether the line is visible.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>translationalSpeed</code></td>
+                <td class="name"><code>dots</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">num</span>
+<span class="param-type">object</span>
 
 
             
@@ -384,14 +381,115 @@
 
             
 
-            <td class="description last">Translational speed.</td>
+            <td class="description last">Object containing display settings for a series of dots drawn along the Wave.
+                <h6>Properties</h6>
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>visible</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Sets whether the dots are visible.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>Wheel.addDecorations(decorations)</code></td>
+                <td class="name"><code>xSpacing</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Determines the scaling of the wave along the x-axis.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>yValues</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Array containing y-values of points along the wave.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>Wave.updates()</code></td>
             
 
             <td class="type">
@@ -407,14 +505,14 @@
 
             
 
-            <td class="description last">Draws Arrow objects to indicate vectors.</td>
+            <td class="description last">Updates the Wave Object.</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>Wheel.wrap()</code></td>
+                <td class="name"><code>Wave.display()</code></td>
             
 
             <td class="type">
@@ -430,53 +528,7 @@
 
             
 
-            <td class="description last">The wheel will reappear on the other side of the canvas.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>Wheel.draw()</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">method</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Draw the Wheel object.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>Wheel.update()</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">method</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Update the Wheel object.</td>
+            <td class="description last">Displays the Wave Object.</td>
         </tr>
 
     
@@ -515,7 +567,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="wheel.js.html">wheel.js</a>, <a href="wheel.js.html#line1">line 1</a>
+        <a href="wave.js.html">wave.js</a>, <a href="wave.js.html#line1">line 1</a>
     </li></ul></dd>
     
 
@@ -540,11 +592,9 @@
 
 
 
-    <h5>Examples</h5>
+    <h5>Example</h5>
     
-    <pre class="prettyprint"><code>//  A wheel that rolls along the groundfunction setup() { canvas = createCanvas(600, 500); wheel = new Wheel(width / 2, height / 2, 200); wheel.rotate = true; wheel.translationalSpeed = 4;}function draw() { clear(); drawScenery(); wheel.update(); wheel.wrap(); wheel.draw();}function drawScenery() { background(221, 239, 254); push(); noStroke();  // draw the ground fill("grey"); rect(0, wheel.y + wheel.r, width, height); pop();}</code></pre>
-
-    <pre class="prettyprint"><code>// A wheel that skids along the groundfunction setup(){   createCanvas(600,500);   wheel = new Wheel(width/4, height/2, 200);   wheel.rotate = false;   wheel.translation = true;   wheel.translationalSpeed = 2;}function draw(){ drawScenery(); wheel.wrap(); wheel.update(); wheel.draw();    }function drawScenery() { background(221, 239, 254); push(); noStroke();  // draw the ground fill("grey"); rect(0, wheel.y + wheel.r, width, height); pop();}</code></pre>
+    <pre class="prettyprint"><code>function setup() { frameRate(30); createCanvas(700, 400); muhWave = new Wave();}function draw() { clear(); muhWave.update(); muhWave.display();}</code></pre>
 
 
 

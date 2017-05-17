@@ -43,12 +43,12 @@
 */
 
 /*spring*/
-function Spring(pos_, k_, m_, lengthOfSpring_, oscAmp_,mu_) {
+function Spring(position, k, m, lengthOfSpring, oscAmp,mu) {
   boxsize = 70;
   //no of coils (purely decorative, odd numbers work better)
   this.noOfCoils = 11;
   //how long is the equilibrium length of the spring, in px
-  this.lengthOfSpring = lengthOfSpring_;
+  this.lengthOfSpring = lengthOfSpring;
   //the transverse amplitude (also purely decorative)
   this.transAmp = 15;
   //time variables
@@ -56,20 +56,20 @@ function Spring(pos_, k_, m_, lengthOfSpring_, oscAmp_,mu_) {
   this.time = 0;
   this.play = true;
   //get the starting position of the spring.
-  this.xcent = pos_.x;
-  this.ycent = pos_.y;
+  this.xcent = position.x;
+  this.ycent = position.y;
   //how do we want it? horizontal (theta = 0), vertical? (theta = PI/2)
   this.rotation = 0;
   //how big should the oscillation amplitude be? (as a fraction of the lengthOfSpring. i.e 0.5 means it will have an Amplitude equal to half the length of the spring, which is kinda long. 0.2 works good)
   this.oscAmp = oscAmp_;
   //calculate the frequency based on the spring constant k and the mass of the block m
   //The second term in the sqrt accounts for the change in freq due to mu
-  this.freq = sqrt(k_/m_- sq(mu_)/(4*sq(m_)));
+  this.freq = sqrt(k/m- sq(mu_)/(4*sq(m)));
   //friction coeff
-  this.mu = mu_;
+  this.mu = mu;
   //Mass
-  this.m = m_;
-  this.k = k_;
+  this.m = m;
+  this.k = k;
 
 
   //some kinematics values
@@ -83,8 +83,8 @@ function Spring(pos_, k_, m_, lengthOfSpring_, oscAmp_,mu_) {
   this.acceleration = createVector(0, 0);
 
   //Function used to toggle animation
-  this.setPlay = function(play_) {
-    this.play=play_;
+  this.setPlay = function(play) {
+    this.play=play;
   }
 
 

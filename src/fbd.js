@@ -3,10 +3,11 @@
 * @constructor FBD
 * @param {p5.Vector} position The position vector.
 * @param {number} howManyForces Choose how many forces to display. 
-* @param {bool} showResultant Display the resulting net force.
 * @param {object} options Pass in an object containing custom properties. (optional)
 * @property {string} shape Choose the shape of the base. ('rect' or 'circle')
 * @property {p5.Vector} shapeSize Customize the dimensions of the base shape. 
+
+* @property {bool} showNetForce Display the resulting net force.
 * @property {array} mag Array of numbers specifying the magnitude of each of the forces. 
 * @property {array} direction Array of numbers specifying the direction of each of the forces. 
 * @property {array} labels Array of strings specifying the labels for each of the forces.
@@ -19,7 +20,7 @@
 * function setup() {
 * 	canvas = createCanvas(500, 500);
 * 	var bodyLocation = createVector(width / 3, height / 2);
-* 	box_fbd = new FBD(bodyLocation, 3, true);
+* 	box_fbd = new FBD(bodyLocation, 3);
 * 	box_fbd.mag = [175, 175, 75];
 * 	box_fbd.direction = [0, -PI / 2, 0];
 * }
@@ -35,7 +36,7 @@
 * 	canvas = createCanvas(500, 500);
 * 	var bodyLocation = createVector(width / 3, height / 4);
 *   var options = { shape: 'circle' };
-* 	ball_fbd = new FBD(bodyLocation, 2, true, options);
+* 	ball_fbd = new FBD(bodyLocation, 2, options);
 * 	ball_fbd.mag = [175, 175];
 * 	ball_fbd.direction = [0, PI / 2];
 * }
@@ -56,7 +57,7 @@
 		mag: [175, 175],
 		direction: [0, PI / 2]		
        };
-* 	ball_fbd = new FBD(bodyLocation, 2, true, options);
+* 	ball_fbd = new FBD(bodyLocation, 2, options);
 * }
 *
 * function draw() {
@@ -64,36 +65,34 @@
 * 	ball_fbd.display();
 * }
 */
-
-function FBD(position_, howManyForces_, showNetForce_, options_) {
+function FBD(position, howManyForces, options) {
   var defaultRed = color(230, 40, 40);
-  this.position = position_;
-  this.howManyForces = howManyForces_;
-  this.showResultant = showNetForce_ || true;
-  var options = options_ || {};
-  this.shape = options.shape || "rect";
-  this.shapeSize = options.shapeSize || createVector(20, 20);
-  this.shapeColor = "black";
-  this.netForceColor = "green";
+  this.position = position;
+  this.howManyForces = howManyForces;
+  var options = options || {};
+  this.showNetForce = (typeof options.showNetForce !== 'undefined')? options.showNetForce : true;
+  this.shape = (typeof options.shape !== 'undefined')? options.shape : "rect";
+  this.shapeSize = (typeof options.shapeSize !== 'undefined')? options.shapeSize : createVector(20, 20);
+  this.shapeColor = (typeof options.shapeColor !== 'undefined')? options.shapeColor : "black";
+  this.netForceColor = (typeof options.netForceColor !== 'undefined')?  options.netForceColor  : "green";
   // generate long enough arrays to fill out the defaults if custom option not provided
-  this.mag = options.mag || Array(this.howManyForces).fill(0);
-  this.direction = options.direction || Array(this.howManyForces).fill(0);
-  this.xoffsets = options.xoffsets || Array(this.howManyForces).fill(0);
-  this.yoffsets = options.yoffsets || Array(this.howManyForces).fill(0);
-  this.labels = options.labels || Array(this.howManyForces).fill("F");
+  this.mag = (typeof options.mag !== 'undefined')? options.mag  :  Array(this.howManyForces).fill(0);
+  this.direction = (typeof options.direction !== 'undefined')? options.direction :  Array(this.howManyForces).fill(0);
+  this.xoffsets = (typeof options.xoffsets !== 'undefined')? options.xoffsets :  Array(this.howManyForces).fill(0);
+  this.yoffsets = (typeof options.yoffsets !== 'undefined')? options.yoffsets :  Array(this.howManyForces).fill(0);
+  this.labels = (typeof options.labels !== 'undefined')? options.labels :  Array(this.howManyForces).fill("F");
   this.mainlabelxpadding = 15;
   this.mainlabelypadding = 0;
   this.minilabelxpadding = 15;
   this.minilabelypadding = 0;
-  this.miniArrowColors =
-    options.arrowColors || Array(this.howManyForces).fill(defaultRed);
+  this.miniArrowColors = (typeof 
+    options.arrowColors !== 'undefined')? Array(this.howManyForces).fill(options.arrowColors) :  Array(this.howManyForces).fill(defaultRed);
   // displays the combined netForce vector
-  this.mainArrowColor = options.netForceColor || defaultRed;
-  this.miniArrowWidth = options.miniArrowWidth || 15;
-  // forcesColor = defaultRed;
+  this.mainArrowColor = (typeof options.netForceColor !== 'undefined')? options.netForceColor :  defaultRed;
+  this.miniArrowWidth = (typeof options.miniArrowWidth !== 'undefined')? options.miniArrowWidth :  15;
   v1 = [];
-  if (this.showResultant) {
-    resultant = new Arrow(position_, position_);
+  if (this.showNetForce) {
+    resultant = new Arrow(this.position, this.position);
     resultant.color = this.mainArrowColor;
     resultant.grab = false;
     resultant.draggable = false;
@@ -101,9 +100,9 @@ function FBD(position_, howManyForces_, showNetForce_, options_) {
 
   for (var i = 0; i < this.howManyForces; i++) {
     v1[i] = new Arrow(
-      position_,
+      this.position,
       p5.Vector.add(
-        position_,
+        this.position,
         createVector(
           this.mag[i] * cos(this.direction[i]),
           this.mag[i] * sin(this.direction[i])
@@ -129,7 +128,7 @@ function FBD(position_, howManyForces_, showNetForce_, options_) {
       temp1.add(p5.Vector.sub(v1[i].target, v1[i].origin));
       v1[i].update();
     }
-    if (this.showResultant) {
+    if (this.showNetForce) {
       resultant.origin = this.position;
       resultant.target = p5.Vector.add(this.position, temp1);
       resultant.update();
@@ -156,7 +155,7 @@ function FBD(position_, howManyForces_, showNetForce_, options_) {
       );
       pop();
     }
-    if (this.showResultant) {
+    if (this.showNetForce) {
       if (temp1.mag() > 0.0001) {
         text(
           "Net Force",
@@ -191,3 +190,4 @@ function FBD(position_, howManyForces_, showNetForce_, options_) {
     pop();
   };
 }
+

@@ -11,6 +11,7 @@
     <![endif]-->
     <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
     <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+	
 </head>
 
 <body>
@@ -40,14 +41,14 @@
 
     
 
-    <h4 class="name" id="Axes"><span class="type-signature"></span>new Axes<span class="signature">(lineColor, thickness)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="Axes"><span class="type-signature"></span>new Axes<span class="signature">(options)</span><span class="type-signature"></span></h4>
 
     
 
 
 
 <div class="description">
-    Draws a simple x-y axis.
+    Creates a simple x-y axis.
 </div>
 
 
@@ -62,6 +63,60 @@
     
 
 <table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Customize the default properties. (Optional)</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
     <thead>
     <tr>
         
@@ -106,13 +161,13 @@
 
         <tr>
             
-                <td class="name"><code>thickness</code></td>
+                <td class="name"><code>lineThickness</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">num</span>
+<span class="param-type">number</span>
 
 
             
@@ -126,36 +181,51 @@
         </tr>
 
     
-    </tbody>
-</table>
+
+        <tr>
+            
+                <td class="name"><code>rotateBy</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
 
 
+            
+            </td>
 
+            
 
+            
 
-
-    <h5 class="subsection-title">Properties:</h5>
+            <td class="description last">Rotate axes by degrees or radians. (default: 0)</td>
+        </tr>
 
     
 
-<table class="props">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
+        <tr>
+            
+                <td class="name"><code>bounds</code></td>
+            
 
-        <th>Type</th>
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
 
-        
 
-        
+            
+            </td>
 
-        <th class="last">Description</th>
-    </tr>
-    </thead>
+            
 
-    <tbody>
+            
+
+            <td class="description last">Set the bounds of the axes. (default: { minX: 0, maxX: 500, minY: 0, maxY: 500 })</td>
+        </tr>
+
     
 
         <tr>
@@ -242,9 +312,9 @@
 
     <h5>Examples</h5>
     
-    <pre class="prettyprint"><code>function setup() {createCanvas(500, 500); myAxes = new Axes();myAxes.display();}</code></pre>
+    <pre class="prettyprint"><code>function setup() {createCanvas(500, 500); myAxes = new Axes(); myAxes.display();}</code></pre>
 
-    <pre class="prettyprint"><code>function setup() {createCanvas(500, 500);myAxes = Axes('blue', 5);myAxes.display();}</code></pre>
+    <pre class="prettyprint"><code>function setup() {createCanvas(500, 500);var customSettings  = {lineColor : 'blue', lineThickness : 5}myAxes = new Axes(customSettings);myAxes.display();}</code></pre>
 
 
 
@@ -278,16 +348,17 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Arrow.html">Arrow</a></li><li><a href="Axes.html">Axes</a></li><li><a href="FBD.html">FBD</a></li><li><a href="Graph.html">Graph</a></li><li><a href="KineticMass.html">KineticMass</a></li><li><a href="Mover.html">Mover</a></li><li><a href="MovingBackground.html">MovingBackground</a></li><li><a href="Plot.html">Plot</a></li><li><a href="Point.html">Point</a></li><li><a href="Spring.html">Spring</a></li><li><a href="Wheel.html">Wheel</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Arrow.html">Arrow</a></li><li><a href="Axes.html">Axes</a></li><li><a href="FBD.html">FBD</a></li><li><a href="Graph.html">Graph</a></li><li><a href="KineticMass.html">KineticMass</a></li><li><a href="Mover.html">Mover</a></li><li><a href="MovingBackground.html">MovingBackground</a></li><li><a href="Particle.html">Particle</a></li><li><a href="ParticleSystem.html">ParticleSystem</a></li><li><a href="Plot.html">Plot</a></li><li><a href="Point.html">Point</a></li><li><a href="Spring.html">Spring</a></li><li><a href="Wave.html">Wave</a></li><li><a href="Wheel.html">Wheel</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Tue May 09 2017 21:16:50 GMT-0400 (Eastern Daylight Time)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Tue May 16 2017 21:05:10 GMT-0400 (Eastern Daylight Time)
 </footer>
-
+	<script src="scripts/linenumber.js"></script>
+<script src="scripts/source-code.js"></script>
 <script> prettyPrint(); </script>
-<script src="scripts/linenumber.js"> </script>
+ </script>
 </body>
 </html>

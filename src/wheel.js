@@ -69,19 +69,38 @@
 *}
 */
 
-var Wheel = function(_x, _y, _d, _options) {
+//TODO: wheel object for rotating.
+//TODO: make a smart rotate that rotates and moves along
+//the ground at the correct (non-slipping) speed.
+//TODO trying to add water spraying out from the "slipping"
+//wheel so that it looks more realistic. The code for it so far
+//has been commented out. (need the correct js library as well as
+//tweaking the values of the code to make it work).
+    //TODO download correct particle lib not grafica!!!
+// 05/17 Note from C - I have added some basic splashes in
+
+var Wheel = function(x, y, d, options) {
   angleMode(RADIANS);
-  var options = _options || {};
-  this.x = _x; 
-  this.y = _y;
-  this.r = _d / 2; //radius
-  this.d = _d; // diameter
+  var options = options || {};
+  this.x = x;
+  this.y = y;
+  this.r = d / 2; //radius
+  this.d = d; // diameter
   this.arrowDecorations = [];
   this.arrows = [];
   this.rimColor = color("rgba(0,0,0,1)");
   this.spokeColor = color("rgba(0,0,0,1)");
   this.wheelColor = color("rgba(0,0,0,.1)");
 
+  this.specialEffects = (typeof options.specialEffects !== 'undefined')
+    ? options.specialEffects
+    : { active: false, style: "splash" };
+  if (this.specialEffects.active) {
+    if (this.specialEffects.style == "splash")
+      this.specialEffects.system = new ParticleSystem(
+        createVector(-this.r / 4, this.r)
+      );
+  }
   //rotation variables
   this.rotate = false;
   this.angle = 0;
@@ -123,7 +142,7 @@ var Wheel = function(_x, _y, _d, _options) {
   this.a3.grab = false;
   //arrow display options
   //-> static/relative
-  this.addDecorations = function(_decorations) {
+  this.addDecorations = function(decorations) {
     for (i = 0; i < this.arrowDecorations.length; i++) {
       this.arrows[i] = new Arrow(
         createVector(0, this.arrowDecorations[i].radialLocation * this.r),
@@ -144,15 +163,19 @@ var Wheel = function(_x, _y, _d, _options) {
     if (this.x - this.r > width) this.x = -this.r;
     if (this.x + this.r < 0) this.x = width + this.r;
   };
-  this.update = function(){
+  this.update = function() {
     this.x += this.translationalSpeed; // spins in place if disabled
     this.angularSpeed = this.translationalSpeed / (this.r - this.r * 0.1);
-  }
+  };
   this.draw = function() {
     push();
     angleMode(RADIANS);
     translate(this.x, this.y);
-    
+    // add special effects like splashes or etc...currently just splashes
+    if (this.specialEffects.active == true) {
+      this.specialEffects.system.addParticle();
+      this.specialEffects.system.display();
+    }
     //manage the rotation if this.rotate == true
     if (this.rotate == true) {
       rotate(this.angle);
@@ -164,6 +187,7 @@ var Wheel = function(_x, _y, _d, _options) {
     stroke(this.rimColor);
     strokeWeight(this.r * 0.1);
     ellipse(0, 0, this.d, this.d);
+
     // fill(color('rgba(200, 200, 200, .9)'));
     // ellipse(0,0,this.d*0.85,this.d*0.85);
     // fill(10);
