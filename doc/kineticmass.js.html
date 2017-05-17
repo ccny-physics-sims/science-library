@@ -82,161 +82,158 @@
 */
 
 
-var KineticMass = function(position, velocity, acceleration, mass, kmFill){
-  this.position = new createVector(position.x, position.y);
-  this.velocity = new createVector(velocity.x, velocity.y);
-  this.acceleration = new createVector(acceleration.x, acceleration.y);
-  this.previousVel = new createVector(0,0);
-  this.limit = 10000;
-  this.mass = mass;
-  //how does the mass look
-  this.color = kmFill;
-  this.outline = 255;
-  //size is proportional to mass
-  this.size = this.mass;
+var KineticMass = function(position, velocity, acceleration, mass, kmFill) {
+    this.position = new createVector(position.x, position.y);
+    this.velocity = new createVector(velocity.x, velocity.y);
+    this.acceleration = new createVector(acceleration.x, acceleration.y);
+    this.previousVel = new createVector(0, 0);
+    this.limit = 10000;
+    this.mass = mass;
+    //how does the mass look
+    this.color = kmFill;
+    this.outline = 255;
+    //size is proportional to mass
+    this.size = this.mass;
 
-  // tail properties
-  this.tail = false;
-  this.tailFill  = kmFill;
-  this.tailStroke = kmFill;
+    // tail properties
+    this.tail = false;
+    this.tailFill = kmFill;
+    this.tailStroke = kmFill;
 
-  this.tailA = [];
-
-
-  this.tailLength = 70;
-  this.tailSpacing = 5;
+    this.tailA = [];
 
 
-this.update = function(){
-  if(this.tail === true &amp;&amp; frameCount%this.tailSpacing==0){
-    this.tailA.push(this.position.copy());
-  }
-  this.previousVel = this.velocity.copy();
-  this.velocity.add(this.acceleration);
-  this.velocity.limit(this.limit);
-  this.avgYVel = (this.previousVel.y+this.velocity.y)/2;
-  this.avgXVel = (this.previousVel.x+this.velocity.x)/2;
-  this.position.x += this.avgXVel;
-  this.position.y += this.avgYVel;
-  //this.acceleration.mult(0);
+    this.tailLength = 70;
+    this.tailSpacing = 5;
 
 
-  if(this.tailA.length > this.tailLength){
-    this.tailA = this.tailA.slice(-1 * this.tailLength);
-  }
+    this.update = function() {
+        if (this.tail === true &amp;&amp; frameCount % this.tailSpacing == 0) {
+            this.tailA.push(this.position.copy());
+        }
+        this.previousVel = this.velocity.copy();
+        this.velocity.add(this.acceleration);
+        this.velocity.limit(this.limit);
+        this.avgYVel = (this.previousVel.y + this.velocity.y) / 2;
+        this.avgXVel = (this.previousVel.x + this.velocity.x) / 2;
+        this.position.x += this.avgXVel;
+        this.position.y += this.avgYVel;
+        //this.acceleration.mult(0);
 
-  //handles angular momentum
-  this.aVelocity += this.aAcceleration;
-  this.angle += this.aVelocity;
-};
 
-this.display = function(){
+        if (this.tailA.length > this.tailLength) {
+            this.tailA = this.tailA.slice(-1 * this.tailLength);
+        }
 
-  fill(this.color);
-  stroke(this.outline);
-  ellipse(this.position.x,this.position.y,this.size,this.size);
+        //handles angular momentum
+        this.aVelocity += this.aAcceleration;
+        this.angle += this.aVelocity;
+    };
 
-  if(this.tail === true){
-    push();
-    for(var i = 0; i &lt; this.tailA.length; i++){
-      stroke('rgba('+red(color(this.tailStroke))+','+green(color(this.tailStroke))+','+blue(color(this.tailStroke))+','+map(i,0,this.tailA.length,0,1)+')');
-      fill('rgba('+red(color(this.tailFill))+','+green(color(this.tailFill))+','+blue(color(this.tailFill))+','+map(i,0,this.tailA.length,0,1)+')');
-      ellipse(this.tailA[i].x,this.tailA[i].y,3,3);
+    this.display = function() {
+
+        fill(this.color);
+        stroke(this.outline);
+        ellipse(this.position.x, this.position.y, this.size, this.size);
+
+        if (this.tail === true) {
+            push();
+            for (var i = 0; i &lt; this.tailA.length; i++) {
+                stroke('rgba(' + red(color(this.tailStroke)) + ',' + green(color(this.tailStroke)) + ',' + blue(color(this.tailStroke)) + ',' + map(i, 0, this.tailA.length, 0, 1) + ')');
+                fill('rgba(' + red(color(this.tailFill)) + ',' + green(color(this.tailFill)) + ',' + blue(color(this.tailFill)) + ',' + map(i, 0, this.tailA.length, 0, 1) + ')');
+                ellipse(this.tailA[i].x, this.tailA[i].y, 3, 3);
+            }
+            pop();
+        }
+
+
+    };
+
+    this.giveItAnAcceleration = function(accel) {
+        this.acceleration = (accel);
     }
-    pop();
-  }
 
+    this.applyForce = function(force) {
+        var f = force.copy();
+        f.div(this.mass);
+        this.acceleration = f;
+    };
+    //Behaviors
+    this.wrapEdges = function() {
 
-};
+        if (this.position.x > width) {
+            this.position.x = 0;
+        } else if (this.position.x &lt; 0) {
+            this.position.x = width;
+        }
 
-this.giveItAnAcceleration = function(accel){
-  this.acceleration = (accel);
-}
+        if (this.position.y > height) {
+            this.position.y = 0;
+        } else if (this.position.y &lt; 0) {
+            this.position.y = height;
+        }
+    };
+    this.wrapEdgesBounceFloor = function() {
+        if (this.position.x > width) {
+            this.position.x = 0;
+        } else if (this.position.x &lt; 0) {
+            this.position.x = width;
+        }
+        if (this.position.y > height - this.size / 2) {
+            overiny = this.position.y - height + this.size / 2;
+            vatheight = Math.sqrt(Math.pow(this.velocity.y, 2) - 2 * this.acceleration.y * overiny);
+            this.position.y = height - this.size / 2;
+            this.velocity.y = -1 * vatheight;
+        }
+    }
+    this.bounceEdges = function() {
+        if (this.position.x &lt; 0 + this.size / 2) {
+            overinx = this.position.x - this.size / 2;
+            vatwidth = Math.sqrt(Math.pow(this.velocity.x, 2) - 2 * this.acceleration.x * overinx);
+            this.velocity.x = 1 * vatwidth;
+            this.position.x = 0 + this.size / 2;
 
-this.applyForce = function(force){
-  var f = force.copy();
-  f.div(this.mass);
-  this.acceleration = f;
-};
-//Behaviors
-this.wrapEdges = function() {
+        }
+        if (this.position.x > width - this.size / 2) {
+            overinx = this.position.x - width + this.size / 2;
+            vatwidth = Math.sqrt(Math.pow(this.velocity.x, 2) - 2 * this.acceleration.x * overinx);
+            this.position.x = width - this.size / 2;
+            this.velocity.x = -1 * vatwidth;
+        }
 
-  if (this.position.x > width) {
-    this.position.x = 0;
-  }
-  else if (this.position.x &lt; 0) {
-    this.position.x = width;
-  }
+        if (this.position.y &lt; 0 + this.size / 2) {
+            overiny = this.position.y - this.size / 2;
+            vatheight = Math.sqrt(Math.pow(this.velocity.y, 2) - 2 * this.acceleration.y * overiny);
+            this.velocity.y = 1 * vatheight;
+            this.position.y = 0 + this.size / 2;
 
-  if (this.position.y > height) {
-    this.position.y = 0;
-  }
-  else if (this.position.y &lt; 0) {
-    this.position.y = height;
-  }
-};
-this.wrapEdgesBounceFloor = function(){
-  if (this.position.x > width) {
-    this.position.x = 0;
-  }
-  else if (this.position.x &lt; 0) {
-    this.position.x = width;
-  }
-  if(this.position.y > height-this.size/2){
-    overiny = this.position.y-height+this.size/2;
-    vatheight = Math.sqrt(Math.pow(this.velocity.y,2)-2*this.acceleration.y*overiny);
-    this.position.y = height-this.size/2;
-    this.velocity.y = -1*vatheight;
-  }
-}
-this.bounceEdges = function(){
-  if(this.position.x &lt; 0+this.size/2){
-    overinx = this.position.x-this.size/2;
-    vatwidth = Math.sqrt(Math.pow(this.velocity.x,2)-2*this.acceleration.x*overinx);
-    this.velocity.x = 1*vatwidth;
-    this.position.x = 0+this.size/2;
+        }
+        if (this.position.y > height - this.size / 2) {
+            overiny = this.position.y - height + this.size / 2;
+            vatheight = Math.sqrt(Math.pow(this.velocity.y, 2) - 2 * this.acceleration.y * overiny);
+            this.position.y = height - this.size / 2;
+            this.velocity.y = -1 * vatheight;
+        }
+    };
 
-  }
-  if(this.position.x > width-this.size/2){
-    overinx = this.position.x-width+this.size/2;
-    vatwidth = Math.sqrt(Math.pow(this.velocity.x,2)-2*this.acceleration.x*overinx);
-    this.position.x = width-this.size/2;
-    this.velocity.x = -1*vatwidth;
-  }
-
-  if(this.position.y &lt; 0+this.size/2){
-    overiny = this.position.y-this.size/2;
-    vatheight = Math.sqrt(Math.pow(this.velocity.y,2)-2*this.acceleration.y*overiny);
-    this.velocity.y = 1*vatheight;
-    this.position.y = 0+this.size/2;
-
-  }
-  if(this.position.y > height-this.size/2){
-    overiny = this.position.y-height+this.size/2;
-    vatheight = Math.sqrt(Math.pow(this.velocity.y,2)-2*this.acceleration.y*overiny);
-    this.position.y = height-this.size/2;
-    this.velocity.y = -1*vatheight;
-  }
-};
-
-this.towardMouse = function(a){
-  var mouse = new Vector(mouseX,mouseY);
-  var dir = Vector.sub(mouse,this.position);
-  dir.normalize();
-  dir.mult(a);
-  this.acceleration = dir;
-};
+    this.towardMouse = function(a) {
+        var mouse = new Vector(mouseX, mouseY);
+        var dir = Vector.sub(mouse, this.position);
+        dir.normalize();
+        dir.mult(a);
+        this.acceleration = dir;
+    };
 
 }
 
 
-KineticMass.prototype.get = function(){
-  var bob = new KineticMass(this.position,this.velocity,this.acceleration);
-  return bob;
+KineticMass.prototype.get = function() {
+    var bob = new KineticMass(this.position, this.velocity, this.acceleration);
+    return bob;
 };
-KineticMass.get = function(m){
-  var bob = new KineticMass(m.position, m.velocity, m.acceleration);
-  return bob;
+KineticMass.get = function(m) {
+    var bob = new KineticMass(m.position, m.velocity, m.acceleration);
+    return bob;
 };
 </code></pre>
         </article>
@@ -254,7 +251,7 @@ KineticMass.get = function(m){
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Tue May 16 2017 21:07:14 GMT-0400 (Eastern Daylight Time)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Tue May 16 2017 22:02:59 GMT-0400 (Eastern Daylight Time)
 </footer>
 	<script src="scripts/linenumber.js"></script>
 <script src="scripts/source-code.js"></script>

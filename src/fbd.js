@@ -66,128 +66,126 @@
 * }
 */
 function FBD(position, howManyForces, options) {
-  var defaultRed = color(230, 40, 40);
-  this.position = position;
-  this.howManyForces = howManyForces;
-  var options = options || {};
-  this.showNetForce = (typeof options.showNetForce !== 'undefined')? options.showNetForce : true;
-  this.shape = (typeof options.shape !== 'undefined')? options.shape : "rect";
-  this.shapeSize = (typeof options.shapeSize !== 'undefined')? options.shapeSize : createVector(20, 20);
-  this.shapeColor = (typeof options.shapeColor !== 'undefined')? options.shapeColor : "black";
-  this.netForceColor = (typeof options.netForceColor !== 'undefined')?  options.netForceColor  : "green";
-  // generate long enough arrays to fill out the defaults if custom option not provided
-  this.mag = (typeof options.mag !== 'undefined')? options.mag  :  Array(this.howManyForces).fill(0);
-  this.direction = (typeof options.direction !== 'undefined')? options.direction :  Array(this.howManyForces).fill(0);
-  this.xoffsets = (typeof options.xoffsets !== 'undefined')? options.xoffsets :  Array(this.howManyForces).fill(0);
-  this.yoffsets = (typeof options.yoffsets !== 'undefined')? options.yoffsets :  Array(this.howManyForces).fill(0);
-  this.labels = (typeof options.labels !== 'undefined')? options.labels :  Array(this.howManyForces).fill("F");
-  this.mainlabelxpadding = 15;
-  this.mainlabelypadding = 0;
-  this.minilabelxpadding = 15;
-  this.minilabelypadding = 0;
-  this.miniArrowColors = (typeof 
-    options.arrowColors !== 'undefined')? Array(this.howManyForces).fill(options.arrowColors) :  Array(this.howManyForces).fill(defaultRed);
-  // displays the combined netForce vector
-  this.mainArrowColor = (typeof options.netForceColor !== 'undefined')? options.netForceColor :  defaultRed;
-  this.miniArrowWidth = (typeof options.miniArrowWidth !== 'undefined')? options.miniArrowWidth :  15;
-  v1 = [];
-  if (this.showNetForce) {
-    resultant = new Arrow(this.position, this.position);
-    resultant.color = this.mainArrowColor;
-    resultant.grab = false;
-    resultant.draggable = false;
-  }
-
-  for (var i = 0; i < this.howManyForces; i++) {
-    v1[i] = new Arrow(
-      this.position,
-      p5.Vector.add(
-        this.position,
-        createVector(
-          this.mag[i] * cos(this.direction[i]),
-          this.mag[i] * sin(this.direction[i])
-        )
-      )
-    );
-    v1[i].grab = false;
-    v1[i].draggable = false;
-    v1[i].color = this.miniArrowColors[i];
-    v1[i].width = this.miniArrowWidth;
-  }
-  this.update = function() {
-    temp1 = createVector(0, 0);
-    for (var i = 0; i < this.howManyForces; i++) {
-      v1[i].origin = this.position;
-      v1[i].target = p5.Vector.add(
-        this.position,
-        createVector(
-          this.mag[i] * cos(this.direction[i]),
-          this.mag[i] * sin(this.direction[i])
-        )
-      );
-      temp1.add(p5.Vector.sub(v1[i].target, v1[i].origin));
-      v1[i].update();
-    }
+    var defaultRed = color(230, 40, 40);
+    this.position = position;
+    this.howManyForces = howManyForces;
+    var options = options || {};
+    this.showNetForce = (typeof options.showNetForce !== 'undefined') ? options.showNetForce : true;
+    this.shape = (typeof options.shape !== 'undefined') ? options.shape : "rect";
+    this.shapeSize = (typeof options.shapeSize !== 'undefined') ? options.shapeSize : createVector(20, 20);
+    this.shapeColor = (typeof options.shapeColor !== 'undefined') ? options.shapeColor : "black";
+    this.netForceColor = (typeof options.netForceColor !== 'undefined') ? options.netForceColor : "green";
+    // generate long enough arrays to fill out the defaults if custom option not provided
+    this.mag = (typeof options.mag !== 'undefined') ? options.mag : Array(this.howManyForces).fill(0);
+    this.direction = (typeof options.direction !== 'undefined') ? options.direction : Array(this.howManyForces).fill(0);
+    this.xoffsets = (typeof options.xoffsets !== 'undefined') ? options.xoffsets : Array(this.howManyForces).fill(0);
+    this.yoffsets = (typeof options.yoffsets !== 'undefined') ? options.yoffsets : Array(this.howManyForces).fill(0);
+    this.labels = (typeof options.labels !== 'undefined') ? options.labels : Array(this.howManyForces).fill("F");
+    this.mainlabelxpadding = 15;
+    this.mainlabelypadding = 0;
+    this.minilabelxpadding = 15;
+    this.minilabelypadding = 0;
+    this.miniArrowColors = (typeof options.arrowColors !== 'undefined') ? Array(this.howManyForces).fill(options.arrowColors) : Array(this.howManyForces).fill(defaultRed);
+    // displays the combined netForce vector
+    this.mainArrowColor = (typeof options.netForceColor !== 'undefined') ? options.netForceColor : defaultRed;
+    this.miniArrowWidth = (typeof options.miniArrowWidth !== 'undefined') ? options.miniArrowWidth : 15;
+    v1 = [];
     if (this.showNetForce) {
-      resultant.origin = this.position;
-      resultant.target = p5.Vector.add(this.position, temp1);
-      resultant.update();
+        resultant = new Arrow(this.position, this.position);
+        resultant.color = this.mainArrowColor;
+        resultant.grab = false;
+        resultant.draggable = false;
     }
-  };
 
-  this.display = function() {
     for (var i = 0; i < this.howManyForces; i++) {
-      fill(0);
-      push();
-      translate(this.xoffsets[i], this.yoffsets[i]);
-      v1[i].display();
-      pop();
-    }
-    for (var i = 0; i < this.howManyForces; i++) {
-      push();
-      translate(this.xoffsets[i], this.yoffsets[i]);
-      text(
-        this.labels[i],
-        this.minilabelxpadding + v1[i].target.x,
-        this.minilabelypadding + v1[i].target.y,
-        100,
-        100
-      );
-      pop();
-    }
-    if (this.showNetForce) {
-      if (temp1.mag() > 0.0001) {
-        text(
-          "Net Force",
-          this.mainlabelxpadding + resultant.target.x,
-          this.mainlabelypadding + resultant.target.y,
-          100,
-          100
+        v1[i] = new Arrow(
+            this.position,
+            p5.Vector.add(
+                this.position,
+                createVector(
+                    this.mag[i] * cos(this.direction[i]),
+                    this.mag[i] * sin(this.direction[i])
+                )
+            )
         );
+        v1[i].grab = false;
+        v1[i].draggable = false;
+        v1[i].color = this.miniArrowColors[i];
+        v1[i].width = this.miniArrowWidth;
+    }
+    this.update = function() {
+        temp1 = createVector(0, 0);
+        for (var i = 0; i < this.howManyForces; i++) {
+            v1[i].origin = this.position;
+            v1[i].target = p5.Vector.add(
+                this.position,
+                createVector(
+                    this.mag[i] * cos(this.direction[i]),
+                    this.mag[i] * sin(this.direction[i])
+                )
+            );
+            temp1.add(p5.Vector.sub(v1[i].target, v1[i].origin));
+            v1[i].update();
+        }
+        if (this.showNetForce) {
+            resultant.origin = this.position;
+            resultant.target = p5.Vector.add(this.position, temp1);
+            resultant.update();
+        }
+    };
 
-        resultant.display();
-      }
-    }
-    // draw the object
-    push();
-    fill(this.shapeColor);
-    if (this.shape == "rect") {
-      rectMode(CENTER);
-      rect(
-        this.position.x,
-        this.position.y,
-        this.shapeSize.x,
-        this.shapeSize.y
-      );
-    } else if (this.shape == "circle") {
-      ellipse(
-        this.position.x,
-        this.position.y,
-        this.shapeSize.x,
-        this.shapeSize.y
-      );
-    }
-    pop();
-  };
+    this.display = function() {
+        for (var i = 0; i < this.howManyForces; i++) {
+            fill(0);
+            push();
+            translate(this.xoffsets[i], this.yoffsets[i]);
+            v1[i].display();
+            pop();
+        }
+        for (var i = 0; i < this.howManyForces; i++) {
+            push();
+            translate(this.xoffsets[i], this.yoffsets[i]);
+            text(
+                this.labels[i],
+                this.minilabelxpadding + v1[i].target.x,
+                this.minilabelypadding + v1[i].target.y,
+                100,
+                100
+            );
+            pop();
+        }
+        if (this.showNetForce) {
+            if (temp1.mag() > 0.0001) {
+                text(
+                    "Net Force",
+                    this.mainlabelxpadding + resultant.target.x,
+                    this.mainlabelypadding + resultant.target.y,
+                    100,
+                    100
+                );
+
+                resultant.display();
+            }
+        }
+        // draw the object
+        push();
+        fill(this.shapeColor);
+        if (this.shape == "rect") {
+            rectMode(CENTER);
+            rect(
+                this.position.x,
+                this.position.y,
+                this.shapeSize.x,
+                this.shapeSize.y
+            );
+        } else if (this.shape == "circle") {
+            ellipse(
+                this.position.x,
+                this.position.y,
+                this.shapeSize.x,
+                this.shapeSize.y
+            );
+        }
+        pop();
+    };
 }
-

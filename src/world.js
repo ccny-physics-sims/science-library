@@ -1,3 +1,3 @@
 var World = function(options) {
-  var options = options || {};
+    var options = options || {};
 }
