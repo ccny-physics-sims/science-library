@@ -6,6 +6,7 @@
 * @param {p5.Vector} acceleration A vector object describing the ball's acceleration.
 * @param {number} mass A scalar quantity indicating the mass.
 * @param {color} color The color of the ball.
+* @param {object} options Customize the default properties. (Optional.)
 * @property {number} limit This sets the limit for the maximum speed. (default: 10000)
 * @property {bool} tail Displays a tail of little dots that trail behind the KineticMass as it moves.
 * @property {color} outline The color of the KineticMass object. 
@@ -53,7 +54,8 @@
 */
 
 
-var KineticMass = function(position, velocity, acceleration, mass, kmFill) {
+var KineticMass = function(position, velocity, acceleration, mass, kmFill, options) {
+    this.options = options || {};
     this.position = new createVector(position.x, position.y);
     this.velocity = new createVector(velocity.x, velocity.y);
     this.acceleration = new createVector(acceleration.x, acceleration.y);

@@ -28,7 +28,7 @@ function setup() {
 
   //let's start walking from the center of the canvas
   startPoint = createVector(width / 2, height / 2);
-
+  axes = new Axes();
 }
 
 
@@ -65,7 +65,7 @@ function draw() {
   stroke(30);
   //this draws the circle showing the average distance
   ellipse(width/2,height/2,2*avg,2*avg)
-  drawAxes();
+  axes.display();
   pop()
 
 

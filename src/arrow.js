@@ -17,45 +17,20 @@
 * @property Arrow.display() {method} Displays the Arrow object.
 * @property Arrow.update() {method} Updates the Arrow object.
 
- * @example
+* @example
 
-*function setup() {
-  *createCanvas(500, 500);
-  *drawAxes();
-  * // set up the Arrow
-  *startPoint = createVector(0, 0);
-  *endPoint = createVector(100, -100);
-  *myArrow = new Arrow(startPoint, endPoint);
-  * // center the arrow at the origin
-  *translate(width / 2, height / 2);
-  *myArrow.display();
-  *myArrow.update();
-*}
+* function setup() {
+*   createCanvas(500, 500);
+*   startPoint = createVector(0, 0);
+*   endPoint = createVector(100, -100);
+*   myArrow = new Arrow(startPoint, endPoint);
+*   // center the arrow at the origin
+*   translate(width / 2, height / 2);
+*   myArrow.display();
+* }
 */
 
 var somethingIsDragging;
-
-
-function touchStarted() {
-    ellipse(mouseX, mouseY, 5, 5);
-    somethingIsDragging = true;
-    // prevent default
-    return false;
-}
-
-function touchMoved() {
-    ellipse(mouseX, mouseY, 5, 5);
-    somethingIsDragging = true;
-    // prevent default
-    return false;
-}
-
-function touchEnded() {
-    ellipse(mouseX, mouseY, 5, 5);
-    somethingIsDragging = false;
-    // prevent default
-    return false;
-}
 
 function Arrow(origin, target, options) {
     var options = options || {};
@@ -63,13 +38,13 @@ function Arrow(origin, target, options) {
     this.target = target.copy();
 
     //control handles
-    this.grab = true;
-    this.draggable = true;
-    this.showComponents = false;
+    this.grab = typeof options.grab !== 'undefined' ? options.grab : true;
+    this.draggable = typeof options.draggable !== 'undefined' ? options.grabbable : true;
+    this.showComponents = typeof options.showComponents !== 'undefined' ? options.showComponents : false;
     this.color = typeof options.color !== 'undefined' ? options.color : color('rgb(255,255,255)');
-    this.selected = false;
-    this.dragSelected = false;
-    this.isDragging = false;
+    this.selected = typeof options.selected !== 'undefined' ? options.selected : false;
+    this.dragSelected = typeof options.dragSelected !== 'undefined' ? options.dragSelected : false;
+    this.isDragging = typeof options.isDragging !== 'undefined' ? options.isDragging : false;
     this.width = typeof options.width !== 'undefined' ? options.width : 20;
 
     //mouse old coordinates for translation
@@ -77,11 +52,9 @@ function Arrow(origin, target, options) {
     this.oldY = 0;
 
     this.display = function() {
-
         push();
         fill(this.color);
         noStroke();
-        //draw arrow
         var d = dist(this.origin.x, this.origin.y, this.target.x, this.target.y);
         var w = this.width;
         translate(this.origin.x, this.origin.y);

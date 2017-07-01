@@ -3,7 +3,7 @@
 * @constructor FBD
 * @param {p5.Vector} position The position vector.
 * @param {number} howManyForces Choose how many forces to display. 
-* @param {object} options Pass in an object containing custom properties. (optional)
+* @param {object} options Customize the default properties. (Optional.)
 * @property {string} shape Choose the shape of the base. ('rect' or 'circle')
 * @property {p5.Vector} shapeSize Customize the dimensions of the base shape. 
 
@@ -18,51 +18,52 @@
 * @example
 * // creates a box FBD
 * function setup() {
-* 	canvas = createCanvas(500, 500);
-* 	var bodyLocation = createVector(width / 3, height / 2);
-* 	box_fbd = new FBD(bodyLocation, 3);
-* 	box_fbd.mag = [175, 175, 75];
-* 	box_fbd.direction = [0, -PI / 2, 0];
+*   canvas = createCanvas(500, 500);
+*   var bodyLocation = createVector(width / 3, height / 2);
+*   boxFBD = new FBD(bodyLocation, 3);
+*   boxFBD.mag = [175, 175, 75];
+*   boxFBD.direction = [0, -PI / 2, 0];
 * }
 *
 * function draw() {
-* 	box_fbd.update();
-* 	box_fbd.display();
+*   boxFBD.update();
+*   boxFBD.display();
 * }
 *
 * @example
 * // creates a ball FBD
 * function setup() {
-* 	canvas = createCanvas(500, 500);
-* 	var bodyLocation = createVector(width / 3, height / 4);
+*   canvas = createCanvas(500, 500);
+*   var bodyLocation = createVector(width / 3, height / 4);
 *   var options = { shape: 'circle' };
-* 	ball_fbd = new FBD(bodyLocation, 2, options);
-* 	ball_fbd.mag = [175, 175];
-* 	ball_fbd.direction = [0, PI / 2];
+*   ballFBD = new FBD(bodyLocation, 2, options);
+*   ballFBD.mag = [175, 175];
+*   ballFBD.direction = [0, PI / 2];
 * }
 *
 * function draw() {
-* 	ball_fbd.update();
-* 	ball_fbd.display();
+*   ballFBD.update();
+*   ballFBD.display();
 * }
 *
 * @example
 * // creates a ball FBD with some custom sizing and labels
 * function setup() {
-* 	canvas = createCanvas(500, 500);
-* 	var bodyLocation = createVector(width / 3, height / 4);
-*   var options = { shape: 'circle', 
-		shapeSize: createVector(30,30),
-        labels: [ 'Wind', 'Gravity'], 
-		mag: [175, 175],
-		direction: [0, PI / 2]		
-       };
-* 	ball_fbd = new FBD(bodyLocation, 2, options);
+*   canvas = createCanvas(500, 500);
+*   var bodyLocation = createVector(width / 3, height / 4);
+*   var options = { 
+      shape: 'circle', 
+      shapeSize: createVector(30,30),
+      labels: [ 'Wind', 'Gravity'], 
+      mag: [175, 175],
+      direction: [0, PI / 2]		
+      };
+*   ballFBD = new FBD(bodyLocation, 2, options);
 * }
 *
 * function draw() {
-* 	ball_fbd.update();
-* 	ball_fbd.display();
+*   ballFBD.update();
+*   ballFBD.display();
 * }
 */
 function FBD(position, howManyForces, options) {

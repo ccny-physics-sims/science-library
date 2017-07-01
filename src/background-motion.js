@@ -5,6 +5,7 @@
  * @param {p5.Vector} position The position vector.
  * @param {p5.Vector} initialVelocity The initial velocity.
  * @param {p5.Vector} acceleration The acceleration.
+ * @param {object} options Customize the default properties. (Optional.)
  * @property {array} shapes Array containing the randomly generated city buildings or clouds. 
  * @property {p5.Vector} avgVel The average velocity.
  * @property MovingBackground.display() {method} Displays the MovingBackground object
@@ -46,9 +47,6 @@
  *  bg.display();
  *}
  */
-var options = {
-    maxHeight: 300
-};
 
 var movingBackground = function(
     whichKind,
@@ -58,7 +56,7 @@ var movingBackground = function(
     options
 ) {
     options = options || {};
-    this.maxBuildingHeight = (typeof options.maxBuildingHeight !== 'undefined') ? options.maxBuildingHeight : 100;
+    this.maxUnitHeight = (typeof options.maxUnitHeight !== 'undefined') ? options.maxUnitHeight : 300;
     this.amountOfBuildings = (typeof options.amountOfBuildings !== 'undefined') ? options.amountOfBuildings : width / 14; //(5 * width / 70);
     this.amountOfClouds = (typeof options.amountOfClouds !== 'undefined') ? options.amountOfClouds : width / 5; // (2 * width/10)
     this.position = position;
@@ -72,7 +70,7 @@ var movingBackground = function(
         rectMode(CORNERS);
         for (i = 0; i < noOfBuildings; i++) {
             this.shapes.push(
-                new backgroundShape(this.whichKind, this.velocity, this.maxBuildingHeight)
+                new backgroundShape(this.whichKind, this.velocity, this.maxUnitHeight)
             );
             this.shapes[i].position = createVector(-(width * 2) + i * 70, // 70?
                 this.position.y
@@ -112,8 +110,8 @@ var movingBackground = function(
     };
 };
 
-var backgroundShape = function(whichKind, velocity, maxHeight) {
-    this.howTall = random(40, maxHeight);
+var backgroundShape = function(whichKind, velocity) {
+    this.howTall = random(40, this.maxUnitHeight);
     this.howWide = random(20, 100);
     this.fill = random(60, 230);
     this.whichKind = whichKind;

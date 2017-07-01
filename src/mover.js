@@ -6,6 +6,7 @@
  * @param {p5.Vector} acceleration The Mover's acceleration.
  * @param {number} mass A scalar quantity indicating the mass.
  * @param {color} color The color of the Mover. 
+ * @param {object} options Customize the default properties. (Optional.)
  * @property {number} limit The maximum speed of the mover.
  * @property {bool} tail A tail leaves little dots behind as it moves.
  * @property {number} size Default is set equivalent to mass. 
@@ -28,7 +29,8 @@
 
 
 
-var Mover = function(position, velocity, acceleration, mass, color) {
+var Mover = function(position, velocity, acceleration, mass, color, options) {
+    this.options = options || {};
     this.position = new createVector(position.x, position.y);
     this.velocity = new createVector(velocity.x, velocity.y);
     this.acceleration = new createVector(acceleration.x, acceleration.y);

@@ -86,6 +86,124 @@ function Equation() {
 * @property {method} Plot.getPointDist(Point,Point) Takes in two point objects and returns a new point object whose x and y values are the respective x and y distances.
 * @property {method} Plot.fixChoord(scalex,scaley,origin) Takes a p5.Vector as origin and scales it according to scalex and scaley. 
 
+* @example Graph plots the position of a ball that moves up and down. 
+* var xarray = [];
+* var yarray = [];
+* ground = 451;
+* var goUpButton;
+* 
+* function setup() {
+*   running = true;
+*   canvas = createCanvas(400,300);
+*   frameRate(20);
+*   onoff = createButton("Pause");
+*   onoff.position(width-100,height/3 + 30);
+*   onoff.class("sim-button blue slim");
+*   onoff.mousePressed(turnonoff);
+*   goUpButton = createButton("GO UP");
+*   goUpButton.position(width-100,height/3+60);
+*   goUpButton.class("sim-button blue slim");
+*   goDownButton = createButton("GO DOWN");
+*   goDownButton.position(width-100,height/3+90);
+*   goDownButton.class("sim-button blue slim");
+*   pos = createVector(width-150,ground)
+*   vel = createVector(0,0);
+*   accel = createVector(0,0);
+*   ball = new KineticMass(pos,vel,accel,1,'red');
+*   ball.outline = color('rgba(255, 0, 0, 1)');
+*   ball.limit = 2000;
+*   ball.tail = false;   
+*   goUpButton.mousePressed(goUp);
+*   goDownButton.mousePressed(goDown);
+*   positionGraph = new Graph(250,250,0,5,-350,350,8);
+*   positionGraph.showBorder = false;
+* 	positionGraph.set_offset(20,00);
+*   positionPlot = new Plot([],0,0,200,1);
+*   positionPlot.pointSize = 1;
+*   positionGraph.addPlot(positionPlot);
+*   motion1 = new upMotion(ball);
+*   motion1.goingUp = false;
+* 
+*   positionGraph.xlabel = "";
+*   positionGraph.ylabel = "y";
+*   positionGraph.title = "y vs. time"
+* }
+* 
+* function draw() {
+*   background(255);
+*   motion1.advanceInTime();
+*   ball.update();
+*   ball.display();
+*   positionGraph.drawBg(color(255),color(0));
+*   positionGraph.plotAll();
+*   //now during the draw function call these three functions
+*   positionGraph.plots[0].tpRecord((ground-ball.position.y),positionGraph);
+* }
+* function goUp(){
+*   if (ball.velocity.mag() < 0.001) {
+*   motion1.goingUp = true;
+*   motion1.t0 = frameCount
+*   }
+* 
+* }
+* function goDown(){
+*   if (ball.velocity.mag() < 0.001) {
+*   motion1.goingDown = true;
+*   motion1.t0 = frameCount
+* }
+* }
+* var upMotion = function(whatsMoving) {
+*     this.who = whatsMoving;
+*     this.t0 = frameCount;
+*     this.goingUp = false;
+*     this.advanceInTime = function() {
+*       if(this.goingUp == true){
+*       t=frameCount-this.t0;
+*       if(t < 10){
+*       this.who.acceleration.y = -.3;
+*       }
+*       if(t > 10 ){this.who.acceleration.y = 0;}
+*       if(t > 50 ){this.who.acceleration.y = +.3;}
+*       if(t > 60 ){this.who.acceleration.y = 0;}
+*       if(t > 61){this.goingUp = false;}
+*       }
+*       if(this.goingDown == true){
+*       t=frameCount-this.t0;
+*       if(t < 10){
+*       this.who.acceleration.y = +.3;
+*       }
+*       if(t > 10 ){this.who.acceleration.y = 0;}
+*       if(t > 50 ){this.who.acceleration.y = -.3;}
+*       if(t > 60 ){this.who.acceleration.y = 0;}
+*       if(t > 61){this.goingDown = false;}
+*       }
+*     }
+* }
+* 
+* function turnonoff() {
+*   if (!running) {
+*     running = true;
+*     turnedOffByButton = false;
+*     loop();
+*     onoff.html("stop");
+*     return
+*   }
+* 
+*   if (running) {
+*     running = false;
+*     turnedOffByButton = true;
+*     noLoop()
+*     onoff.html("start");
+*     return
+*   }
+* }
+* 
+* 
+
+
+
+
+
 */
 
 /*Declaration of plot object which will be graphed

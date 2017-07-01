@@ -2,19 +2,31 @@
 
 * @constructor Particle
 
- * @description  Creates a Particle for use in a Particle system. 
+* @description  Creates a Particle for use in a Particle system. 
 * @param {p5.Vector} origin A vector object describing the origin location.
-* @param {object} options An optional argument containing an object for customized settings. 
+* @param {object} options Customize the default properties. (Optional.)
 */
 
 /**
-
-* @constructor ParticleSystem
-
+ * @constructor ParticleSystem
  * @description  Creates and manages a collection of Particles. 
-* @param {p5.Vector} origin A vector object describing the origin location.
-* @param {object} options An optional argument containing an object for customized settings. 
-*/
+ * @param {p5.Vector} origin A vector object describing the origin location.
+ * @param {object} options An optional argument containing an object for customized settings. 
+ * @example
+ * // A small misting effect
+ * function setup() {
+ *   canvas = createCanvas(600, 500);
+ *   mist = new ParticleSystem(createVector(-20, 20))
+ * }
+ * 
+ * function draw() {
+ *   clear();
+ *   translate(width, height/3)
+ *   mist.addParticle();
+ *   mist.display()
+ * }
+ * 
+ */
 
 
 // A simple Particle class

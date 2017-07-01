@@ -5,7 +5,7 @@ module.exports = function(grunt) {
 
     jsdoc : {
         dist : {
-            src: ['src/arrow.js','src/KineticMass.js','src/mover.js','src/spring.js','src/axes.js','src/background-motion.js', 'src/wheel.js', 'src/fbd.js','src/physgraphs.js', 'src/particle.js', 'src/wave.js']
+            src: ['src/arrow.js','src/KineticMass.js','src/mover.js','src/spring.js','src/axes.js','src/background-motion.js', 'src/wheel.js', 'src/fbd.js','src/physgraphs.js', 'src/particle.js', 'src/wave.js', 'src/background-static.js', 'README.md']
 			,
             options: {
                 destination: 'doc',
@@ -27,22 +27,27 @@ module.exports = function(grunt) {
         '<%= grunt.template.today("yyyy-mm-dd") %> */ \n',
       },
       dist: {
-        src:['src/arrow.js','src/KineticMass.js','src/mover.js','src/spring.js','src/axes.js','src/background-motion.js','src/wheel.js','src/fbd.js','src/physgraphs.js',  'src/particle.js','src/wave.js'],
+        src:['src/arrow.js','src/KineticMass.js','src/mover.js','src/spring.js','src/axes.js','src/background-motion.js','src/wheel.js','src/fbd.js','src/physgraphs.js',  'src/particle.js','src/wave.js', 'src/background-static.js'],
         dest: 'lib/science.js',
-      } //,
-	     // dist: {
-        // src:['src/science.css'],
-        // dest: 'lib/science.css',
-      // }, just adding this in makes it only compile the css rather than the js, need to figure out how to run multiple concats
+      } 
     },
 	 uglify: {
     options: {
-      mangle: false
+      mangle: true
     },
+		compress: {
+		sequences: true,
+		dead_code: true,
+		conditionals: true,
+		booleans: true,
+		unused: true,
+		if_return: true,
+		join_vars: true,
+		drop_console: true
+	},
   my_target: {
       files: {
-        'lib/science.min.js': ['lib/science.js'],
-        'lib/science.min.css': ['lib/science.min.css']
+        'lib/science.min.js': ['lib/science.js']
       }
     }
   }

@@ -19,20 +19,20 @@
  * @property {method} Wheel.update()  Update the Wheel object.
  * @example 
  * //  A wheel that rolls along the ground
- *function setup() {
+ * function setup() {
  *  canvas = createCanvas(600, 500);
  *  wheel = new Wheel(width / 2, height / 2, 200);
  *  wheel.rotate = true;
  *  wheel.translationalSpeed = 4;
- *}
+ * }
  *
- *function draw() {
+ * function draw() {
  *  clear();
  *  drawScenery();
  *  wheel.update();
  *  wheel.wrap();
  *  wheel.draw();
- *}
+ * }
  *
  *function drawScenery() {
  *  background(221, 239, 254);
@@ -45,20 +45,20 @@
  *}
  * @example 
  * // A wheel that skids along the ground
- *function setup(){
- *    createCanvas(600,500);
- *    wheel = new Wheel(width/4, height/2, 200);
- *    wheel.rotate = false;
- *    wheel.translation = true;
- *    wheel.translationalSpeed = 2;
- *}
- *function draw(){
+ * function setup(){
+ *   createCanvas(600,500);
+ *   wheel = new Wheel(width/4, height/2, 200);
+ *   wheel.rotate = false;
+ *   wheel.translation = true;
+ *   wheel.translationalSpeed = 2;
+ * }
+ * function draw(){
  *  drawScenery();
- *  wheel.wrap();
- *  wheel.update();
- *  wheel.draw();    
- *}
- *function drawScenery() {
+*   wheel.update();
+*   wheel.wrap();
+*   wheel.draw();   
+ * }
+ * function drawScenery() {
  *  background(221, 239, 254);
  *  push();
  *  noStroke(); 
@@ -66,7 +66,24 @@
  *  fill("grey");
  *  rect(0, wheel.y + wheel.r, width, height);
  *  pop();
- *}
+ * }
+ * @example 
+*  // A wheel on a rainy day
+* function setup() {
+*   canvas = createCanvas(600, 500);
+*   options = {specialEffects: {active: true, style: "splash" }}
+*   wheel = new Wheel(width / 2, height / 2, 200, options);
+*   wheel.rotate = true;
+*   wheel.translationalSpeed = 4;
+* }
+* 
+* function draw() {
+*   clear();
+*   wheel.update();
+*   wheel.wrap();
+*   wheel.draw();
+* }
+ 
  */
 
 //TODO: wheel object for rotating.

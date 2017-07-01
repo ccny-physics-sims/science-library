@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: Axes</title>
+    <title>JSDoc: Class: StaticBackground</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -18,7 +18,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Class: Axes</h1>
+    <h1 class="page-title">Class: StaticBackground</h1>
 
     
 
@@ -29,7 +29,7 @@
 
 <header>
     
-        <h2>Axes</h2>
+        <h2>StaticBackground</h2>
         
     
 </header>
@@ -41,14 +41,14 @@
 
     
 
-    <h4 class="name" id="Axes"><span class="type-signature"></span>new Axes<span class="signature">(options)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="StaticBackground"><span class="type-signature"></span>new StaticBackground<span class="signature">(options)</span><span class="type-signature"></span></h4>
 
     
 
 
 
 <div class="description">
-    Creates a simple x-y axis.
+    Creates a static background.
 </div>
 
 
@@ -100,7 +100,7 @@
 
             
 
-            <td class="description last">Customize the default properties. (Optional)</td>
+            <td class="description last">Customize the default properties for scenery. (Optional.)</td>
         </tr>
 
     
@@ -138,13 +138,13 @@
 
         <tr>
             
-                <td class="name"><code>styles</code></td>
+                <td class="name"><code>type</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">object</span>
+<span class="param-type">string</span>
 
 
             
@@ -154,14 +154,14 @@
 
             
 
-            <td class="description last">The styles.</td>
+            <td class="description last">Current options: 'basic' or 'grassy'</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>lineColor</code></td>
+                <td class="name"><code>scenery.ground</code></td>
             
 
             <td class="type">
@@ -177,14 +177,37 @@
 
             
 
-            <td class="description last">The color of the lines. (default: black)</td>
+            <td class="description last">Color of the foreground.</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>lineThickness</code></td>
+                <td class="name"><code>scenery.sky</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">color</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Color of the sky.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>scenery.vanishingPoint</code></td>
             
 
             <td class="type">
@@ -200,60 +223,14 @@
 
             
 
-            <td class="description last">The thickness of the lines. (default: 1px)</td>
+            <td class="description last">Determines the location of the horizon as a portion of the total height. (.1 = 10% sky, .9 = 90% sky)</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>rotateBy</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Rotate axes by degrees or radians. (default: 0)</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>bounds</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Set the bounds of the axes. (default: { minX: 0, maxX: 500, minY: 0, maxY: 500 })</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>Axes.display()</code></td>
+                <td class="name"><code>StaticBackground.display()</code></td>
             
 
             <td class="type">
@@ -269,7 +246,7 @@
 
             
 
-            <td class="description last">Displays the axes.</td>
+            <td class="description last">Draws the StaticBackground object.</td>
         </tr>
 
     
@@ -308,7 +285,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="axes.js.html">axes.js</a>, <a href="axes.js.html#line1">line 1</a>
+        <a href="background-static.js.html">background-static.js</a>, <a href="background-static.js.html#line1">line 1</a>
     </li></ul></dd>
     
 
@@ -335,9 +312,11 @@
 
     <h5>Examples</h5>
     
-    <pre class="prettyprint"><code>function setup() {  createCanvas(500, 500);  myAxes = new Axes();  myAxes.display();}</code></pre>
+    <pre class="prettyprint"><code>// draws the default static backgroundfunction setup() { canvas = createCanvas(500, 500); bg = new StaticBackground(); bg.display();}</code></pre>
 
-    <pre class="prettyprint"><code>function setup() {  createCanvas(500, 500);  var customSettings = {lineColor : 'blue', lineThickness : 5}  myAxes = new Axes(customSettings);  myAxes.display();}</code></pre>
+    <pre class="prettyprint"><code>// draws a grassy background with some custom settingsfunction setup() {  canvas = createCanvas(500, 500);  bg = new StaticBackground({ type: "grassy", vanishingPoint: 0.2 });  bg.display();}</code></pre>
+
+    <pre class="prettyprint"><code>// change the sky color after creating the backgroundfunction setup() {  canvas = createCanvas(500, 500);  bg = new StaticBackground();  bg.display();}function draw(){  bg.scenery.sky = "orange";  bg.display();}</code></pre>
 
 
 

@@ -7,6 +7,7 @@
 * @param  {number} lengthOfSpring Length of the Spring in px.
 * @param  {number} oscAmp Amplitude of the oscillation.
 * @param  {number} mu Coefficient of friction.
+* @param {object} options Customize the default properties. (Optional.)
 
 * @property {number} boxSize Length of the sides of the box attached to spring.
 * @property {number} lengthOfSpring The current length of the spring in pixels. 
@@ -42,16 +43,15 @@
 
 */
 
-/*spring*/
-function Spring(position, k, m, lengthOfSpring, oscAmp, mu) {
-    boxsize = 70;
-    //no of coils (purely decorative, odd numbers work better)
-    this.noOfCoils = 11;
-    //how long is the equilibrium length of the spring, in px
+function Spring(position, k, m, lengthOfSpring, oscAmp, mu, options) {
+    var options = options || {};
+    this.boxsize = (typeof options.boxsize !== 'undefined') ? options.boxsize : 70;
+    // purely decorative, odd numbers work better
+    this.noOfCoils = (typeof options.noOfCoils !== 'undefined') ? options.noOfCoils : 11;
+    //  equilibrium length of the spring in px
     this.lengthOfSpring = lengthOfSpring;
     //the transverse amplitude (also purely decorative)
     this.transAmp = 15;
-    //time variables
     this.tzero = millis();
     this.time = 0;
     this.play = true;
@@ -60,34 +60,22 @@ function Spring(position, k, m, lengthOfSpring, oscAmp, mu) {
     this.ycent = position.y;
     //how do we want it? horizontal (theta = 0), vertical? (theta = PI/2)
     this.rotation = 0;
-    //how big should the oscillation amplitude be? (as a fraction of the lengthOfSpring. i.e 0.5 means it will have an Amplitude equal to half the length of the spring, which is kinda long. 0.2 works good)
-    this.oscAmp = oscAmp_;
+    // oscillation amplitude as a fraction of   lengthOfSpring. i.e 0.5 means it will have an Amplitude equal to half the length of the spring, which is kinda long. (0.2 works good)
+    this.oscAmp = oscAmp;
     //calculate the frequency based on the spring constant k and the mass of the block m
     //The second term in the sqrt accounts for the change in freq due to mu
-    this.freq = sqrt(k / m - sq(mu_) / (4 * sq(m)));
-    //friction coeff
+    this.freq = sqrt(k / m - sq(mu) / (4 * sq(m)));
     this.mu = mu;
-    //Mass
     this.m = m;
     this.k = k;
-
-
-    //some kinematics values
-    //where is equilibrium?
     this.equilibrium = createVector(this.lengthOfSpring, 0);
-    //where is the mass?
     this.displacement = createVector(0, 0);
-    //what is its velocity
     this.velocity = createVector(0, 0);
-    //and its acceleration?
     this.acceleration = createVector(0, 0);
-
     //Function used to toggle animation
     this.setPlay = function(play) {
         this.play = play;
     }
-
-
     this.update = function() {
         //Keep track of time
         if (this.play) {
@@ -100,17 +88,15 @@ function Spring(position, k, m, lengthOfSpring, oscAmp, mu) {
     }
 
     this.display = function() {
-
         push();
         //Calculate argument for sin and amplitude
         var theta = this.time * this.freq;
         var amp = this.oscAmp * exp((-1 * this.mu * this.time) / (2 * this.m));
-
         //Draw the mass at the end
         translate(this.xcent, this.ycent);
         rotate(this.rotation)
         fill(200);
-        rect(this.lengthOfSpring - (boxsize / 2) + (this.lengthOfSpring - 60) * amp * sin(theta), -(boxsize / 2), boxsize, boxsize);
+        rect(this.lengthOfSpring - (this.boxsize / 2) + (this.lengthOfSpring - 60) * amp * sin(theta), -(this.boxsize / 2), this.boxsize, this.boxsize);
         noFill();
         stroke(80);
         strokeWeight(3);

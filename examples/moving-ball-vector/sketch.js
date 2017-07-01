@@ -23,7 +23,7 @@ function setup() {
   velVector.color = color('green');
   velVector.width = 10;
   velVector.showComponents = true;
-
+  axes = new Axes();
 }
 
 
@@ -31,7 +31,7 @@ function draw() {
 
   background(250);
   //draw some axis
-  drawAxes();
+  axes.display();
   //update the position
   ball.update();
   //make the ball bounce
