@@ -99,7 +99,7 @@
 
             
 
-            <td class="description last">A vector object describing the balls acceleration</td>
+            <td class="description last">A vector object describing the balls acceleration.</td>
         </tr>
 
     
@@ -122,7 +122,7 @@
 
             
 
-            <td class="description last">A vector object describing the ball's velocity</td>
+            <td class="description last">A vector object describing the ball's velocity.</td>
         </tr>
 
     
@@ -145,7 +145,7 @@
 
             
 
-            <td class="description last">A vector object describing the ball's acceleration</td>
+            <td class="description last">A vector object describing the ball's acceleration.</td>
         </tr>
 
     
@@ -168,7 +168,7 @@
 
             
 
-            <td class="description last">A scalar quantity indicating the mass</td>
+            <td class="description last">A scalar quantity indicating the mass.</td>
         </tr>
 
     
@@ -191,7 +191,7 @@
 
             
 
-            <td class="description last">What color do you want the ball to be?</td>
+            <td class="description last">The color of the ball.</td>
         </tr>
 
     
@@ -245,7 +245,7 @@
 
             
 
-            <td class="description last">how fast can it go? This sets the max speed.</td>
+            <td class="description last">This sets the limit for the maximum speed. (default: 10000)</td>
         </tr>
 
     
@@ -268,7 +268,7 @@
 
             
 
-            <td class="description last">a tail leaves little dots behind as it moves.</td>
+            <td class="description last">Displays a tail of little dots that trail behind the KineticMass as it moves.</td>
         </tr>
 
     
@@ -291,7 +291,7 @@
 
             
 
-            <td class="description last">what color is the stroke of the mass?</td>
+            <td class="description last">The color of the KineticMass object.</td>
         </tr>
 
     
@@ -314,7 +314,7 @@
 
             
 
-            <td class="description last">how many tail bits to leave? (70 is a good number)</td>
+            <td class="description last">The number of tailbits following the KineticMass object. (note: 70 is a good number)</td>
         </tr>
 
     
@@ -337,7 +337,7 @@
 
             
 
-            <td class="description last">what color is the tail?</td>
+            <td class="description last">The tail color.</td>
         </tr>
 
     
@@ -360,7 +360,7 @@
 
             
 
-            <td class="description last">what is the stroke of the tail?</td>
+            <td class="description last">Thickness of the tail stroke.</td>
         </tr>
 
     
@@ -383,7 +383,7 @@
 
             
 
-            <td class="description last">how many frames to skip before leaving a tail dot</td>
+            <td class="description last">How many frames to skip before leaving a tailbit.</td>
         </tr>
 
     
@@ -422,7 +422,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="kineticmass.js.html">kineticmass.js</a>, <a href="kineticmass.js.html#line1">line 1</a>
+        <a href="KineticMass.js.html">KineticMass.js</a>, <a href="KineticMass.js.html#line1">line 1</a>
     </li></ul></dd>
     
 
@@ -447,25 +447,11 @@
 
 
 
-    <h5>Example</h5>
+    <h5>Examples</h5>
     
-    <pre class="prettyprint"><code>function setup() {
- //make a position vector
- pos = createVector(width/2,height/2)
- // make a velocity vector (5 px/fr in x, 2 px/fr in y)
- vel = createVector(5,2);
- // no acceleration
- accel = createVector(0,0);
- // create the ball. Give it a mass of 10, and let's make it red.
- ball = new KineticMass(pos,vel,accl,10,'red');
-}
+    <pre class="prettyprint"><code>function setup() { //make a position vector pos = createVector(width/2,height/2) // make a velocity vector (5 px/fr in x, 2 px/fr in y) vel = createVector(5,2); // no acceleration accel = createVector(0,0); // create the ball. Give it a mass of 10, and let's make it red. ball = new KineticMass(pos,vel,accl,10,'red');}function draw(){ // update the ball's parameters ball.update(); //display changes ball.display();}</code></pre>
 
-function draw(){
- // update the ball's parameters
- ball.update();
- //display changes
- ball.display();
-}</code></pre>
+    <pre class="prettyprint"><code>function setup() { //make a position vector pos = createVector(width/2,height/2) // make a velocity vector (5 px/fr in x, 2 px/fr in y) vel = createVector(5,2); // no acceleration accel = createVector(0,0); // create the ball. Give it a mass of 10, and let's make it red. ball = new KineticMass(pos,vel,accl,10,'red');}function draw(){ // update the ball's parameters ball.update(); //display changes ball.display();}</code></pre>
 
 
 
@@ -499,13 +485,13 @@ function draw(){
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Arrow.html">Arrow</a></li><li><a href="drawAxes.html">drawAxes</a></li><li><a href="KineticMass.html">KineticMass</a></li><li><a href="Mover.html">Mover</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Arrow.html">Arrow</a></li><li><a href="drawAxes.html">drawAxes</a></li><li><a href="FBD.html">FBD</a></li><li><a href="Graph.html">Graph</a></li><li><a href="KineticMass.html">KineticMass</a></li><li><a href="Mover.html">Mover</a></li><li><a href="MovingBackground.html">MovingBackground</a></li><li><a href="Plot.html">Plot</a></li><li><a href="Point.html">Point</a></li><li><a href="Spring.html">Spring</a></li><li><a href="Wheel.html">Wheel</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Tue Apr 04 2017 16:56:15 GMT-0400 (EDT)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Sat Apr 29 2017 18:28:50 GMT-0400 (Eastern Daylight Time)
 </footer>
 
 <script> prettyPrint(); </script>

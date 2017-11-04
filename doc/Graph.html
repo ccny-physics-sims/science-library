@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: Mover</title>
+    <title>JSDoc: Class: Graph</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Class: Mover</h1>
+    <h1 class="page-title">Class: Graph</h1>
 
     
 
@@ -28,7 +28,7 @@
 
 <header>
     
-        <h2>Mover</h2>
+        <h2>Graph</h2>
         
     
 </header>
@@ -40,14 +40,14 @@
 
     
 
-    <h4 class="name" id="Mover"><span class="type-signature"></span>new Mover<span class="signature">(position, velocity, acceleration, mass, color)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="Graph"><span class="type-signature"></span>new Graph<span class="signature">(w, h, x_min, x_max, y_min, y_max, resolution)</span><span class="type-signature"></span></h4>
 
     
 
 
 
 <div class="description">
-    Makes a little ball that can move. This object is to be replaced by KineticMass
+    Constructs a Graph. Plot objects consisting of Point objects can be added and displayed on the Graph.
 </div>
 
 
@@ -83,76 +83,7 @@
 
         <tr>
             
-                <td class="name"><code>position</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">p5.Vector</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The Mover's position.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>velocity</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">p5.Vector</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The Mover's velocity.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>acceleration</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">p5.Vector</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The Mover's acceleration.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>mass</code></td>
+                <td class="name"><code>w</code></td>
             
 
             <td class="type">
@@ -168,20 +99,20 @@
 
             
 
-            <td class="description last">A scalar quantity indicating the mass.</td>
+            <td class="description last">Width of the Graph.</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>color</code></td>
+                <td class="name"><code>h</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">color</span>
+<span class="param-type">number</span>
 
 
             
@@ -191,7 +122,122 @@
 
             
 
-            <td class="description last">The color of the Mover.</td>
+            <td class="description last">Height of the Graph.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>x_min</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Smallest value of the x-axis.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>x_max</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Largest value of the x-axis.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>y_min</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Smallest value of the y-axis.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>y_max</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Largest value of the y-axis.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>resolution</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The resolution of the Graph. Determines tick intervals.</td>
         </tr>
 
     
@@ -229,13 +275,13 @@
 
         <tr>
             
-                <td class="name"><code>limit</code></td>
+                <td class="name"><code>title</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">number</span>
+<span class="param-type">string</span>
 
 
             
@@ -245,14 +291,60 @@
 
             
 
-            <td class="description last">The maximum speed of the mover.</td>
+            <td class="description last">Title of the graph.</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>tail</code></td>
+                <td class="name"><code>xlabel</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Caption for the x-axis.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>ylabel</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Caption for the y-axis.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>showLabels</code></td>
             
 
             <td class="type">
@@ -268,60 +360,14 @@
 
             
 
-            <td class="description last">A tail leaves little dots behind as it moves.</td>
+            <td class="description last">Display the labels of the x and y axes.</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>size</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Default is set equivalent to mass.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>outline</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">color</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The color of the KineticMass' outline.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>tail</code></td>
+                <td class="name"><code>showTitle</code></td>
             
 
             <td class="type">
@@ -337,20 +383,20 @@
 
             
 
-            <td class="description last">A tail leaves little dots behind as it moves.</td>
+            <td class="description last">Display the graph title.</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>tailFill</code></td>
+                <td class="name"><code>showBorder</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">color</span>
+<span class="param-type">bool</span>
 
 
             
@@ -360,37 +406,14 @@
 
             
 
-            <td class="description last">The color of the tail. (default: white)</td>
+            <td class="description last">Display a border around the graph.</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>tailStroke</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">color</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The color of the tail's outline.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>a</code></td>
+                <td class="name"><code>borderWidth</code></td>
             
 
             <td class="type">
@@ -406,14 +429,37 @@
 
             
 
-            <td class="description last">Angle. (default: 0)</td>
+            <td class="description last">Width of the border. (default: 2px)</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>aVelocity</code></td>
+                <td class="name"><code>showLegend</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">bool</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Display a legend for the graph. (default: false)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>xOffset</code></td>
             
 
             <td class="type">
@@ -429,14 +475,14 @@
 
             
 
-            <td class="description last">Angular velocity. (default: 0)</td>
+            <td class="description last">Offset x by a number of pixels. (default: 0px)</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>aAcceleration</code></td>
+                <td class="name"><code>yOffset</code></td>
             
 
             <td class="type">
@@ -452,14 +498,37 @@
 
             
 
-            <td class="description last">Angular acceleration. (default: 0)</td>
+            <td class="description last">Offset y by a number of pixels. (default: 0px)</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>Mover.update()</code></td>
+                <td class="name"><code>Plots</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">an Array of Plot objects.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>Graph.update()</code></td>
             
 
             <td class="type">
@@ -475,14 +544,14 @@
 
             
 
-            <td class="description last">Update the Mover.</td>
+            <td class="description last">Update the Graph.</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>Mover.display()</code></td>
+                <td class="name"><code>Graph.set_offset(xoff,yoff)</code></td>
             
 
             <td class="type">
@@ -498,14 +567,14 @@
 
             
 
-            <td class="description last">Display the Mover.</td>
+            <td class="description last">Update the Graph's offset values.</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>Mover.giveItAnAcceleration()</code></td>
+                <td class="name"><code>Graph.drawBH()</code></td>
             
 
             <td class="type">
@@ -521,14 +590,14 @@
 
             
 
-            <td class="description last">Give the Mover an acceleration.</td>
+            <td class="description last">Draws the background.</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>Mover.applyForce()</code></td>
+                <td class="name"><code>Graph.addPlot(Plot)</code></td>
             
 
             <td class="type">
@@ -544,14 +613,14 @@
 
             
 
-            <td class="description last">Apply a force to the Mover.</td>
+            <td class="description last">Adds a Plot to the Graph.</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>Mover.wrapEdges()</code></td>
+                <td class="name"><code>Graph.plotAll()</code></td>
             
 
             <td class="type">
@@ -567,53 +636,7 @@
 
             
 
-            <td class="description last">If the Mover goes off the side of the screen, it will reappear on the opposite side.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>Mover.bounceEdges()</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">method</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Bounces the Mover off the edges of the canvas.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>Mover.towardMouse()</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">method</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Make the Mover attracted to the user's mouse.</td>
+            <td class="description last">Draw all the Plots on the Graph.</td>
         </tr>
 
     
@@ -640,8 +663,6 @@
     
 
     
-        <dt class="important tag-deprecated">Deprecated:</dt><dd class="yes-def tag-deprecated"><ul class="dummy"><li>Yes</li></ul></dd>
-    
 
     
 
@@ -654,7 +675,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="mover.js.html">mover.js</a>, <a href="mover.js.html#line1">line 1</a>
+        <a href="physgraphs.js.html">physgraphs.js</a>, <a href="physgraphs.js.html#line197">line 197</a>
     </li></ul></dd>
     
 

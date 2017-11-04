@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: wheel.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: wheel.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+* Makes a wheel that can display various forces while rotating or rolling.
+* @constructor Wheel
+* @param {number} x The x coordinate of the wheel's center.
+* @param {number} y The y coordinate of the wheel's center.
+* @param {number} d The wheel's diameter.
+* @property {array} arrowDecorations Customize the Arrow type and locations. Example: [{type: 'velocity', location_radial: 1, rimPos: 0 }]
+* @property {array} arrows Array of Arrow objects to display on the wheel. 
+* @property {color} rimColor Color of the wheel rim. 
+* @property {color} spokeColor Color of the wheel spokes. 
+* @property {color} wheelColor Color of the rest of the wheel. 
+ * @property {bool} rotate Allows the wheel to rotate. (default: false)
+  * @property {num} angle Angle in radians.
+   * @property {num} ang_speed Angular speed.
+      * @property {num} trans_speed Translational speed.
+* @property {method} Wheel.addDecorations(decorations) Draw the Arrow vectors.
+* @property {method} Wheel.draw()  Draw the Wheel object.
+* @property {method} Wheel.update()  Update the Wheel object.
+**/
+
+//TODO trying to add water spraying out from the "slipping"
+//wheel so that it looks more realistic. The code for it so far
+//has been commented out. (need the correct js library as well as
+//tweaking the values of the code to make it work).
+ //TODO download correct particle lib not grafica!!!
+//TODO: wheel object for rotating.
+//TODO: make a smart rotate that rotates and moves along
+//the ground at the correct (non-slipping) speed.
+var Wheel = function(_x,_y,_d){
+  angleMode(RADIANS);
+    this.x = _x; //x position
+    this.y = _y; //y position
+    this.r = _d/2; //radius
+    this.d = _d;
+    this.arrowDecorations = [];
+    this.arrows = [];
+    this.rimColor = color('rgba(0,0,0,1)');
+    this.spokeColor = color('rgba(0,0,0,1)');
+    this.wheelColor = color('rgba(0,0,0,.1)');
+
+    //rotation variables
+    this.rotate = false;
+    this.ang = 0;
+    this.ang_speed = 0;
+
+    //translation variables
+    this.trans_speed = 0;
+
+    //decorations for wheel
+    this.vdecorate = false;
+    this.cdecorate = false;
+
+    //arrow vectors to display(not implemented)
+    this.translation = false;
+    this.rotation = false;
+    this.rollingNoSlip = false;
+
+    //actual arrow objects (only requires 3 to
+    //display all of the modes)
+    var orig = createVector(this.x,this.y);
+    var temp = createVector(this.x+this.r,this.y-this.r);
+    this.a1 = new Arrow(orig,temp);
+    this.a2 = new Arrow(orig,temp);
+    this.a3 = new Arrow(orig,temp);
+
+    this.a1.width = 10;
+    this.a2.width = 10;
+    this.a3.width = 10;
+
+    this.a1.color = color('green');
+    this.a2.color = color('green');
+    this.a3.color = color('green');
+
+    this.a1.draggable = false;
+    this.a1.grab = false;
+    this.a2.draggable = false;
+    this.a2.grab = false;
+    this.a3.draggable = false;
+    this.a3.grab = false;
+    //arrow display options
+    //-> static/relative
+
+
+
+
+    this.addDecorations = function(_decorations) {
+
+      for(i=0;i&lt;this.arrowDecorations.length;i++){
+        this.arrows[i] = new Arrow(createVector(0,this.arrowDecorations[i].location_radial*this.r),createVector(25*(this.ang_speed+this.trans_speed)*this.arrowDecorations[i].location_radial,this.arrowDecorations[i].location_radial*this.r));
+        this.arrows[i].color = color('green');
+        this.arrows[i].width = 10;
+        this.arrows[i].draggable = false;
+        this.arrows[i].grab = false;
+
+      }
+
+    }
+
+    this.draw = function(){
+
+    push();
+    angleMode(RADIANS);
+    translate(this.x,this.y);
+    //manage the rotation if this.rotate == true
+    if(this.rotate == true){
+        rotate(this.ang);
+        this.ang += this.ang_speed;
+        //if(this.ang >= 2*Math.PI) this.ang = 0;
+    }
+    //draw the circles
+    fill(this.wheelColor);
+    stroke(this.rimColor);
+    strokeWeight(this.r*.1);
+    ellipse(0,0,this.d,this.d);
+    //fill(color('rgba(200, 200, 200, .9)'));
+    //ellipse(0,0,this.d*0.85,this.d*0.85);
+    //fill(10);
+    //ellipse(0,0,this.d*0.05,this.d*0.05);
+
+    //draw the spokes of the wheel
+    stroke(this.spokeColor);
+    strokeWeight(2);
+    for(var i = 0;i&lt;16;i++){
+        line(0,0,
+             (this.r-2)*cos(Math.PI/6*i),
+             (this.r-2)*sin(Math.PI/6*i));
+    }
+
+    //..............................
+    // draw the decorations if any
+    //..............................
+
+for(i=0;i&lt;this.arrowDecorations.length;i++){
+
+  push();
+  rotate(this.arrowDecorations[i].rimPos);
+  this.arrows[i].target.x = -25*(this.ang_speed*this.r-this.trans_speed*Math.cos(-this.arrowDecorations[i].rimPos+this.ang))*this.arrowDecorations[i].location_radial;
+  this.arrows[i].target.y = this.arrowDecorations[i].location_radial*this.r-25*(this.trans_speed*Math.sin(-this.arrowDecorations[i].rimPos+this.ang));
+  this.arrows[i].update();
+  this.arrows[i].display();
+  pop();
+}
+
+    if(this.cdecorate == true){
+        //tire markers (ie. points A &amp; B) for distance S
+            //arc colors for length S
+        stroke(255,0,0);
+        strokeWeight(4);
+        noFill();
+        arc(0,0,this.d,this.d,0,Math.PI);
+        stroke(0,0,255);
+        arc(0,0,this.d,this.d,Math.PI,2*Math>PI);
+            //point colors
+        noStroke();
+        fill(255,0,0); //red for point A;
+        ellipse(this.r,0,10,10);
+        fill(30,30,255); //blue for point B;
+        ellipse(-this.r,0,10,10);
+    }
+    pop();
+
+    if(this.vdecorate == true){
+        //rotation vector
+        if(this.rotation == true){
+            //a1 is the top right pointing arrow,
+            //and a2 is the bottom left pointing
+            //arrow.
+            this.a1.origin.x = this.x;
+            this.a1.origin.y = this.y-this.r;
+            this.a1.target.x = this.x+25*this.ang_speed;
+            this.a1.target.y = this.y-this.r;
+
+            this.a2.origin.x = this.x;
+            this.a2.origin.y = this.y+this.r;
+            this.a2.target.x = this.x-25*this.ang_speed;
+            this.a2.target.y = this.y+this.r;
+
+            this.a1.update();
+            this.a2.update();
+            this.a1.display();
+            this.a2.display();
+        }
+        //translation vector
+
+        if(this.translation == true){
+            //a1 is the topmost arrow, a2 is the middle arrow
+            //and a3 is the bottom arrow.
+            this.a1.origin.x = this.x;
+            this.a1.origin.y = this.y-this.r;
+            this.a1.target.x = this.x+25*this.trans_speed;
+            this.a1.target.y = this.y-this.r;
+
+            this.a2.origin.x = this.x;
+            this.a2.origin.y = this.y;
+            this.a2.target.x = this.x+25*this.trans_speed;
+            this.a2.target.y = this.y;
+
+            this.a3.origin.x = this.x;
+            this.a3.origin.y = this.y+this.r;
+            this.a3.target.x = this.x+25*this.trans_speed;
+            this.a3.target.y = this.y+this.r;
+
+            this.a1.update();
+            this.a2.update();
+            this.a3.update();
+            this.a1.display();
+            this.a2.display();
+            this.a3.display();
+
+        }
+    }
+  }
+};
+
+Wheel.prototype.update = function(){};
+
+
+/**
+* @example
+* //demonstrates pure rotation of a wheel without translation.
+
+*function setup(){
+*    createCanvas(640,480);
+*    w = new Wheel(width/2,height/2,200);
+*    w.rotate = true;
+*
+*    w.cdecorate = false;
+*    w.vdecorate = false;
+*    w.rotation = true;
+*    w.translation = false;
+*    w.rimColor = color('rgba(0,0,0,1)');
+*    w.spokeColor = color('rgba(0,0,0,1)');
+*    w.wheelColor = color('rgba(0,0,0,.1)');
+*
+*    w.arrowDecorations[0] = {type: 'velocity', location_radial: 1, rimPos: 0 };
+*    w.arrowDecorations[1] = {type: 'velocity', location_radial: .5, rimPos: 0 };
+*    w.arrowDecorations[2] = {type: 'velocity', location_radial: 1, rimPos: PI };
+*    w.arrowDecorations[3] = {type: 'velocity', location_radial: .5, rimPos: PI };
+*    w.arrowDecorations[4] = {type: 'velocity', location_radial: 1, rimPos: HALF_PI };
+*    w.arrowDecorations[5] = {type: 'velocity', location_radial: .5, rimPos: HALF_PI };
+*    w.arrowDecorations[6] = {type: 'velocity', location_radial: 1, rimPos: 3*HALF_PI };
+*    w.arrowDecorations[7] = {type: 'velocity', location_radial: .5, rimPos: 3*HALF_PI };
+*    w.addDecorations(w.arrowDecorations);
+*
+*
+*    // "on" is used for the pause and resume at the end of file
+*    // that allows for stopping/starting the sketch w/o prob.
+*    on = true;
+*
+*
+*    //create controls for sketch
+*    rotate_speed = createSlider(-5,5,1,.2);
+*    rotate_speed.position(20,60)
+*    rotate_speed.parent('sketch-holder')
+*
+*    btn_pause = createButton('Pause');
+*    btn_pause.position(20,100);
+*    btn_pause.mouseClicked(ptoggle);
+*    btn_pause.parent('sketch-holder');
+*
+*
+*    //particles for water spin
+*    /*
+*    var t =
+*    {
+*        name: "test",
+*        colors: ["blue",[0,255,127,127],[0,255,64,32]],
+*        lifetime: 600,
+*        angle: [330,360],
+*        x: 0.2,
+*        y: 0.1
+*    };
+*    of = new Fountain(null,t);
+*    *\/
+*    //TODO download correct particle lib not grafica!!!
+*}
+*function draw(){
+*    background(230);
+*    drawAxes();
+*
+*    //draw text for controls
+*    text('Rotation Speed',20,40);
+*
+*    //draw ground
+*  //  noStroke();
+*
+*  //  rect(0,w.y+w.r,width,height);
+*    //draw the wheel.
+*    w.draw();
+*    //get speed from slider
+*    w.ang_speed = rotate_speed.value()*Math.PI/180;
+*
+*    //draw particles
+*    /*
+*    of.Draw();
+*    of.Create();
+*    of.Step();
+*    *\/
+*}
+*function ptoggle(){
+*    if(on == true){
+*        on = false;
+*        noLoop();
+*        btn_pause.html('Play');
+*    }
+*    else{
+*        on = true;
+*        loop();
+*        btn_pause.html('Pause');
+*    }
+*}
+*/</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Arrow.html">Arrow</a></li><li><a href="drawAxes.html">drawAxes</a></li><li><a href="FBD.html">FBD</a></li><li><a href="Graph.html">Graph</a></li><li><a href="KineticMass.html">KineticMass</a></li><li><a href="Mover.html">Mover</a></li><li><a href="MovingBackground.html">MovingBackground</a></li><li><a href="Plot.html">Plot</a></li><li><a href="Point.html">Point</a></li><li><a href="Spring.html">Spring</a></li><li><a href="Wheel.html">Wheel</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Sat Apr 29 2017 18:28:50 GMT-0400 (Eastern Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

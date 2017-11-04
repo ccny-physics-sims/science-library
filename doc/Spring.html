@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: Mover</title>
+    <title>JSDoc: Class: Spring</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Class: Mover</h1>
+    <h1 class="page-title">Class: Spring</h1>
 
     
 
@@ -28,7 +28,7 @@
 
 <header>
     
-        <h2>Mover</h2>
+        <h2>Spring</h2>
         
     
 </header>
@@ -40,14 +40,14 @@
 
     
 
-    <h4 class="name" id="Mover"><span class="type-signature"></span>new Mover<span class="signature">(position, velocity, acceleration, mass, color)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="Spring"><span class="type-signature"></span>new Spring<span class="signature">(position, k, m, lengthOfSpring, oscAmp, mu)</span><span class="type-signature"></span></h4>
 
     
 
 
 
 <div class="description">
-    Makes a little ball that can move. This object is to be replaced by KineticMass
+    Creates a Spring object. Consists of a spring with a block attached to the end.
 </div>
 
 
@@ -99,60 +99,14 @@
 
             
 
-            <td class="description last">The Mover's position.</td>
+            <td class="description last">The origin of the Spring.</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>velocity</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">p5.Vector</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The Mover's velocity.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>acceleration</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">p5.Vector</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The Mover's acceleration.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>mass</code></td>
+                <td class="name"><code>k</code></td>
             
 
             <td class="type">
@@ -168,20 +122,20 @@
 
             
 
-            <td class="description last">A scalar quantity indicating the mass.</td>
+            <td class="description last">Spring coefficient.</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>color</code></td>
+                <td class="name"><code>m</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">color</span>
+<span class="param-type">number</span>
 
 
             
@@ -191,7 +145,76 @@
 
             
 
-            <td class="description last">The color of the Mover.</td>
+            <td class="description last">Mass of the block attached to the spring.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>lengthOfSpring</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Length of the Spring in px.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>oscAmp</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Amplitude of the oscillation.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>mu</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Coefficient of friction.</td>
         </tr>
 
     
@@ -229,7 +252,7 @@
 
         <tr>
             
-                <td class="name"><code>limit</code></td>
+                <td class="name"><code>boxSize</code></td>
             
 
             <td class="type">
@@ -245,14 +268,129 @@
 
             
 
-            <td class="description last">The maximum speed of the mover.</td>
+            <td class="description last">Length of the sides of the box attached to spring.</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>tail</code></td>
+                <td class="name"><code>lengthOfSpring</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The current length of the spring in pixels.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>noOfCoils</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The number of coils. Decorative. Odd numbers work best. (default: 11)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>transAmp</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Transverse amplitude. Decorative. (default: 15)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>tZero</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The start time in milliseconds.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>t</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Time. (default: 0)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>playing</code></td>
             
 
             <td class="type">
@@ -268,14 +406,14 @@
 
             
 
-            <td class="description last">A tail leaves little dots behind as it moves.</td>
+            <td class="description last">Controls the state of the simulation.</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>size</code></td>
+                <td class="name"><code>xCent</code></td>
             
 
             <td class="type">
@@ -291,106 +429,14 @@
 
             
 
-            <td class="description last">Default is set equivalent to mass.</td>
+            <td class="description last">x-coord for the center of the spring.</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>outline</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">color</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The color of the KineticMass' outline.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>tail</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">bool</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">A tail leaves little dots behind as it moves.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>tailFill</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">color</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The color of the tail. (default: white)</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>tailStroke</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">color</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The color of the tail's outline.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>a</code></td>
+                <td class="name"><code>yCent</code></td>
             
 
             <td class="type">
@@ -406,14 +452,37 @@
 
             
 
-            <td class="description last">Angle. (default: 0)</td>
+            <td class="description last">y-coord for the center of the spring.</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>aVelocity</code></td>
+                <td class="name"><code>rotation</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">radian</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Angle of orientation. Use 0 for a horizontal spring, and PI/2 for a vertical one.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>oscamp</code></td>
             
 
             <td class="type">
@@ -429,14 +498,14 @@
 
             
 
-            <td class="description last">Angular velocity. (default: 0)</td>
+            <td class="description last">The oscillation amplitude as a fraction of the lengthOfSpring. A value of 0.2 is recommended as it will be 1/5 the length of the spring.</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>aAcceleration</code></td>
+                <td class="name"><code>freq</code></td>
             
 
             <td class="type">
@@ -452,14 +521,106 @@
 
             
 
-            <td class="description last">Angular acceleration. (default: 0)</td>
+            <td class="description last">Calculates the frequency based on the spring constant k and the mass of the block m.</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>Mover.update()</code></td>
+                <td class="name"><code>equilibrium</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">p5.Vector</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The equilibrium point.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>displacement</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">p5.Vector</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The magnitude of displacement.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>velocity</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">p5.Vector</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The velocity.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>acceleration</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">p5.Vector</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The acceleration.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>Spring.update()</code></td>
             
 
             <td class="type">
@@ -475,14 +636,14 @@
 
             
 
-            <td class="description last">Update the Mover.</td>
+            <td class="description last">Updates the Spring object.</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>Mover.display()</code></td>
+                <td class="name"><code>Spring.display()</code></td>
             
 
             <td class="type">
@@ -498,122 +659,7 @@
 
             
 
-            <td class="description last">Display the Mover.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>Mover.giveItAnAcceleration()</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">method</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Give the Mover an acceleration.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>Mover.applyForce()</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">method</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Apply a force to the Mover.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>Mover.wrapEdges()</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">method</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">If the Mover goes off the side of the screen, it will reappear on the opposite side.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>Mover.bounceEdges()</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">method</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Bounces the Mover off the edges of the canvas.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>Mover.towardMouse()</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">method</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Make the Mover attracted to the user's mouse.</td>
+            <td class="description last">Displays the Spring object.</td>
         </tr>
 
     
@@ -640,8 +686,6 @@
     
 
     
-        <dt class="important tag-deprecated">Deprecated:</dt><dd class="yes-def tag-deprecated"><ul class="dummy"><li>Yes</li></ul></dd>
-    
 
     
 
@@ -654,7 +698,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="mover.js.html">mover.js</a>, <a href="mover.js.html#line1">line 1</a>
+        <a href="spring.js.html">spring.js</a>, <a href="spring.js.html#line1">line 1</a>
     </li></ul></dd>
     
 
