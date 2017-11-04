@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: physgraphs.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: physgraphs.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>﻿/**
+* Creates a Point that can be used with the Plot and Graph objects. 
+* @constructor Point
+* @param {number} x The x value. 
+* @param {number} y The y value.  
+* @property {method} Point.add(x,y) Add x, subtract y.
+* @property {method} Point.getPoint(p5.Vector) Converts a p5.Vector into a Point object.
+* @property {method} Point.fixChoord() Inverts the y axis so that positive is up not down. Allows Points to be compatible with p5.js. 
+
+* @property {method} Point.addPix(xoff,yoff,scalex,scaley)  Convert choord to pixel position.
+* @property {method} Point.getDist(Point,Point)  Takes in two Point objects and returns a new Point object whose x and y values are the respective x and y distances.
+
+*/
+
+
+
+
+
+
+//GLOBAL CONSTANTS
+FR = 30; // must match the framerate of the draw function.
+
+//Declaration for a point object to be used when graphing.
+function Point(x,y){
+	//basic coordinate variables
+	this.x = x;
+	this.y = y;
+}
+Point.prototype.add = function(x,y){
+	this.x += x;
+	this.y -= y;
+};
+//fixes the y choordinates to work with p5.js
+Point.prototype.fixChoord = function(){
+	if(this.y > 0){
+		this.y = this.y*-1; //inverts the y axis so that positive is up not down
+	}
+};
+//inverts both choordinates
+Point.prototype.invert = function(){
+	this.y *= -1;
+	this.x *= -1;
+};
+//convert choord to pixel position
+Point.prototype.makePix = function(xoff, yoff, scalex, scaley){
+
+	this.fixChoord();
+	this.x = this.x*scalex+xoff;
+	this.y = this.y*scaley+yoff;
+
+};
+/*
+ * input = takes in two point objects
+ * output = returns a new point object
+ * whose x and y coords are the respective x and y distances.
+ * (basically using the point object like a vector)*/
+Point.getDist = function(p1,p2){
+	var pFinal = new Point(0,0);
+	pFinal.x = Math.abs(p1.x-p2.x); //gets the x distance between points
+	pFinal.y = Math.abs(p1.y-p2.y); //gets the y distance between points
+	return pFinal;
+};
+Point.getPoint = function(p){
+	var point = new Point(p.x,p.y);
+	return point;
+};
+//a function object for graphing functions
+function Equation(){
+	//not implemented
+}
+
+/**
+* Takes an array of Point objects and creates a plot of speed, velocity, and acceleration. 
+* @constructor Plot
+
+* @param {array} pointArray Array of Point objects to plot. 
+* @param {color} red Color for representing speed.
+* @param {color} green Color for representing velocity.
+* @param {color} blue Color for representing  acceleration.
+* @param {number} weight The weight.
+* @param {string} title Title of the graph.
+* @property {array} data The array of Points to be plotted. (default: pointArray)
+* @property {number} pointSize Size of the points. (default: 8px)
+* @property {bool} drawData Draw the data. (default: true)
+* @property {string} plotTitle Assign the title of the plot. 
+* @property {bool} timeplot Decides if the time is plotted. (default: false) 
+
+* @property {method} Plot.plot(Graph) Takes a Graph Object and returns a Plot. 
+* @property {method} Plot.getUser() Get position of user's mouse. 
+* @property {method} Plot.tpRecord(variable, Graph) Timeplotting function. 
+* @property {method} Plot.getPointDist(Point, Point) Takes in two point objects and returns a new point object whose x and y values are the respective x and y distances.
+* @property {method} Plot.fixChoord(scalex, scaley, origin) Takes a p5.Vector as origin and scales it according to scalex and scaley. 
+
+*/
+
+/*Declaration of plot object which will be graphed
+ * on graph object
+ * */
+function Plot(pointArray, red, green, blue, weight, title){
+	if (title === undefined){
+		title = "default";
+	}
+	this.data = pointArray; //plot data (an array of points)
+	this.color = color(red, green, blue, title = "default"); //the color that the graph will be drawn in
+	this.weight = weight; // a number for the stroke thickness of the graph
+	this.pointSize = 8;
+	this.drawData = true;
+	this.plotTitle = title;
+	this.timeplot = false;
+}
+//regular plotting function
+Plot.prototype.plot = function(graph){
+	//set up the styles for what will be drawn
+	fill(this.color);
+	stroke(this.color);
+	strokeWeight(this.weight);
+
+	//draws the data points and the connecting lines
+	for(var i = 0;i&lt;this.data.length;i++){
+
+		if(i&lt;this.data.length-1
+			&amp;&amp; this.data[i+1].x &lt;= graph.tr_pix.x
+			&amp;&amp; this.data[i+1].y >= graph.tr_pix.y
+			&amp;&amp; this.data[i].x >= graph.bl_pix.x
+			&amp;&amp; this.data[i].y &lt;= graph.bl_pix.y){
+		//if(i&lt;this.data.length-1){
+			//draws the connecting lines, scaling the data so that
+			//it corresponds to our coordinate space
+			line(this.data[i].x, this.data[i].y,
+					this.data[i+1].x, this.data[i+1].y);
+		}
+		//draws the data points, with scaling and offset.
+		if(this.data[i].x &lt;= graph.tr_pix.x
+			&amp;&amp; this.data[i].y >= graph.tr_pix.y
+			&amp;&amp; this.data[i].x >= graph.bl_pix.x
+			&amp;&amp; this.data[i].y &lt;= graph.bl_pix.y){
+			ellipse(this.data[i].x, this.data[i].y, this.pointSize, this.pointSize);
+		}
+
+	}
+};
+
+//updates data to user input
+Plot.prototype.getUser = function(){
+	var d = new Point(0,0);
+	var pmouse = new Point(mouseX,mouseY);
+	var closest = 100000;
+	var closestIndex = 0;
+	for(var i=0;i&lt;this.data.length;i++){
+
+		d = Point.getDist(pmouse,this.data[i]);
+		if(closest > d.x){
+			closest = d.x;
+			closestIndex = i;
+		}
+	}
+	//TODO: add boundary limits to this funtion.
+	this.data[closestIndex].y = mouseY;
+};
+
+//variable input doesn't seem to be used anywhere, not sure why it exists, but will leave it here for safety purposes
+Plot.prototype.tpRecord = function(variable, graph){
+	this.timeplot = true;
+	var bl = graph.bl_pix.x;
+	var tr = graph.x_max;
+	//var timescale = (tr-bl)/100;
+	//var timescale = (graph.x_max-graph.x_min)/graph;
+	var timescale = FR;
+	for(var i=0;i&lt;this.data.length;i++){
+		this.data[i].x -= graph.xunit/timescale; //shift the x-axis
+	}
+	if(this.data[0] &amp;&amp; this.data[0].x &lt; bl){
+		this.data.splice(0,1);
+	}
+
+	var p = new Point(tr, variable);
+	this.data.push(p);
+
+};
+//gets distance between two points of data
+Plot.prototype.getPointDist = function(num1, num2){
+	return dist(this.data[num1].x, this.data[num1].y,
+				this.data[num2].x, this.data[num2].y);
+};
+Plot.prototype.fixChoord = function(scalex, scaley, origin){
+	var p = Point.getPoint(origin);
+	for(var i = 0;i&lt;this.data.length;i++){
+		//this.data[i].fixChoord();
+		p.add(this.data[i].x*scalex, this.data[i].y*scaley);
+		this.data[i].x = p.x;
+		this.data[i].y = p.y;
+		p = Point.getPoint(origin);
+	}
+};
+
+
+/**
+* Constructs a Graph. Plot objects consisting of Point objects can be added and displayed on the Graph. 
+
+* @constructor Graph
+
+* @param {number} w Width of the Graph.
+* @param {number} h Height of the Graph.
+* @param {number} x_min Smallest value of the x-axis.    
+* @param {number} x_max Largest value of the x-axis. 
+* @param {number} y_min Smallest value of the y-axis. 
+* @param {number} y_max Largest value of the y-axis. 
+* @param {number} resolution The resolution of the Graph. Determines tick intervals.
+
+* @property {string} title Title of the graph. 
+* @property {string} xlabel Caption for the x-axis. 
+* @property {string} ylabel Caption for the y-axis. 
+* @property {bool} showLabels Display the labels of the x and y axes. 
+* @property {bool} showTitle Display the graph title. 
+* @property {bool} showBorder Display a border around the graph. 
+* @property {number} borderWidth Width of the border. (default: 2px) 
+* @property {bool} showLegend Display a legend for the graph. (default: false)
+* @property {number} xOffset Offset x by a number of pixels. (default: 0px) 
+* @property {number} yOffset Offset y by a number of pixels. (default: 0px)
+* @property {array} Plots an Array of Plot objects. 
+
+
+* @property {method} Graph.update() Update the Graph. 
+* @property {method} Graph.set_offset(xoff,yoff) Update the Graph's offset values. 
+
+* @property {method} Graph.drawBH()  Draws the background.
+* @property {method} Graph.addPlot(Plot)  Adds a Plot to the Graph.
+* @property {method} Graph.plotAll() Draw all the Plots on the Graph. 
+*/
+
+function Graph(w, h, x_min, x_max, y_min, y_max, resolution){
+
+	// initial variables
+
+	this.width = w;
+	this.height = h;
+	this.resolution = resolution;
+	this.x_min = x_min;
+	this.x_max = x_max;
+	this.y_min = y_min;
+	this.y_max = y_max;
+
+
+	//styling variables
+	this.title = "Title"
+	this.xlabel = "X-Axis";
+	this.ylabel = "Y-Axis";
+	this.showLabels = true;
+	this.showTitle = true;
+	this.showBorder = true;
+	this.borderWidth = 2;
+	this.showLegend = false;
+
+	this.x_offset = 0;
+	this.y_offset = 0;
+
+	//functional variables
+	this.plots = [];
+
+	/* bl = bottom left. coordinates of where the actual graph begins.
+	 * tr = top right.
+	 * this is used for determining correct positioning of graph coordinates.
+	 * */
+	this.bl_pix = new Point(this.x_offset+this.width*0.15,
+								this.y_offset+this.height*0.95);
+	this.tr_pix = new Point(this.x_offset+this.width*0.95,
+								this.y_offset+this.height*0.15);
+	this.bl_val = new Point(this.x_min, this.y_min);
+	this.bl_val.invert();
+
+	//xpix and ypix are the number of pixels between each labeled coord.
+	this.xpix = dist(this.bl_pix.x, this.bl_pix.y,
+					this.tr_pix.x, this.bl_pix.y)/this.resolution; //xScale in pixels
+	this.ypix = dist(this.bl_pix.x, this.bl_pix.y,
+					this.bl_pix.x, this.tr_pix.y)/this.resolution; //yScale in pixels
+
+	//xunit and yunit are the number of pixels one unit on the graph is.
+	this.xunit = dist(this.bl_pix.x, this.bl_pix.y,
+					this.tr_pix.x, this.bl_pix.y)/(this.x_max-this.x_min); //xUnitScale
+	this.yunit = dist(this.bl_pix.x, this.bl_pix.y,
+					this.bl_pix.x, this.tr_pix.y)/(this.y_max-this.y_min); //yUnitScale
+
+	this.origin = Point.getPoint(this.bl_pix);
+	this.origin.add(this.bl_val.x*this.xunit, this.bl_val.y*this.yunit);
+	//console.log(this.origin.x, this.origin.y);
+
+
+}
+//redraw background and plots
+Graph.prototype.update = function(){
+
+};
+//draw the axis, labels, etc... (the graph without the curves)
+Graph.prototype.set_offset = function(xoff,yoff){
+	this.x_offset = xoff;
+	this.y_offset = yoff;
+
+	this.bl_pix = new Point(this.x_offset+this.width*0.15,
+								this.y_offset+this.height*0.85);
+	this.tr_pix = new Point(this.x_offset+this.width*0.90,
+								this.y_offset+this.height*0.15);
+	this.bl_val = new Point(this.x_min, this.y_min);
+	this.bl_val.invert();
+
+
+	this.xpix = dist(this.bl_pix.x, this.bl_pix.y,
+					this.tr_pix.x, this.bl_pix.y)/this.resolution; //xScale in pixels
+	this.ypix = dist(this.bl_pix.x, this.bl_pix.y,
+					this.bl_pix.x, this.tr_pix.y)/this.resolution; //yScale in pixels
+
+	this.xunit = dist(this.bl_pix.x, this.bl_pix.y,
+					this.tr_pix.x, this.bl_pix.y)/(this.x_max-this.x_min); //xUnitScale
+	this.yunit = dist(this.bl_pix.x, this.bl_pix.y,
+					this.bl_pix.x, this.tr_pix.y)/(this.y_max-this.y_min); //yUnitScale
+
+	this.origin = Point.getPoint(this.bl_pix);
+	this.origin.add(this.bl_val.x*this.xunit, this.bl_val.y*this.yunit);
+	console.log(this.origin.x, this.origin.y);
+}
+Graph.prototype.drawBg = function(bg, border){
+	if (bg === undefined){
+		bg = color(255);
+	}
+	if (border === undefined){
+		border = color(0);
+	}
+	//border
+	if(this.showBorder == false){
+		noStroke();
+	}else{
+		stroke(border);
+		strokeWeight(this.borderWidth);
+	}
+
+	//set background color of graph
+	fill(bg);
+
+	//draw base layer of graph
+	rect(this.x_offset,
+		 this.y_offset,
+		 this.width,
+		 this.height);
+
+	strokeWeight(1);
+
+	//draw axis
+	stroke(0);
+	line(this.bl_pix.x, this.bl_pix.y,
+			this.tr_pix.x, this.bl_pix.y) //x border
+	line(this.bl_pix.x, this.bl_pix.y,
+			this.bl_pix.x, this.tr_pix.y) //y border
+
+	//compute resolution values (numeric values)
+	var xdiff = (this.x_max - this.x_min)/this.resolution;
+	var ydiff = (this.y_max - this.y_min)/this.resolution;
+
+	//draw x values and vertical lines
+	fill(0);
+	stroke(180);
+	var count = this.x_min; //for counting intermediary values
+	var pixCount = 0;
+		//draw min label
+		text(this.x_min, this.bl_pix.x, this.bl_pix.y+20);
+	for(var i = 0; i &lt; this.resolution; i++){
+		count += xdiff;
+		pixCount += this.xpix;
+		line(this.bl_pix.x + pixCount, this.bl_pix.y+5,
+				this.bl_pix.x + pixCount, this.tr_pix.y);
+		text((Math.round(10*count)/10).toString(), this.bl_pix.x + pixCount, this.bl_pix.y+20);
+	}
+
+	//draw y values and horizontal lines
+	var count = this.y_min; //for counting intermediary values
+	var pixCount = 0;
+		//draw min label
+		text(this.y_min, this.bl_pix.x - 20, this.bl_pix.y);
+	for(var i = 0; i &lt; this.resolution; i++){
+		count += ydiff;
+		pixCount += this.ypix;
+		line(this.bl_pix.x - 5, this.bl_pix.y-pixCount,
+				this.tr_pix.x, this.bl_pix.y-pixCount);
+		text((Math.round(10*count)/10).toString(), this.bl_pix.x - 20, this.bl_pix.y-pixCount);
+	}
+	
+
+	//draw title AND axis labels AND legend
+	if(this.showTitle == true){
+		textSize(16);
+		textAlign(CENTER,CENTER);
+		if(this.showLegend != true){
+			text(this.title, this.x_offset + this.width/2,
+					this.y_offset + this.height*.07);
+		}
+		else{
+			//shift the title out of the way of the legend
+			//eg--split the space above the graph between them.
+			textSize(16);
+			textAlign(CENTER,CENTER);
+			text(this.title, this.x_offset + this.width/4,
+					this.y_offset + this.height*.07);
+
+			//draw frame
+			fill(bg);
+			stroke(border);
+
+			var top = this.y_offset+this.height*0.02;
+			var left= this.x_offset+this.width/2;
+			rect(left, top, this.width/2.2, this.height*.1);
+			//code for drawing legend.
+			textSize(12);
+			textAlign(LEFT,TOP);
+			noStroke();
+			fill(0);
+			for(var i=0;i&lt;this.plots.length;i++){
+				text(this.plots[i].plotTitle, left+8,top+2);
+				top+=12; //shift the count down a line.
+			}
+		}
+	}
+
+	if(this.showLabels == true){
+		//xlabel
+		textAlign(CENTER,CENTER);
+		textSize(12);
+		text(this.xlabel,this.x_offset + this.width/2,this.y_offset + this.height*.97);
+		//ylabel
+		push();
+		translate(this.x_offset+this.width*.03-10,this.y_offset + this.height/2)
+		rotate(-Math.PI/2);
+		text(this.ylabel,0,0)
+		pop();
+	}
+
+};
+//plots all plots on this graph
+Graph.prototype.plotAll = function(){
+	for(var i = 0; i&lt;this.plots.length;i++){
+		if(this.plots[i].timeplot == true){
+			var temp = new Plot();
+			temp.data = [];
+			temp.data[0] = this.plots[i].data[this.plots[i].data.length-1];
+			temp.fixChoord(this.xunit,
+							this.yunit,
+							this.origin);
+			this.plots[i].data[this.plots[i].data.length-1] = temp.data[0];
+		}
+		this.plots[i].plot(this);
+	}
+};
+//add a new plot to the graph.
+Graph.prototype.addPlot = function(aplot){
+	//var temp = this.getZeroes();
+	aplot.fixChoord(this.xunit,
+					this.yunit,
+					this.origin);
+	this.plots.push(aplot);
+};
+//get the x and y zero.
+Graph.prototype.getZeroes = function(){
+
+};
+//get pixel x and y values for a point in the graph.
+Graph.prototype.getChoord = function(x, y){
+
+};
+
+//this might make more sense to put as part of the Plot object
+Graph.makeData = function(xarray, yarray){
+	var finalArray = [];
+	if(xarray.length == yarray.length){
+		for(var i = 0; i&lt;xarray.length;i++){
+			var p = new Point(xarray[i],yarray[i]);
+			finalArray.push(p);
+		}
+	}
+	else{
+		console.log("xarray and yarray lengths differ.");
+	}
+	return finalArray;
+};
+
+//this might make more sense to put as part of the Plot object
+Graph.makeUserPlot = function(x1, x2, resolution, lineColor, weight, psize){
+	var finalArray = [];
+	var templot = new Plot();
+	if (lineColor === undefined) {
+        lineColor = color(0);
+    }
+	if (weight === undefined){
+		weight = 1;
+	}
+	if (psize === undefined){
+		psize = 3;
+	}
+
+	templot.lineColor = lineColor;
+	templot.data = [];
+	templot.weight = weight;
+	templot.pointSize = psize;
+
+	var scale = (x2-x1)/resolution;
+	for(var i = x1;i&lt;x2;i += scale){
+		var p = new Point(i,0);
+		templot.data.push(p);
+	}
+
+	return templot;
+};
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Arrow.html">Arrow</a></li><li><a href="drawAxes.html">drawAxes</a></li><li><a href="FBD.html">FBD</a></li><li><a href="Graph.html">Graph</a></li><li><a href="KineticMass.html">KineticMass</a></li><li><a href="Mover.html">Mover</a></li><li><a href="MovingBackground.html">MovingBackground</a></li><li><a href="Plot.html">Plot</a></li><li><a href="Point.html">Point</a></li><li><a href="Spring.html">Spring</a></li><li><a href="Wheel.html">Wheel</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Sat Apr 29 2017 18:28:50 GMT-0400 (Eastern Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

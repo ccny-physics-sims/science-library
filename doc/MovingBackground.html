@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: drawAxes</title>
+    <title>JSDoc: Class: MovingBackground</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Class: drawAxes</h1>
+    <h1 class="page-title">Class: MovingBackground</h1>
 
     
 
@@ -28,7 +28,7 @@
 
 <header>
     
-        <h2>drawAxes</h2>
+        <h2>MovingBackground</h2>
         
     
 </header>
@@ -40,14 +40,14 @@
 
     
 
-    <h4 class="name" id="drawAxes"><span class="type-signature"></span>new drawAxes<span class="signature">(lineColor, thickness)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="MovingBackground"><span class="type-signature"></span>new MovingBackground<span class="signature">(whichKind, position, initialVelocity, acceleration)</span><span class="type-signature"></span></h4>
 
     
 
 
 
 <div class="description">
-    Draws a simple x-y axis.
+    Creates a moving background.
 </div>
 
 
@@ -83,13 +83,13 @@
 
         <tr>
             
-                <td class="name"><code>lineColor</code></td>
+                <td class="name"><code>whichKind</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">color</span>
+<span class="param-type">string</span>
 
 
             
@@ -99,20 +99,20 @@
 
             
 
-            <td class="description last">The color of the lines. (default: black)</td>
+            <td class="description last">Options: 'cityStreet' or 'clouds'</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>thickness</code></td>
+                <td class="name"><code>position</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">num</span>
+<span class="param-type">p5.Vector</span>
 
 
             
@@ -122,7 +122,53 @@
 
             
 
-            <td class="description last">The thickness of the lines. (default: 1px)</td>
+            <td class="description last">The position vector.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>initialVelocity</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">p5.Vector</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The initial velocity.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>acceleration</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">p5.Vector</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The acceleration.</td>
         </tr>
 
     
@@ -160,7 +206,53 @@
 
         <tr>
             
-                <td class="name"><code>drawAxes(lineColor,thickness)</code></td>
+                <td class="name"><code>shapes</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Initializes the array to hold the randomly generated building data.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>avgVel</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">p5.Vector</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The average velocity.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>MovingBackground.display()</code></td>
             
 
             <td class="type">
@@ -176,7 +268,30 @@
 
             
 
-            <td class="description last">Draws axes.</td>
+            <td class="description last">Displays the MovingBackground object</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>MovingBackground.update()</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">method</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Updates the MovingBackground object</td>
         </tr>
 
     
@@ -215,7 +330,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="axes.js.html">axes.js</a>, <a href="axes.js.html#line1">line 1</a>
+        <a href="background-motion.js.html">background-motion.js</a>, <a href="background-motion.js.html#line1">line 1</a>
     </li></ul></dd>
     
 
