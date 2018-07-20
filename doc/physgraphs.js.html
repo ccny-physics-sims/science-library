@@ -26,23 +26,19 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>﻿/**
-* Creates a Point that can be used with the Plot and Graph objects. 
+            <pre class="prettyprint source linenums"><code>/**
+* Creates a Point that can be used with the Plot and Graph objects.
 * @constructor Point
-* @param {number} x The x value. 
-* @param {number} y The y value.  
+* @param {number} x The x value.
+* @param {number} y The y value.
 * @property {method} Point.add(x,y) Add x, subtract y.
 * @property {method} Point.getPoint(p5.Vector) Converts a p5.Vector into a Point object.
-* @property {method} Point.fixChoord() Inverts the y axis so that positive is up not down. Allows Points to be compatible with p5.js. 
+* @property {method} Point.fixChoord() Inverts the y axis so that positive is up not down. Allows Points to be compatible with p5.js.
 
 * @property {method} Point.addPix(xoff,yoff,scalex,scaley)  Convert choord to pixel position.
 * @property {method} Point.getDist(Point,Point)  Takes in two Point objects and returns a new Point object whose x and y values are the respective x and y distances.
 
 */
-
-
-
-
 
 
 //GLOBAL CONSTANTS
@@ -96,30 +92,6 @@ Point.getPoint = function(p){
 function Equation(){
 	//not implemented
 }
-
-/**
-* Takes an array of Point objects and creates a plot of speed, velocity, and acceleration. 
-* @constructor Plot
-
-* @param {array} pointArray Array of Point objects to plot. 
-* @param {color} red Color for representing speed.
-* @param {color} green Color for representing velocity.
-* @param {color} blue Color for representing  acceleration.
-* @param {number} weight The weight.
-* @param {string} title Title of the graph.
-* @property {array} data The array of Points to be plotted. (default: pointArray)
-* @property {number} pointSize Size of the points. (default: 8px)
-* @property {bool} drawData Draw the data. (default: true)
-* @property {string} plotTitle Assign the title of the plot. 
-* @property {bool} timeplot Decides if the time is plotted. (default: false) 
-
-* @property {method} Plot.plot(Graph) Takes a Graph Object and returns a Plot. 
-* @property {method} Plot.getUser() Get position of user's mouse. 
-* @property {method} Plot.tpRecord(variable, Graph) Timeplotting function. 
-* @property {method} Plot.getPointDist(Point, Point) Takes in two point objects and returns a new point object whose x and y values are the respective x and y distances.
-* @property {method} Plot.fixChoord(scalex, scaley, origin) Takes a p5.Vector as origin and scales it according to scalex and scaley. 
-
-*/
 
 /*Declaration of plot object which will be graphed
  * on graph object
@@ -185,8 +157,6 @@ Plot.prototype.getUser = function(){
 	//TODO: add boundary limits to this funtion.
 	this.data[closestIndex].y = mouseY;
 };
-
-//variable input doesn't seem to be used anywhere, not sure why it exists, but will leave it here for safety purposes
 Plot.prototype.tpRecord = function(variable, graph){
 	this.timeplot = true;
 	var bl = graph.bl_pix.x;
@@ -220,41 +190,6 @@ Plot.prototype.fixChoord = function(scalex, scaley, origin){
 		p = Point.getPoint(origin);
 	}
 };
-
-
-/**
-* Constructs a Graph. Plot objects consisting of Point objects can be added and displayed on the Graph. 
-
-* @constructor Graph
-
-* @param {number} w Width of the Graph.
-* @param {number} h Height of the Graph.
-* @param {number} x_min Smallest value of the x-axis.    
-* @param {number} x_max Largest value of the x-axis. 
-* @param {number} y_min Smallest value of the y-axis. 
-* @param {number} y_max Largest value of the y-axis. 
-* @param {number} resolution The resolution of the Graph. Determines tick intervals.
-
-* @property {string} title Title of the graph. 
-* @property {string} xlabel Caption for the x-axis. 
-* @property {string} ylabel Caption for the y-axis. 
-* @property {bool} showLabels Display the labels of the x and y axes. 
-* @property {bool} showTitle Display the graph title. 
-* @property {bool} showBorder Display a border around the graph. 
-* @property {number} borderWidth Width of the border. (default: 2px) 
-* @property {bool} showLegend Display a legend for the graph. (default: false)
-* @property {number} xOffset Offset x by a number of pixels. (default: 0px) 
-* @property {number} yOffset Offset y by a number of pixels. (default: 0px)
-* @property {array} Plots an Array of Plot objects. 
-
-
-* @property {method} Graph.update() Update the Graph. 
-* @property {method} Graph.set_offset(xoff,yoff) Update the Graph's offset values. 
-
-* @property {method} Graph.drawBH()  Draws the background.
-* @property {method} Graph.addPlot(Plot)  Adds a Plot to the Graph.
-* @property {method} Graph.plotAll() Draw all the Plots on the Graph. 
-*/
 
 function Graph(w, h, x_min, x_max, y_min, y_max, resolution){
 
@@ -409,7 +344,7 @@ Graph.prototype.drawBg = function(bg, border){
 				this.tr_pix.x, this.bl_pix.y-pixCount);
 		text((Math.round(10*count)/10).toString(), this.bl_pix.x - 20, this.bl_pix.y-pixCount);
 	}
-	
+
 
 	//draw title AND axis labels AND legend
 	if(this.showTitle == true){
@@ -544,13 +479,13 @@ Graph.makeUserPlot = function(x1, x2, resolution, lineColor, weight, psize){
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Arrow.html">Arrow</a></li><li><a href="drawAxes.html">drawAxes</a></li><li><a href="FBD.html">FBD</a></li><li><a href="Graph.html">Graph</a></li><li><a href="KineticMass.html">KineticMass</a></li><li><a href="Mover.html">Mover</a></li><li><a href="MovingBackground.html">MovingBackground</a></li><li><a href="Plot.html">Plot</a></li><li><a href="Point.html">Point</a></li><li><a href="Spring.html">Spring</a></li><li><a href="Wheel.html">Wheel</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Arrow.html">Arrow</a></li><li><a href="drawAxes.html">drawAxes</a></li><li><a href="FBD.html">FBD</a></li><li><a href="KineticMass.html">KineticMass</a></li><li><a href="Mover.html">Mover</a></li><li><a href="MovingBackground.html">MovingBackground</a></li><li><a href="Point.html">Point</a></li><li><a href="Spring.html">Spring</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Sat Apr 29 2017 18:28:50 GMT-0400 (Eastern Daylight Time)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Fri Jul 20 2018 15:59:26 GMT-0400 (EDT)
 </footer>
 
 <script> prettyPrint(); </script>

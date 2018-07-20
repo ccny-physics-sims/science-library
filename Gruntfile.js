@@ -5,7 +5,7 @@ module.exports = function(grunt) {
 
     jsdoc : {
         dist : {
-            src: ['src/arrow.js','src/kineticmass.js','src/mover.js','src/axes.js'],
+            src: ['src/arrow.js','src/KineticMass.js','src/mover.js','src/spring.js','src/axes.js','src/background-motion.js', 'src/wheel.js', 'src/fbd.js','src/physgraphs.js'],
             options: {
                 destination: 'doc'
             }
