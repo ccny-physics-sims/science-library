@@ -28,7 +28,7 @@
 
 <header>
     
-        <h2>Mover</h2>
+        <h2><span class="attribs"><span class="type-signature"></span></span>Mover<span class="signature">(position, velocity, acceleration, mass, color)</span><span class="type-signature"></span></h2>
         
     
 </header>
@@ -40,7 +40,9 @@
 
     
 
+    
     <h4 class="name" id="Mover"><span class="type-signature"></span>new Mover<span class="signature">(position, velocity, acceleration, mass, color)</span><span class="type-signature"></span></h4>
+    
 
     
 
@@ -99,7 +101,7 @@
 
             
 
-            <td class="description last">The Mover's position.</td>
+            <td class="description last">A vector object describing the balls acceleration</td>
         </tr>
 
     
@@ -122,7 +124,7 @@
 
             
 
-            <td class="description last">The Mover's velocity.</td>
+            <td class="description last">A vector object describing the ball's velocity</td>
         </tr>
 
     
@@ -145,7 +147,7 @@
 
             
 
-            <td class="description last">The Mover's acceleration.</td>
+            <td class="description last">A vector object describing the ball's acceleration</td>
         </tr>
 
     
@@ -168,7 +170,7 @@
 
             
 
-            <td class="description last">A scalar quantity indicating the mass.</td>
+            <td class="description last">A scalar quantity indicating the mass</td>
         </tr>
 
     
@@ -181,7 +183,7 @@
             <td class="type">
             
                 
-<span class="param-type">color</span>
+<span class="param-type">p5.Color</span>
 
 
             
@@ -191,7 +193,7 @@
 
             
 
-            <td class="description last">The color of the Mover.</td>
+            <td class="description last">What color do you want the ball to be?</td>
         </tr>
 
     
@@ -245,7 +247,7 @@
 
             
 
-            <td class="description last">The maximum speed of the mover.</td>
+            <td class="description last">how fast can it go? This sets the max speed.</td>
         </tr>
 
     
@@ -268,30 +270,7 @@
 
             
 
-            <td class="description last">A tail leaves little dots behind as it moves.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>size</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Default is set equivalent to mass.</td>
+            <td class="description last">a tail leaves little dots behind as it moves.</td>
         </tr>
 
     
@@ -314,306 +293,7 @@
 
             
 
-            <td class="description last">The color of the KineticMass' outline.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>tail</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">bool</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">A tail leaves little dots behind as it moves.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>tailFill</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">color</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The color of the tail. (default: white)</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>tailStroke</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">color</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The color of the tail's outline.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>a</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Angle. (default: 0)</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>aVelocity</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Angular velocity. (default: 0)</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>aAcceleration</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Angular acceleration. (default: 0)</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>Mover.update()</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">method</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Update the Mover.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>Mover.display()</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">method</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Display the Mover.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>Mover.giveItAnAcceleration()</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">method</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Give the Mover an acceleration.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>Mover.applyForce()</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">method</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Apply a force to the Mover.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>Mover.wrapEdges()</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">method</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">If the Mover goes off the side of the screen, it will reappear on the opposite side.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>Mover.bounceEdges()</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">method</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Bounces the Mover off the edges of the canvas.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>Mover.towardMouse()</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">method</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Make the Mover attracted to the user's mouse.</td>
+            <td class="description last">what color is the stroke of the mass?</td>
         </tr>
 
     
@@ -680,6 +360,8 @@
 
 
 
+
+
     
     </div>
 
@@ -689,7 +371,9 @@
 
     
 
-     
+    
+
+    
 
     
 
@@ -710,13 +394,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Arrow.html">Arrow</a></li><li><a href="drawAxes.html">drawAxes</a></li><li><a href="FBD.html">FBD</a></li><li><a href="Graph.html">Graph</a></li><li><a href="KineticMass.html">KineticMass</a></li><li><a href="Mover.html">Mover</a></li><li><a href="MovingBackground.html">MovingBackground</a></li><li><a href="Plot.html">Plot</a></li><li><a href="Point.html">Point</a></li><li><a href="Spring.html">Spring</a></li><li><a href="Wheel.html">Wheel</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Arrow.html">Arrow</a></li><li><a href="drawAxes.html">drawAxes</a></li><li><a href="KineticMass.html">KineticMass</a></li><li><a href="Mover.html">Mover</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Sat Apr 29 2017 18:28:50 GMT-0400 (Eastern Daylight Time)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Fri Jul 20 2018 15:47:20 GMT-0400 (EDT)
 </footer>
 
 <script> prettyPrint(); </script>
