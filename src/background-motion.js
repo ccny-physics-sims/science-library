@@ -1,3 +1,18 @@
+/**
+* Creates a moving background.
+* @constructor MovingBackground
+* @param {string} whichKind Options: 'cityStreet' or 'clouds'
+* @param {p5.Vector} position The position vector.
+* @param {p5.Vector} initialVelocity The initial velocity.
+* @param {p5.Vector} acceleration The acceleration.
+* @property {array} shapes Initializes the array to hold the randomly generated building data.
+* @property {p5.Vector} avgVel The average velocity.
+* @property MovingBackground.display() {method} Displays the MovingBackground object
+* @property MovingBackground.update() {method} Updates the MovingBackground object
+*/
+
+
+
 var movingBackground = function(whichKind_, position_, InitialVelocity, acceleration_) {
     maxHeight = 100;
     this.velocity = InitialVelocity;

@@ -1,4 +1,19 @@
-﻿//GLOBAL CONSTANTS
+/**
+* Creates a Point that can be used with the Plot and Graph objects.
+* @constructor Point
+* @param {number} x The x value.
+* @param {number} y The y value.
+* @property {method} Point.add(x,y) Add x, subtract y.
+* @property {method} Point.getPoint(p5.Vector) Converts a p5.Vector into a Point object.
+* @property {method} Point.fixChoord() Inverts the y axis so that positive is up not down. Allows Points to be compatible with p5.js.
+
+* @property {method} Point.addPix(xoff,yoff,scalex,scaley)  Convert choord to pixel position.
+* @property {method} Point.getDist(Point,Point)  Takes in two Point objects and returns a new Point object whose x and y values are the respective x and y distances.
+
+*/
+
+
+//GLOBAL CONSTANTS
 FR = 30; // must match the framerate of the draw function.
 
 //Declaration for a point object to be used when graphing.
@@ -301,7 +316,7 @@ Graph.prototype.drawBg = function(bg, border){
 				this.tr_pix.x, this.bl_pix.y-pixCount);
 		text((Math.round(10*count)/10).toString(), this.bl_pix.x - 20, this.bl_pix.y-pixCount);
 	}
-	
+
 
 	//draw title AND axis labels AND legend
 	if(this.showTitle == true){

@@ -1,8 +1,9 @@
 /**
-* Draws an simple x-y axis system
+* Draws a simple x-y axis.
 * @constructor drawAxes
-* @param {color} lineColor the color of the lines
-* @param {num} thickness how thick are the axes lines
+* @param {color} lineColor The color of the lines. (default: black)
+* @param {num} thickness The thickness of the lines. (default: 1px)
+* @property {method} drawAxes(lineColor,thickness) Draws axes.
 */
 
 

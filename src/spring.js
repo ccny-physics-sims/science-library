@@ -1,3 +1,37 @@
+/**
+* Creates a Spring object. Consists of a spring with a block attached to the end.
+* @constructor Spring
+* @param {p5.Vector} position The origin of the Spring.
+* @param {number} k Spring coefficient.
+* @param  {number} m Mass of the block attached to the spring.
+* @param  {number} lengthOfSpring Length of the Spring in px.
+* @param  {number} oscAmp Amplitude of the oscillation.
+* @param  {number} mu Coefficient of friction.
+
+* @property {number} boxSize Length of the sides of the box attached to spring.
+* @property {number} lengthOfSpring The current length of the spring in pixels.
+* @property {number} noOfCoils The number of coils. Decorative. Odd numbers work best. (default: 11)
+* @property {number} transAmp Transverse amplitude. Decorative. (default: 15)
+* @property {number} tZero The start time in milliseconds.
+* @property {number} t Time. (default: 0)
+* @property {bool} playing Controls the state of the simulation.
+* @property {number} xCent x-coord for the center of the spring.
+* @property {number} yCent y-coord for the center of the spring.
+* @property {radian} rotation Angle of orientation. Use 0 for a horizontal spring, and PI/2 for a vertical one.
+* @property {number} oscamp  The oscillation amplitude as a fraction of the lengthOfSpring. A value of 0.2 is recommended as it will be 1/5 the length of the spring.
+
+* @property {number} freq Calculates the frequency based on the spring constant k and the mass of the block m.
+* @property {p5.Vector} equilibrium The equilibrium point.
+* @property {p5.Vector} displacement The magnitude of displacement.
+* @property {p5.Vector} velocity The velocity.
+* @property {p5.Vector} acceleration The acceleration.
+* @property Spring.update() {method} Updates the Spring object.
+* @property Spring.display() {method} Displays the Spring object.
+
+
+*/
+
+
 /*spring*/
 function Spring(pos_, k_, m_, lengthOfSpring_, oscAmp_,mu_) {
   boxsize = 70;

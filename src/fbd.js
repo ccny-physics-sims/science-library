@@ -1,3 +1,17 @@
+/**
+* Makes a free-body diagram.
+* @constructor FBD
+* @param {p5.Vector} position The position vector.
+* @param {number} howManyForces Choose from 1, 2, or 3 forces to display.
+* @param {bool} showResultant Display the resulting forces.
+* @property {array} mag Magnitude of each of the forces.
+* @property {array} direction Direction of each of the forces.
+* @property {array} labels Labels for each of the forces.
+* @property {array} offsets Offset value for each of the forces.
+* @property {method}  FBD.display() Draws the FBD object.
+* @property {method} FBD.update() Updates the FBD object.
+*/
+
 function FBD(position_, howManyForces_,showResultant_) {
 
     this.mag = [];

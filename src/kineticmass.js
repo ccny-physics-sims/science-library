@@ -1,18 +1,18 @@
 /**
 * Makes a little ball that can move and adheres to proper kinematics.
 * @constructor KineticMass
-* @param {p5.Vector} position A vector object describing the balls acceleration
-* @param {p5.Vector} velocity A vector object describing the ball's velocity
-* @param {p5.Vector} acceleration A vector object describing the ball's acceleration
-* @param {number} mass A scalar quantity indicating the mass
-* @param {color} color What color do you want the ball to be?
-* @property {number} limit how fast can it go? This sets the max speed.
-* @property {bool} tail a tail leaves little dots behind as it moves.
-* @property {color} outline what color is the stroke of the mass?
-* @property {number} tailLength how many tail bits to leave? (70 is a good number)
-* @property {color} tailFill what color is the tail?
-* @property {color} tailStroke what is the stroke of the tail?
-* @property {number} tailSpacing how many frames to skip before leaving a tail dot
+* @param {p5.Vector} position A vector object describing the balls acceleration.
+* @param {p5.Vector} velocity A vector object describing the ball's velocity.
+* @param {p5.Vector} acceleration A vector object describing the ball's acceleration.
+* @param {number} mass A scalar quantity indicating the mass.
+* @param {color} color The color of the ball.
+* @property {number} limit This sets the limit for the maximum speed. (default: 10000)
+* @property {bool} tail Displays a tail of little dots that trail behind the KineticMass as it moves.
+* @property {color} outline The color of the KineticMass object.
+* @property {number} tailLength The number of tailbits following the KineticMass object. (note: 70 is a good number)
+* @property {color} tailFill The tail color.
+* @property {color} tailStroke Thickness of the tail stroke.
+* @property {number} tailSpacing How many frames to skip before leaving a tailbit.
 * @example
 * function setup() {
 *  //make a position vector
@@ -31,6 +31,25 @@
 *  //display changes
 *  ball.display();
 * }
+@example
+* function setup() {
+*  //make a position vector
+*  pos = createVector(width/2,height/2)
+*  // make a velocity vector (5 px/fr in x, 2 px/fr in y)
+*  vel = createVector(5,2);
+*  // no acceleration
+*  accel = createVector(0,0);
+*  // create the ball. Give it a mass of 10, and let's make it red.
+*  ball = new KineticMass(pos,vel,accl,10,'red');
+* }
+*
+* function draw(){
+*  // update the ball's parameters
+*  ball.update();
+*  //display changes
+*  ball.display();
+* }
+
 */
 
 
