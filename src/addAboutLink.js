@@ -14,4 +14,5 @@ function addQmark(corner){
   if (corner = 'bottom-left'){
   link.position(20,height-0);
   }
+  pop();
 }
