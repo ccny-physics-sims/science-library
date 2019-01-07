@@ -62,7 +62,7 @@ var KineticMass = function(position, velocity, acceleration, mass, kmFill){
   this.limit = 10000;
   this.mass = mass;
   //how does the mass look
-  this.color = kmFill;
+  this.color = kmFill
   this.outline = 255;
   //size is proportional to mass
   this.size = this.mass;
@@ -78,6 +78,7 @@ var KineticMass = function(position, velocity, acceleration, mass, kmFill){
   this.tailLength = 70;
   this.tailSpacing = 5;
 
+  this.bottomBounce = height;
 
 this.update = function(){
   if(this.tail === true && frameCount%this.tailSpacing==0){
@@ -183,10 +184,10 @@ this.bounceEdges = function(){
     this.position.y = 0+this.size/2;
 
   }
-  if(this.position.y > height-this.size/2){
-    overiny = this.position.y-height+this.size/2;
+  if(this.position.y > this.bottomBounce-this.size/2){
+    overiny = this.position.y-this.bottomBounce+this.size/2;
     vatheight = Math.sqrt(Math.pow(this.velocity.y,2)-2*this.acceleration.y*overiny);
-    this.position.y = height-this.size/2;
+    this.position.y = this.bottomBounce-this.size/2;
     this.velocity.y = -1*vatheight;
   }
 };
