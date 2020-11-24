@@ -12,7 +12,7 @@ var wheel = function(_x,_y,_d){
     this.rimColor = color('rgba(0,0,0,1)');
     this.spokeColor = color('rgba(0,0,0,1)');
     this.wheelColor = color('rgba(0,0,0,.1)');
-
+    this.rimThickness = 1;
     //rotation variables
     this.rotate = false;
     this.ang = 0;
@@ -85,7 +85,7 @@ var wheel = function(_x,_y,_d){
     //draw the circles
     fill(this.wheelColor);
     stroke(this.rimColor);
-    strokeWeight(this.r*.1);
+    strokeWeight(this.r*.1*this.rimThickness);
     ellipse(0,0,this.d,this.d);
     //fill(color('rgba(200, 200, 200, .9)'));
     //ellipse(0,0,this.d*0.85,this.d*0.85);
