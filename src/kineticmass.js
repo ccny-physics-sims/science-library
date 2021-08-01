@@ -80,7 +80,7 @@ var KineticMass = function(position, velocity, acceleration, mass, kmFill){
 
   this.bottomBounce = height;
   this.bounceLoss = 1;
-  
+
 this.update = function(){
   if(this.tail === true && (frameCount-1)%this.tailSpacing==0){
     this.tailA.push(this.position.copy());
@@ -156,11 +156,11 @@ this.wrapEdgesBounceFloor = function(){
   else if (this.position.x < 0) {
     this.position.x = width;
   }
-  if(this.position.y > height-this.size/2){
-    overiny = this.position.y-height+this.size/2;
+  if(this.position.y > this.bottomBounce-this.size/2){
+    overiny = this.position.y-this.bottomBounce+this.size/2;
     vatheight = Math.sqrt(Math.pow(this.velocity.y,2)-2*this.acceleration.y*overiny);
-    this.position.y = height-this.size/2;
-    this.velocity.y = -1*vatheight;
+    this.position.y = this.bottomBounce-this.size/2;
+    this.velocity.y = -1*vatheight*this.bounceLoss;
   }
 }
 this.bounceEdges = function(){
